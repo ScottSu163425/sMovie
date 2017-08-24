@@ -9,7 +9,7 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/23 16:26
  **/
-public class Top250ResponseEntity
+public class Top250ResponseEntity extends CommonListResponseEntity
 {
 
     /**
@@ -20,41 +20,8 @@ public class Top250ResponseEntity
      * title : 豆瓣电影Top250
      */
 
-    private int count;
-    private int start;
-    private int total;
     private String title;
     private List<MovieSubject> subjects;
-
-    public int getCount()
-    {
-        return count;
-    }
-
-    public void setCount(int count)
-    {
-        this.count = count;
-    }
-
-    public int getStart()
-    {
-        return start;
-    }
-
-    public void setStart(int start)
-    {
-        this.start = start;
-    }
-
-    public int getTotal()
-    {
-        return total;
-    }
-
-    public void setTotal(int total)
-    {
-        this.total = total;
-    }
 
     public String getTitle()
     {
@@ -75,4 +42,5 @@ public class Top250ResponseEntity
     {
         this.subjects = subjects;
     }
+
 }

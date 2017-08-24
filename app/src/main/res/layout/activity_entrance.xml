@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,8 +8,9 @@
     tools:context="com.scottsu.smovie.EntranceActivity">
 
     <TextView
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textSize="20sp"
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+</ScrollView>
