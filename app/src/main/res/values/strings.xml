@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SMovie</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <string name="action_search">搜索</string>
+    <string name="action_more">更多</string>
+
+
 </resources>

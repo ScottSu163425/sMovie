@@ -3,6 +3,7 @@ package com.scottsu.smovie.data.source.remote;
 import com.scottsu.smovie.data.source.ComingSoonResponseEntity;
 import com.scottsu.smovie.data.source.HotInTheatersResponseEntity;
 import com.scottsu.smovie.data.source.MovieDetailResponseEntity;
+import com.scottsu.smovie.data.source.SearchResponseEntity;
 import com.scottsu.smovie.data.source.Top250ResponseEntity;
 
 import io.reactivex.Observable;
@@ -19,7 +20,7 @@ import retrofit2.http.Path;
  * 作者: Su
  * 日期: 2017/8/23 16:24
  **/
-public interface DoubanMovieService
+public interface ApiService
 {
 
     @FormUrlEncoded
@@ -37,8 +38,8 @@ public interface DoubanMovieService
 
     @FormUrlEncoded
     @POST("search")
-    Observable<ComingSoonResponseEntity> requestSearch(@Field("q") String keyword,@Field("start") int start,
-                                                       @Field("count") int count);
+    Observable<SearchResponseEntity> requestSearch(@Field("q") String keyword, @Field("start") int start,
+                                                   @Field("count") int count);
 
     @POST("subject/{id}")
     Observable<MovieDetailResponseEntity> requestDetail(@Path("id") String movieId );
