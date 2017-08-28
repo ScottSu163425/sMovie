@@ -10,15 +10,20 @@ import com.scottsu.library.mvp.view.IMvpView;
  * date: 2017/8/27 11:03
  */
 
-public interface MainContract {
+public interface MainContract
+{
 
-    interface View extends IMvpView {
+    interface View extends IMvpView
+    {
         void openDrawer();
+
         void closeDrawer();
+
         void openSearch();
     }
 
-    interface Presenter extends IMvpPresenter<View> {
+    interface Presenter extends IMvpPresenter<MainContract.View>
+    {
         void onActionSearchClick();
     }
 }

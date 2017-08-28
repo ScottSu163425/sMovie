@@ -1,5 +1,7 @@
 package com.scottsu.smovie.data.source.remote;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -14,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  **/
 public class RetrofitClient
 {
+    private static final int READ_TIMEOUT_MILLS = 10000;
+    private static final int WHRITE_TIMEOUT_MILLS = 10000;
     private static RetrofitClient sInstance;
     private static final String BASE_URL = "http://api.douban.com/v2/movie/";
 
@@ -24,6 +28,8 @@ public class RetrofitClient
     private RetrofitClient()
     {
         sOkHttpClient = new OkHttpClient.Builder()
+                .readTimeout(READ_TIMEOUT_MILLS, TimeUnit.MILLISECONDS)
+                .writeTimeout(WHRITE_TIMEOUT_MILLS, TimeUnit.MILLISECONDS)
                 .build();
 
         sRetrofit = new Retrofit.Builder()

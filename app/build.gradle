@@ -39,9 +39,9 @@ dependencies {
 
     /*scott*/
     compile 'com.scottsu:material-design-resource:1.0.8'
-    compile 'com.scottsu:smvp:1.0.5'
+    compile 'com.scottsu:smvp:1.1.0'
     compile 'com.scottsu:sutils:1.0.6'
-    compile 'com.scottsu:slist:1.0.6'
+    compile 'com.scottsu:slist:1.1.0'
 
     /*retrofit*/
     compile 'com.squareup.retrofit2:retrofit:2.3.0'

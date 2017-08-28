@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_marginBottom="@dimen/padding_xs"
+    android:layout_marginLeft="@dimen/padding_s"
+    android:layout_marginRight="@dimen/padding_s"
+    android:layout_marginTop="@dimen/padding_xs"
+    android:orientation="vertical">
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_aspectRatio="90%"
+            app:layout_heightPercent="100%"
+            tools:background="#eaeaea"/>
+
+        <android.support.v4.widget.Space
+            android:id="@+id/anchor1"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_s"
+            android:layout_toRightOf="@+id/iv_cover"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:paddingTop="@dimen/padding_s"
+            android:paddingRight="@dimen/padding_s"
+            tools:text="Titanic"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_alignLeft="@+id/anchor1"
+            android:textColor="@color/textPrimaryDark"
+            android:textSize="@dimen/text_size_headline"/>
+
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            tools:text="1997"
+            android:layout_alignLeft="@+id/anchor1"
+            android:paddingBottom="@dimen/padding_s"
+            android:textColor="@color/textPrimaryDark"
+            android:textSize="@dimen/text_size_subhead"/>
+
+    </android.support.percent.PercentRelativeLayout>
+
+</android.support.v7.widget.CardView>
