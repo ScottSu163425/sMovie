@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="180dp"
     android:layout_marginBottom="@dimen/padding_xs"
     android:layout_marginLeft="@dimen/padding_s"
     android:layout_marginRight="@dimen/padding_s"
@@ -22,6 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_aspectRatio="90%"
+            android:scaleType="centerCrop"
             app:layout_heightPercent="100%"
             tools:background="#eaeaea"/>
 

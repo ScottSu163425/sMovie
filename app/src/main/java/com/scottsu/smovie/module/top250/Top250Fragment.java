@@ -13,7 +13,13 @@ import android.widget.Toast;
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
 import com.scottsu.smovie.base.BaseListFragment;
+import com.scottsu.smovie.common.events.ListDraggingEvent;
+import com.scottsu.smovie.common.events.ListReleasedEvent;
+import com.scottsu.smovie.common.events.ScrollToTopEvent;
 import com.scottsu.smovie.data.source.MovieSubject;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * package: com.scottsu.smovie.module.top250
@@ -101,6 +107,10 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
     @Override
     protected void onListFragmentCreated()
     {
+        getListRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+
+        });
         getPresenter().subscribe(this);
 
         getPresenter().requetListData(getPagingRequestManager().getFirstPage(), getPagingRequestManager().getPageSize(),
@@ -111,6 +121,33 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
     protected Top250Contract.Presenter providePresenter()
     {
         return new Top250Presenter();
+    }
+
+    @Override
+    protected void onListDragging()
+    {
+        super.onListDragging();
+
+        EventBus.getDefault().post(new ListDraggingEvent());
+    }
+
+    @Override
+    protected void onListReleased()
+    {
+        super.onListReleased();
+
+        EventBus.getDefault().post(new ListReleasedEvent());
+    }
+
+    @Override
+    protected boolean subscribeEvents()
+    {
+        return true;
+    }
+
+    @Subscribe
+    public void onScrollToTop(ScrollToTopEvent event){
+        getListRecyclerView().smoothScrollToPosition(0);
     }
 
 }

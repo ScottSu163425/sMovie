@@ -1,5 +1,6 @@
 package com.scottsu.smovie.base;
 
+import android.content.Context;
 import android.view.View;
 
 import com.scottsu.library.mvp.fragment.MvpFragment;
@@ -8,6 +9,8 @@ import com.scottsu.library.mvp.view.IMvpView;
 import com.scottsu.smovie.R;
 import com.scottsu.utils.NetworkUtil;
 import com.scottsu.utils.Snack;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * package: com.scottsu.smovie.base
@@ -19,6 +22,30 @@ import com.scottsu.utils.Snack;
 public abstract class BaseFragment<V extends IMvpView, P extends IMvpPresenter<V>>
         extends MvpFragment<V, P>
         implements BaseView{
+
+    protected abstract boolean subscribeEvents();
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+
+        if (subscribeEvents())
+        {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+
+        if (subscribeEvents())
+        {
+            EventBus.getDefault().unregister(this);
+        }
+    }
 
     @Override
     public boolean checkConnection() {

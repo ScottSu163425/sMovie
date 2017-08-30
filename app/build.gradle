@@ -42,16 +42,14 @@ dependencies {
     compile 'com.scottsu:smvp:1.2.4'
     compile 'com.scottsu:sutils:1.0.6'
     compile 'com.scottsu:slist:1.1.1'
-    compile 'com.scottsu:states-layout:1.1.7'
+    compile    'com.scottsu:states-layout:1.1.7'
 
     /*retrofit*/
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
-    /*rx*/
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     compile 'com.github.bumptech.glide:glide:4.0.0'
-
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

@@ -14,6 +14,7 @@ import com.scottsu.library.mvp.view.IMvpView;
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.LoadMoreListener;
 import com.scottsu.smovie.R;
+import com.scottsu.smovie.common.OnDraggingListener;
 import com.scottsu.smovie.common.PagingRequestManager;
 import com.scottsu.stateslayout.StatesLayout;
 
@@ -45,6 +46,7 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
 
     /**
      * 默认支持竖直方向，若实现水平方向需要调整Fragment容器宽高
+     *
      * @return
      */
     @Nullable
@@ -151,6 +153,21 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
             }
         });
 
+        mRecyclerView.addOnScrollListener(new OnDraggingListener()
+        {
+            @Override
+            public void onDragging()
+            {
+                onListDragging();
+            }
+
+            @Override
+            public void onReleased()
+            {
+                onListReleased();
+            }
+        });
+
         mRecyclerView.setAdapter(mListAdapter);
         onListFragmentCreated();
     }
@@ -206,6 +223,7 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
 
     /**
      * 加载控件颜色，子类可重写设置
+     *
      * @return
      */
     protected int getDefaultLoadingColor()
@@ -215,10 +233,19 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         return typedValue.data;
     }
 
+    protected void onListDragging()
+    {
+    }
+
+    protected void onListReleased()
+    {
+    }
+
     protected PagingRequestManager getPagingRequestManager()
     {
         return mPagingRequestManager;
     }
+
     protected
     @LayoutRes
     int getLoadingLayout()

@@ -1,5 +1,7 @@
 package com.scottsu.smovie.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.scottsu.library.mvp.activity.MvpActivity;
@@ -8,6 +10,8 @@ import com.scottsu.library.mvp.view.IMvpView;
 import com.scottsu.smovie.R;
 import com.scottsu.utils.NetworkUtil;
 import com.scottsu.utils.Snack;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * package: com.scottsu.smovie.base
@@ -18,11 +22,43 @@ import com.scottsu.utils.Snack;
 
 public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V>>
         extends MvpActivity<V, P>
-        implements BaseView {
+        implements BaseView
+{
+
+    protected abstract boolean subscribeEvents();
 
     @Override
-    public boolean checkConnection() {
-        if (NetworkUtil.isNetworkConnected(BaseActivity.this)) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        if (subscribeEvents())
+        {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        if (subscribeEvents())
+        {
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
+    protected void postEvent(Object event)
+    {
+        EventBus.getDefault().post(event);
+    }
+
+    @Override
+    public boolean checkConnection()
+    {
+        if (NetworkUtil.isNetworkConnected(BaseActivity.this))
+        {
             return true;
         }
 
@@ -31,11 +67,13 @@ public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V
         return false;
     }
 
-    protected View getContentView() {
+    protected View getContentView()
+    {
         return findViewById(android.R.id.content);
     }
 
-    protected void showSnackbar(String text) {
+    protected void showSnackbar(String text)
+    {
         Snack.showShort(getContentView(), text);
     }
 
