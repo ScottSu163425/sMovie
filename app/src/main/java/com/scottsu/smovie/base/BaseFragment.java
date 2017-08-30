@@ -21,7 +21,8 @@ import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseFragment<V extends IMvpView, P extends IMvpPresenter<V>>
         extends MvpFragment<V, P>
-        implements BaseView{
+        implements BaseView, View.OnClickListener
+{
 
     protected abstract boolean subscribeEvents();
 
@@ -48,8 +49,16 @@ public abstract class BaseFragment<V extends IMvpView, P extends IMvpPresenter<V
     }
 
     @Override
-    public boolean checkConnection() {
-        if (NetworkUtil.isNetworkConnected(getActivity())) {
+    public void onClick(View v)
+    {
+
+    }
+
+    @Override
+    public boolean checkConnection()
+    {
+        if (NetworkUtil.isNetworkConnected(getActivity()))
+        {
             return true;
         }
 
@@ -58,11 +67,13 @@ public abstract class BaseFragment<V extends IMvpView, P extends IMvpPresenter<V
         return false;
     }
 
-    protected View getContentView() {
+    protected View getContentView()
+    {
         return getView();
     }
 
-    protected void showSnackbar(String text) {
+    protected void showSnackbar(String text)
+    {
         Snack.showShort(getContentView(), text);
     }
 

@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V>>
         extends MvpActivity<V, P>
-        implements BaseView
+        implements BaseView, View.OnClickListener
 {
 
     protected abstract boolean subscribeEvents();
@@ -47,6 +47,12 @@ public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V
         {
             EventBus.getDefault().unregister(this);
         }
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+
     }
 
     protected void postEvent(Object event)

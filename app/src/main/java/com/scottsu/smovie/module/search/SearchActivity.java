@@ -3,7 +3,8 @@ package com.scottsu.smovie.module.search;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.transition.Transition;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
@@ -18,6 +19,9 @@ import com.scottsu.smovie.base.BaseActivity;
 public class SearchActivity extends BaseActivity<SearchContract.View, SearchContract.Presenter>
         implements SearchContract.View
 {
+    private View mSearchButton;
+
+
     @Override
     protected boolean subscribeEvents()
     {
@@ -43,6 +47,12 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchCont
             getWindow().setSharedElementEnterTransition(getWindow().getSharedElementEnterTransition().excludeTarget(android.R.id.statusBarBackground,true));
             getWindow().setSharedElementEnterTransition(getWindow().getSharedElementEnterTransition().excludeTarget(android.R.id.navigationBarBackground,true));
         }
+
+        mSearchButton =  findViewById(R.id.fl_search);
+
+
+        mSearchButton.setOnClickListener(this);
+
 
         getPresenter().subscribe(this);
     }

@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.Subscribe;
  * date: 2017/8/27 10:21
  */
 public class MainActivity extends BaseActivity<MainContract.View, MainContract.Presenter>
-        implements MainContract.View, View.OnClickListener
+        implements MainContract.View
 {
 
     private static final int ID_MAIN_CONTENT_CONTAINER = R.id.fl_container_main_content;
