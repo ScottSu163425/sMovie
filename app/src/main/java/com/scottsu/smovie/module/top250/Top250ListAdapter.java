@@ -32,7 +32,7 @@ public class Top250ListAdapter extends SListAdapter<MovieSubject>
     @Override
     protected boolean autoRegisterItemCallback()
     {
-        return false;
+        return true;
     }
 
     @Override

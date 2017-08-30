@@ -14,6 +14,7 @@ public class EntranceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_entrance);
 
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 

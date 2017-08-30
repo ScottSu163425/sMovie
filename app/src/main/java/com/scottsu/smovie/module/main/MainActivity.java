@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     protected MainContract.Presenter providePresenter() {
-        return new MainPresenter(MainActivity.this);
+        return new MainPresenter( );
     }
 
     @Override
@@ -78,24 +78,21 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         int id = item.getItemId();
 
         if (R.id.action_search == id) {
-            getPresenter().onActionSearchClick();
+          openSearch();
         }
 
         return true;
     }
 
-    @Override
-    public void openDrawer() {
+    private void openDrawer() {
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
-    @Override
-    public void closeDrawer() {
+    private void closeDrawer() {
         mDrawerLayout.closeDrawer(Gravity.START);
     }
 
-    @Override
-    public void openSearch() {
+    private void openSearch() {
         showSnackbar("openSearch");
     }
 

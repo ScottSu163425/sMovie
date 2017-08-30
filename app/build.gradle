@@ -39,9 +39,9 @@ dependencies {
 
     /*scott*/
     compile 'com.scottsu:material-design-resource:1.1.2'
-    compile 'com.scottsu:smvp:1.1.3'
+    compile 'com.scottsu:smvp:1.2.4'
     compile 'com.scottsu:sutils:1.0.6'
-    compile 'com.scottsu:slist:1.1.0'
+    compile 'com.scottsu:slist:1.1.1'
     compile 'com.scottsu:states-layout:1.1.7'
 
     /*retrofit*/
@@ -52,7 +52,6 @@ dependencies {
     /*rx*/
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-    /*scott*/
-
+    compile 'com.github.bumptech.glide:glide:4.0.0'
 
 }

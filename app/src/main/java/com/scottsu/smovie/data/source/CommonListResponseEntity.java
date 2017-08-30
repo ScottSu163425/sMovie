@@ -43,4 +43,8 @@ public class CommonListResponseEntity
         this.total = total;
     }
 
+    public boolean hasNextPage(){
+       return  ((start + 1) * count) < total;
+    }
+
 }

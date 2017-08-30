@@ -15,15 +15,11 @@ public interface MainContract
 
     interface View extends IMvpView
     {
-        void openDrawer();
 
-        void closeDrawer();
-
-        void openSearch();
     }
 
     interface Presenter extends IMvpPresenter<MainContract.View>
     {
-        void onActionSearchClick();
+
     }
 }

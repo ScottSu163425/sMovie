@@ -14,18 +14,9 @@ import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
 public class MainPresenter extends BaseMvpPresenter<MainContract.View>
         implements MainContract.Presenter {
 
-    public MainPresenter(@NonNull MainContract.View view) {
-        super(view);
-    }
-
     @Override
-    public void onViewAttached() {
+    public void onViewSubscribed()
+    {
 
     }
-
-    @Override
-    public void onActionSearchClick() {
-        getView().openSearch();
-    }
-
 }
