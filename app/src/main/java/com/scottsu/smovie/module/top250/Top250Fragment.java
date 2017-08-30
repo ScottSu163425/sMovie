@@ -3,10 +3,9 @@ package com.scottsu.smovie.module.top250;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,37 +28,32 @@ import org.greenrobot.eventbus.Subscribe;
  */
 
 public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contract.View, Top250Contract.Presenter>
-        implements Top250Contract.View
-{
+        implements Top250Contract.View {
+
+    private static final int MIN_SMOOTH_SCROLL_ITEM = 25;
     private Top250ListAdapter mListAdapter;
 
 
-    public static Top250Fragment newInstance()
-    {
+    public static Top250Fragment newInstance() {
         Top250Fragment fragment = new Top250Fragment();
         return fragment;
     }
 
     @NonNull
     @Override
-    protected SListAdapter<MovieSubject> provideListAdapter()
-    {
-        if (mListAdapter == null)
-        {
+    protected SListAdapter<MovieSubject> provideListAdapter() {
+        if (mListAdapter == null) {
             mListAdapter = new Top250ListAdapter(getContext());
             mListAdapter.setShowEndingFooter(true);
-            mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>()
-            {
+            mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
-                public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames)
-                {
-                    Toast.makeText(getContext(), "onListItemClick "+entity.getTitle(), Toast.LENGTH_SHORT).show();
+                public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+                    Toast.makeText(getContext(), "onListItemClick " + entity.getTitle(), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
-                public void onListItemLongClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames)
-                {
-                    Toast.makeText(getContext(), "onListItemLongClick " +entity.getTitle(), Toast.LENGTH_SHORT).show();
+                public void onListItemLongClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+                    Toast.makeText(getContext(), "onListItemLongClick " + entity.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -68,86 +62,91 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
 
     @Nullable
     @Override
-    protected RecyclerView.LayoutManager provideListLayoutManager()
-    {
+    protected RecyclerView.LayoutManager provideListLayoutManager() {
         return null;
     }
 
     @Override
-    protected void onClickEmpty(View view)
-    {
-        getPresenter().requetListData(getPagingRequestManager().getFirstPage(), getPagingRequestManager().getPageSize(),
-                true, false);
+    protected void onClickEmpty(View view) {
+        requestListData(true, false);
     }
 
     @Override
-    protected void onClickError(View view)
-    {
-        getPresenter().requetListData(getPagingRequestManager().getFirstPage(), getPagingRequestManager().getPageSize(),
-            true, false);
+    protected void onClickError(View view) {
+        requestListData(true, false);
     }
 
     @Override
-    protected void onRefresh()
-    {
-        getPresenter().requetListData(getPagingRequestManager().getFirstPage(), getPagingRequestManager().getPageSize(),
-                false, false);
+    protected void onRefresh() {
+        requestListData(false, false);
     }
 
     @Override
-    protected void onLoadMore(boolean hasNextPage)
-    {
-        if (hasNextPage)
-        {
-            getPresenter().requetListData(getPagingRequestManager().getCurrentPage(), getPagingRequestManager().getPageSize(),
-                    false, true);
+    protected void onLoadMore(boolean hasNextPage) {
+        if (hasNextPage) {
+            requestListData(false, true);
         }
     }
 
     @Override
-    protected void onListFragmentCreated()
-    {
-        getListRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
-
-        });
+    protected void onListFragmentCreated() {
         getPresenter().subscribe(this);
 
-        getPresenter().requetListData(getPagingRequestManager().getFirstPage(), getPagingRequestManager().getPageSize(),
-                true, false);
+        requestListData(true, false);
     }
 
     @Override
-    protected Top250Contract.Presenter providePresenter()
-    {
+    protected Top250Contract.Presenter providePresenter() {
         return new Top250Presenter();
     }
 
     @Override
-    protected void onListDragging()
-    {
+    protected void onListDragging() {
         super.onListDragging();
 
         EventBus.getDefault().post(new ListDraggingEvent());
     }
 
     @Override
-    protected void onListReleased()
-    {
+    protected void onListReleased() {
         super.onListReleased();
 
         EventBus.getDefault().post(new ListReleasedEvent());
     }
 
     @Override
-    protected boolean subscribeEvents()
-    {
+    protected boolean subscribeEvents() {
         return true;
     }
 
     @Subscribe
-    public void onScrollToTop(ScrollToTopEvent event){
-        getListRecyclerView().smoothScrollToPosition(0);
+    public void onScrollToTop(ScrollToTopEvent event) {
+        if (isHidden()) {
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = getListRecyclerView().getLayoutManager();
+        int lastPosition = 0;
+
+        if (layoutManager instanceof LinearLayoutManager) {
+            lastPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+            lastPosition = staggeredGridLayoutManager.findLastVisibleItemPositions(null)[staggeredGridLayoutManager.getSpanCount() - 1];
+        }
+
+        if (lastPosition < MIN_SMOOTH_SCROLL_ITEM) {
+            getListRecyclerView().smoothScrollToPosition(0);
+        } else {
+            getListRecyclerView().scrollToPosition(0);
+        }
+    }
+
+    private void requestListData(boolean showLoading, boolean loadMore) {
+        getPresenter().requetListData(loadMore ? getPagingRequestManager().getCurrentIndex()
+                        : getPagingRequestManager().getFirstIndex(),
+                getPagingRequestManager().getPageSize(),
+                showLoading, loadMore);
     }
 
 }

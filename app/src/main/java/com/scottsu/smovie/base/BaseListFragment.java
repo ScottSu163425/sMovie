@@ -78,7 +78,7 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
 
         mListAdapter = provideListAdapter();
-        mPagingRequestManager = new PagingRequestManager(0, 10);
+        mPagingRequestManager = new PagingRequestManager(0,0, 10);
 
         mListAdapter.setDefaultLoadingFooterColor(loadingColor);
 

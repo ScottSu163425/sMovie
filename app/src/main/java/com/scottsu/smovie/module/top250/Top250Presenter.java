@@ -20,62 +20,52 @@ import io.reactivex.disposables.Disposable;
  * 日期: 2017/8/28 11:46
  **/
 public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
-        implements Top250Contract.Presenter
-{
+        implements Top250Contract.Presenter {
 
     @Override
-    public void onViewSubscribed()
-    {
+    public void onViewSubscribed() {
 
     }
 
     @Override
-    public void requetListData(int startPage, int pageSize, final boolean showLoading, final boolean loadMore)
-    {
-        if(!getView().checkConnection()){
-                return;
+    public void requetListData(final int start, final int count, final boolean showLoading, final boolean loadMore) {
+        if (!getView().checkConnection()) {
+            return;
         }
 
-        Api.requestTop250(startPage, pageSize)
-                .subscribe(new Observer<Top250ResponseEntity>()
-                {
+        Api.requestTop250(start, count)
+                .subscribe(new Observer<Top250ResponseEntity>() {
                     @Override
-                    public void onSubscribe(Disposable d)
-                    {
-                        if (showLoading)
-                        {
+                    public void onSubscribe(Disposable d) {
+                        if (showLoading) {
                             getView().showLoading();
                         }
                     }
 
                     @Override
-                    public void onNext(Top250ResponseEntity value)
-                    {
+                    public void onNext(Top250ResponseEntity value) {
                         List<MovieSubject> list = value.getSubjects();
 
-                        if (list.isEmpty())
-                        {
-                            if (!loadMore)
-                            {
+                        if (list.isEmpty()) {
+                            if (!loadMore) {
                                 getView().showEmpty();
                             }
-                        } else
-                        {
+                        } else {
                             getView().showContent();
                         }
 
-                        getView().showListData(value.getSubjects(), loadMore, value.hasNextPage());
+                        boolean hasNext = count == list.size() && (start + count + 1) < value.getTotal();
+
+                        getView().showListData(value.getSubjects(), loadMore, hasNext);
                     }
 
                     @Override
-                    public void onError(Throwable e)
-                    {
+                    public void onError(Throwable e) {
                         getView().showError();
                     }
 
                     @Override
-                    public void onComplete()
-                    {
+                    public void onComplete() {
 
                     }
                 });

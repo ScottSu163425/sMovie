@@ -7,57 +7,62 @@ package com.scottsu.smovie.common;
  * 作者: Su
  * 日期: 2017/8/30 9:08
  **/
-public class PagingRequestManager
-{
+public class PagingRequestManager {
     private final int mFirstPage;
+    private final int mFirstIndex;
     private final int mPageSize;
     private int mCurrentPage;
+    private int mCurrentIndex;
     private boolean mHasNextPage;
 
 
-    public PagingRequestManager(int firstPage, int pageSize)
-    {
+    public PagingRequestManager(int firstPage, int firstIndex, int pageSize) {
         mFirstPage = firstPage;
+        mFirstIndex = firstIndex;
         mPageSize = pageSize;
-        mCurrentPage=mFirstPage;
+        mCurrentPage = mFirstPage;
+        mCurrentIndex = mCurrentPage;
     }
 
-    public int turnToFirstPage()
-    {
+    public int turnToFirstPage() {
         mCurrentPage = mFirstPage;
+        mCurrentIndex = mFirstIndex;
         return mCurrentPage;
     }
 
-    public int turnToNextPage()
-    {
+    public int turnToNextPage() {
         mCurrentPage++;
+        mCurrentIndex += mPageSize;
         mHasNextPage = true;
         return mCurrentPage;
     }
 
-    public int setLastPage()
-    {
+    public int setLastPage() {
         mHasNextPage = false;
         return mCurrentPage;
     }
 
-    public int getFirstPage()
-    {
+    public int getFirstPage() {
         return mFirstPage;
     }
 
-    public int getPageSize()
-    {
+    public int getFirstIndex() {
+        return mFirstIndex;
+    }
+
+    public int getPageSize() {
         return mPageSize;
     }
 
-    public int getCurrentPage()
-    {
+    public int getCurrentPage() {
         return mCurrentPage;
     }
 
-    public boolean hasNextPage()
-    {
+    public int getCurrentIndex() {
+        return mCurrentIndex;
+    }
+
+    public boolean hasNextPage() {
         return mHasNextPage;
     }
 
