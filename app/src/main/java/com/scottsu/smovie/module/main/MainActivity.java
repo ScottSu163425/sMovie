@@ -131,6 +131,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     public void onClick(View view) {
         if (mFab == view) {
             notifyScrollToTop();
+            showSnackbar("gaga");
         } else if (mSearchCardView == view) {
             launchSearch();
         }
@@ -186,15 +187,15 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         int id = item.getItemId();
         if (R.id.action_about == id) {
-            Toast.makeText(this, "about", Toast.LENGTH_SHORT).show();
+            showSnackbar("about");
         } else if (R.id.action_hot_in_theaters == id) {
-            Toast.makeText(this, "热映", Toast.LENGTH_SHORT).show();
+            showSnackbar("热映");
         } else if (R.id.action_coming_soon == id) {
-            Toast.makeText(this, "即将上映", Toast.LENGTH_SHORT).show();
+            showSnackbar("即将上映");
         } else if (R.id.action_top250 == id) {
-            Toast.makeText(this, "top250", Toast.LENGTH_SHORT).show();
+            showSnackbar("top250");
         } else if (R.id.action_my_collection == id) {
-            Toast.makeText(this, "我的收藏", Toast.LENGTH_SHORT).show();
+            showSnackbar("我的收藏");
         }
 
         closeDrawer();

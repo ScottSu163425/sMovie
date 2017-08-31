@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +17,7 @@
             android:background="@color/colorPrimary"
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -50,7 +48,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_search_grey_600_24dp"
-                        android:transitionName="search_icon"/>
+                        android:transitionName="search_icon" />
                 </FrameLayout>
             </android.support.v7.widget.CardView>
 
@@ -60,7 +58,7 @@
             android:id="@+id/fl_container_main_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-100dp"/>
+            android:layout_marginTop="-100dp" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -70,11 +68,8 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/padding_s"
         android:src="@drawable/ic_arrow_upward_white_24dp"
-        app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"
-        app:layout_anchor="@+id/fl_container_main_content"
-        app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="@dimen/elevation_fab_raised"
-        app:rippleColor="#50ffffff"/>
+        app:rippleColor="#50ffffff" />
 
 </android.support.design.widget.CoordinatorLayout>
