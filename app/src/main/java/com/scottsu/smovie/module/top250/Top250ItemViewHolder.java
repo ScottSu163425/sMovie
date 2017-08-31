@@ -3,6 +3,7 @@ package com.scottsu.smovie.module.top250;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -64,16 +65,16 @@ public class Top250ItemViewHolder extends SListViewHolder<MovieSubject>
 
             if (0 == position)
             {
-                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context,R.color.ranking_1st));
-                mRankingSlantedTextView.setText("No.1");
-            }else  if (1 == position)
+                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context, R.color.ranking_1st));
+                mRankingSlantedTextView.setText(context.getString(R.string.tag_ranking_1st));
+            } else if (1 == position)
             {
-                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context,R.color.ranking_2nd));
-                mRankingSlantedTextView.setText("No.2");
-            }else  if (2 == position)
+                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context, R.color.ranking_2nd));
+                mRankingSlantedTextView.setText(context.getString(R.string.tag_ranking_2nd));
+            } else if (2 == position)
             {
-                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context,R.color.ranking_3rd));
-                mRankingSlantedTextView.setText("No.3");
+                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context, R.color.ranking_3rd));
+                mRankingSlantedTextView.setText(context.getString(R.string.tag_ranking_3rd));
             }
         } else
         {

@@ -9,5 +9,11 @@
     <string name="action_search">搜索</string>
     <string name="action_more">更多</string>
 
+    <string name="tag_ranking_1st">No.1</string>
+    <string name="tag_ranking_2nd">No.2</string>
+    <string name="tag_ranking_3rd">No.3</string>
+
+
+
 
 </resources>
