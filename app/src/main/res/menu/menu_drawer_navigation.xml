@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/section_movies">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_hot_in_theaters"
+                    android:icon="@drawable/ic_whatshot_grey_600_24dp"
+                    android:title="@string/hot_in_theaters" />
+                <item
+                    android:id="@+id/action_coming_soon"
+                    android:icon="@drawable/ic_group_work_grey_600_24dp"
+                    android:title="@string/coming_soon" />
+                <item
+                    android:id="@+id/action_top250"
+                    android:icon="@drawable/ic_theaters_grey_600_24dp"
+                    android:title="@string/top250" />
+                <item
+                    android:id="@+id/action_my_collection"
+                    android:icon="@drawable/ic_book_grey_600_24dp"
+                    android:title="@string/my_collection" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/section_others">
+        <menu>
+            <item
+                android:icon="@drawable/ic_search_white_24dp"
+                android:title="@string/about" />
+
+            <item
+                android:id="@+id/action_about"
+                android:icon="@drawable/ic_search_white_24dp"
+                android:title="@string/about" />
+        </menu>
+
+    </item>
+
+
+</menu>

@@ -2,8 +2,10 @@ package com.scottsu.smovie.module.main;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
@@ -16,6 +18,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.scottsu.smovie.R;
@@ -39,12 +42,12 @@ import org.greenrobot.eventbus.Subscribe;
  * date: 2017/8/27 10:21
  */
 public class MainActivity extends BaseActivity<MainContract.View, MainContract.Presenter>
-        implements MainContract.View
-{
+        implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
 
     private static final int ID_MAIN_CONTENT_CONTAINER = R.id.fl_container_main_content;
 
     private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
     private Toolbar mToolbar;
     private CardView mSearchCardView;
     private View mSearchCardIcon;
@@ -55,35 +58,36 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
 
     @Override
-    protected int provideContentLayoutRes()
-    {
+    protected int provideContentLayoutRes() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected MainContract.Presenter providePresenter()
-    {
+    protected MainContract.Presenter providePresenter() {
         return new MainPresenter();
     }
 
     @Override
-    protected void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.navigation);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mSearchCardView = (CardView) findViewById(R.id.card_search);
         mSearchCardIcon = findViewById(R.id.iv_search_icon);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
 
-        //init toolbar.
+        //setup toolbar.
         mToolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(mToolbar);
 
-        //init drawer.
+        //setup drawer.
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(MainActivity.this,
                 mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         drawerToggle.syncState();
         mDrawerLayout.addDrawerListener(drawerToggle);
+
+        //setup navigation.
+        mNavigationView.setNavigationItemSelectedListener(this);
 
         mTop250Fragment = Top250Fragment.newInstance();
         FragmentUtil.show(MainActivity.this, ID_MAIN_CONTENT_CONTAINER, mTop250Fragment);
@@ -92,81 +96,68 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         mFab.setOnClickListener(this);
 
         StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout,
-                ContextCompat.getColor(this,R.color.colorPrimary),60);
+                ContextCompat.getColor(this, R.color.colorPrimary), 60);
 
         getPresenter().subscribe(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
 
         return true;
     }
 
-    private void openDrawer()
-    {
+    private void openDrawer() {
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
-    private void closeDrawer()
-    {
+    private void closeDrawer() {
         mDrawerLayout.closeDrawer(Gravity.START);
     }
 
-    private void openSearch()
-    {
+    private void openSearch() {
 
     }
 
     @Override
-    public void onClick(View view)
-    {
-        if (mFab == view)
-        {
+    public void onClick(View view) {
+        if (mFab == view) {
             notifyScrollToTop();
-        } else if (mSearchCardView == view)
-        {
+        } else if (mSearchCardView == view) {
             launchSearch();
         }
     }
 
-    private void notifyScrollToTop()
-    {
+    private void notifyScrollToTop() {
         postEvent(new ScrollToTopEvent());
     }
 
-    private void launchSearch()
-    {
+    private void launchSearch() {
         ActivityLauncher.launchWithSharedElements(MainActivity.this,
-                new Intent(MainActivity.this,SearchActivity.class),
-                new View[]{mSearchCardView,mSearchCardIcon},
-                new String[]{ViewCompat.getTransitionName(mSearchCardView),ViewCompat.getTransitionName(mSearchCardIcon)});
+                new Intent(MainActivity.this, SearchActivity.class),
+                new View[]{mSearchCardView, mSearchCardIcon},
+                new String[]{ViewCompat.getTransitionName(mSearchCardView), ViewCompat.getTransitionName(mSearchCardIcon)});
     }
 
     @Subscribe
-    public void onListDragging(ListDraggingEvent event)
-    {
+    public void onListDragging(ListDraggingEvent event) {
         hideFAB();
     }
 
     @Subscribe
-    public void onListReleased(ListReleasedEvent event)
-    {
+    public void onListReleased(ListReleasedEvent event) {
         showFAB();
     }
 
-    private void showFAB()
-    {
+    private void showFAB() {
         mFab.animate()
                 .translationY(0)
                 .setInterpolator(new FastOutSlowInInterpolator())
@@ -174,8 +165,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
                 .start();
     }
 
-    private void hideFAB()
-    {
+    private void hideFAB() {
         mFab.animate()
                 .translationY(mFab.getBottom())
                 .setInterpolator(new FastOutSlowInInterpolator())
@@ -184,8 +174,30 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     @Override
-    protected boolean subscribeEvents()
-    {
+    protected boolean subscribeEvents() {
+        return true;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (item.isCheckable()) {
+            item.setChecked(true);
+        }
+
+        int id = item.getItemId();
+        if (R.id.action_about == id) {
+            Toast.makeText(this, "about", Toast.LENGTH_SHORT).show();
+        } else if (R.id.action_hot_in_theaters == id) {
+            Toast.makeText(this, "热映", Toast.LENGTH_SHORT).show();
+        } else if (R.id.action_coming_soon == id) {
+            Toast.makeText(this, "即将上映", Toast.LENGTH_SHORT).show();
+        } else if (R.id.action_top250 == id) {
+            Toast.makeText(this, "top250", Toast.LENGTH_SHORT).show();
+        } else if (R.id.action_my_collection == id) {
+            Toast.makeText(this, "我的收藏", Toast.LENGTH_SHORT).show();
+        }
+
+        closeDrawer();
         return true;
     }
 

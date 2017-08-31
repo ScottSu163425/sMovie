@@ -6,6 +6,17 @@
     <string name="bad_connection">请检查网络</string>
 
     <!--modules-->
+
+    <!--drawer navigation-->
+    <string name="hot_in_theaters">热映</string>
+    <string name="coming_soon">即将上映</string>
+    <string name="top250">Top250</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="about">关于</string>
+    <string name="section_movies">电影</string>
+    <string name="section_others">其他</string>
+
+
     <string name="action_search">搜索</string>
     <string name="action_more">更多</string>
 

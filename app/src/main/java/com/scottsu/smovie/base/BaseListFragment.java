@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -29,8 +30,7 @@ import java.util.List;
  **/
 public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPresenter<V>>
         extends BaseFragment<V, P>
-        implements BaseListView<E>
-{
+        implements BaseListView<E> {
     private static final
     @LayoutRes
     int LAYOUT_RES_NONE = 0x123;
@@ -63,14 +63,12 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
     protected abstract void onListFragmentCreated();
 
     @Override
-    protected int provideContentLayoutRes()
-    {
+    protected int provideContentLayoutRes() {
         return R.layout.fragment_base_list;
     }
 
     @Override
-    protected void onFragmentCreated()
-    {
+    protected void onFragmentCreated() {
         int loadingColor = getDefaultLoadingColor();
 
         mStatesLayout = (StatesLayout) findViewById(R.id.states_layout);
@@ -78,49 +76,41 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
 
         mListAdapter = provideListAdapter();
-        mPagingRequestManager = new PagingRequestManager(0,0, 10);
+        mPagingRequestManager = new PagingRequestManager(0, 0, 10);
 
         mListAdapter.setDefaultLoadingFooterColor(loadingColor);
 
         //setup StatesLayout.
         mStatesLayout.setDefaultLoadingWheelColor(loadingColor);
-        if (getLoadingLayout() != LAYOUT_RES_NONE)
-        {
+        if (getLoadingLayout() != LAYOUT_RES_NONE) {
             mStatesLayout.setLoadingView(getLoadingLayout());
         }
 
-        if (getEmptyLayout() != LAYOUT_RES_NONE)
-        {
+        if (getEmptyLayout() != LAYOUT_RES_NONE) {
             mStatesLayout.setEmptyView(getEmptyLayout());
         }
 
-        if (getErrorLayout() != LAYOUT_RES_NONE)
-        {
+        if (getErrorLayout() != LAYOUT_RES_NONE) {
             mStatesLayout.setErrorView(getErrorLayout());
         }
 
-        mStatesLayout.setCallback(new StatesLayout.StatesLayoutCallback()
-        {
+        mStatesLayout.setCallback(new StatesLayout.StatesLayoutCallback() {
             @Override
-            public void onEmptyClick(View view)
-            {
+            public void onEmptyClick(View view) {
                 onClickEmpty(view);
             }
 
             @Override
-            public void onErrorClick(View view)
-            {
+            public void onErrorClick(View view) {
                 onClickError(view);
             }
         });
 
         //setup SwipeRefreshLayout.
         mSwipeRefreshLayout.setColorSchemeColors(loadingColor);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
-        {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh()
-            {
+            public void onRefresh() {
 //                if (isLoadingFooter())
 //                {
 //                    return;
@@ -134,18 +124,14 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         //setup RecyclerView.
         RecyclerView.LayoutManager layoutManager = provideListLayoutManager();
         mRecyclerView.setLayoutManager(layoutManager == null ? generateDefaultLayoutManager() : layoutManager);
-        mRecyclerView.addOnScrollListener(new LoadMoreListener()
-        {
+        mRecyclerView.addOnScrollListener(new LoadMoreListener() {
             @Override
-            public void onLoadMore()
-            {
-                if (isRefreshing())
-                {
+            public void onLoadMore() {
+                if (isRefreshing()) {
                     return;
                 }
 
-                if (mPagingRequestManager.hasNextPage())
-                {
+                if (mPagingRequestManager.hasNextPage()) {
                     mListAdapter.showFooter();
                 }
 
@@ -153,17 +139,14 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
             }
         });
 
-        mRecyclerView.addOnScrollListener(new OnDraggingListener()
-        {
+        mRecyclerView.addOnScrollListener(new OnDraggingListener() {
             @Override
-            public void onDragging()
-            {
+            public void onDragging() {
                 onListDragging();
             }
 
             @Override
-            public void onReleased()
-            {
+            public void onReleased() {
                 onListReleased();
             }
         });
@@ -173,49 +156,40 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
     }
 
     @Override
-    public void showLoading()
-    {
+    public void showLoading() {
         mStatesLayout.showLoading();
     }
 
     @Override
-    public void showEmpty()
-    {
+    public void showEmpty() {
         mStatesLayout.showEmpty();
     }
 
     @Override
-    public void showError()
-    {
+    public void showError() {
         mStatesLayout.showError();
     }
 
     @Override
-    public void showContent()
-    {
+    public void showContent() {
         mStatesLayout.showContent();
     }
 
     @Override
-    public void showListData(List<E> data, boolean loadMore, boolean hasNextPage)
-    {
+    public void showListData(List<E> data, boolean loadMore, boolean hasNextPage) {
         stopLoading();
 
-        if (loadMore)
-        {
+        if (loadMore) {
             mListAdapter.addData(data);
-        } else
-        {
+        } else {
             mListAdapter.setData(data);
         }
 
         mListAdapter.setHasMoreData(hasNextPage);
 
-        if (hasNextPage)
-        {
+        if (hasNextPage) {
             mPagingRequestManager.turnToNextPage();
-        } else
-        {
+        } else {
             mPagingRequestManager.setLastPage();
         }
 
@@ -226,83 +200,89 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
      *
      * @return
      */
-    protected int getDefaultLoadingColor()
-    {
+    protected int getDefaultLoadingColor() {
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
         return typedValue.data;
     }
 
-    protected void onListDragging()
-    {
+    protected void onListDragging() {
     }
 
-    protected void onListReleased()
-    {
+    protected void onListReleased() {
     }
 
-    protected PagingRequestManager getPagingRequestManager()
-    {
+    protected PagingRequestManager getPagingRequestManager() {
         return mPagingRequestManager;
     }
 
+    protected int getLastVisibleItemPosition() {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        int lastPosition = 0;
+
+        if (layoutManager instanceof LinearLayoutManager) {
+            lastPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+            lastPosition = staggeredGridLayoutManager.findLastVisibleItemPositions(null)[staggeredGridLayoutManager.getSpanCount() - 1];
+        }
+        return lastPosition;
+    }
+
+    protected void scrollToTop(boolean anim) {
+        if (anim) {
+            mRecyclerView.smoothScrollToPosition(0);
+        } else {
+            mRecyclerView.scrollToPosition(0);
+        }
+    }
+
     protected
     @LayoutRes
-    int getLoadingLayout()
-    {
+    int getLoadingLayout() {
         return LAYOUT_RES_NONE;
     }
 
     protected
     @LayoutRes
-    int getEmptyLayout()
-    {
+    int getEmptyLayout() {
         return LAYOUT_RES_NONE;
     }
 
     protected
     @LayoutRes
-    int getErrorLayout()
-    {
+    int getErrorLayout() {
         return LAYOUT_RES_NONE;
     }
 
-    public RecyclerView getListRecyclerView()
-    {
+    public RecyclerView getListRecyclerView() {
         return mRecyclerView;
     }
 
-    private RecyclerView.LayoutManager generateDefaultLayoutManager()
-    {
+    private RecyclerView.LayoutManager generateDefaultLayoutManager() {
         return new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
     }
 
-    private void stopLoading()
-    {
+    private void stopLoading() {
         stopRefreshing();
         stopLoadingFooter();
     }
 
-    private boolean isRefreshing()
-    {
+    private boolean isRefreshing() {
         return mSwipeRefreshLayout.isRefreshing();
     }
 
-    private void stopRefreshing()
-    {
-        if (mSwipeRefreshLayout.isRefreshing())
-        {
+    private void stopRefreshing() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
-    private boolean isLoadingFooter()
-    {
+    private boolean isLoadingFooter() {
         return mListAdapter.isFooterShown();
     }
 
-    private void stopLoadingFooter()
-    {
+    private void stopLoadingFooter() {
         mListAdapter.hideFooter();
     }
 

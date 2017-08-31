@@ -3,9 +3,7 @@ package com.scottsu.smovie.module.top250;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contract.View, Top250Contract.Presenter>
         implements Top250Contract.View {
 
-    private static final int MIN_SMOOTH_SCROLL_ITEM = 25;
+    private static final int MIN_SMOOTH_SCROLL_ITEM = 45;
     private Top250ListAdapter mListAdapter;
 
 
@@ -125,21 +123,7 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
             return;
         }
 
-        RecyclerView.LayoutManager layoutManager = getListRecyclerView().getLayoutManager();
-        int lastPosition = 0;
-
-        if (layoutManager instanceof LinearLayoutManager) {
-            lastPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-            lastPosition = staggeredGridLayoutManager.findLastVisibleItemPositions(null)[staggeredGridLayoutManager.getSpanCount() - 1];
-        }
-
-        if (lastPosition < MIN_SMOOTH_SCROLL_ITEM) {
-            getListRecyclerView().smoothScrollToPosition(0);
-        } else {
-            getListRecyclerView().scrollToPosition(0);
-        }
+        scrollToTop(getLastVisibleItemPosition() < MIN_SMOOTH_SCROLL_ITEM);
     }
 
     private void requestListData(boolean showLoading, boolean loadMore) {
