@@ -1,5 +1,6 @@
 package com.scottsu.smovie.module.main;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private CardView mSearchCardView;
+    private View mSearchCardIcon;
     private FloatingActionButton mFab;
 
     /*Content Fragments.*/
@@ -66,6 +68,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mSearchCardView = (CardView) findViewById(R.id.card_search);
+        mSearchCardIcon = findViewById(R.id.iv_search_icon);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
 
         //init toolbar.
@@ -135,8 +138,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     private void launchSearch()
     {
-        ActivityLauncher.launchWithSharedElement(MainActivity.this, SearchActivity.class,
-                mSearchCardView, ViewCompat.getTransitionName(mSearchCardView));
+        ActivityLauncher.launchWithSharedElements(MainActivity.this,
+                new Intent(MainActivity.this,SearchActivity.class),
+                new View[]{mSearchCardView,mSearchCardIcon},
+                new String[]{ViewCompat.getTransitionName(mSearchCardView),ViewCompat.getTransitionName(mSearchCardIcon)});
     }
 
     @Subscribe

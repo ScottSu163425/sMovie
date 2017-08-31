@@ -28,7 +28,7 @@ public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
     }
 
     @Override
-    public void requetListData(final int start, final int count, final boolean showLoading, final boolean loadMore) {
+    public void requestListData(final int start, final int count, final boolean showLoading, final boolean loadMore) {
         if (!getView().checkConnection()) {
             return;
         }

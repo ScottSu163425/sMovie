@@ -143,7 +143,7 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
     }
 
     private void requestListData(boolean showLoading, boolean loadMore) {
-        getPresenter().requetListData(loadMore ? getPagingRequestManager().getCurrentIndex()
+        getPresenter().requestListData(loadMore ? getPagingRequestManager().getCurrentIndex()
                         : getPagingRequestManager().getFirstIndex(),
                 getPagingRequestManager().getPageSize(),
                 showLoading, loadMore);

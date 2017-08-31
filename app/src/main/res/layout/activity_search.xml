@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             tools:text="Titanic"
             android:singleLine="true"
-            android:textColor="@color/textColorPrimary"
+            android:textColor="@color/textPrimary"
             android:maxLines="1"
             android:paddingLeft="@dimen/padding_s"
             android:paddingRight="@dimen/padding_s"
@@ -33,6 +33,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:transitionName="search_icon"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_search_grey_600_24dp"/>
         </FrameLayout>
