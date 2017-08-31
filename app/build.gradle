@@ -42,7 +42,7 @@ dependencies {
     compile 'com.scottsu:smvp:1.2.8'
     compile 'com.scottsu:sutils:1.0.6'
     compile 'com.scottsu:slist:1.1.1'
-    compile 'com.scottsu:states-layout:1.1.8'
+    compile 'com.scottsu:states-layout:1.1.9'
 
     /*retrofit*/
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -53,4 +53,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jaeger.statusbarutil:library:1.4.0'
+    compile 'com.haozhang.libary:android-slanted-textview:1.2'
+
 }

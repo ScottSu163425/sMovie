@@ -50,8 +50,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private View mSearchCardIcon;
     private FloatingActionButton mFab;
 
-    private DrawerNavigationFragment mNavigationFragment;
-
     /*Content Fragments.*/
     private Top250Fragment mTop250Fragment;
 
@@ -86,9 +84,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
                 mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         drawerToggle.syncState();
         mDrawerLayout.addDrawerListener(drawerToggle);
-
-        mNavigationFragment=DrawerNavigationFragment.newInstance();
-        FragmentUtil.show(MainActivity.this, R.id.fl_container_drawer_navigation, mNavigationFragment);
 
         mTop250Fragment = Top250Fragment.newInstance();
         FragmentUtil.show(MainActivity.this, ID_MAIN_CONTENT_CONTAINER, mTop250Fragment);

@@ -1,6 +1,5 @@
 package com.scottsu.smovie.module.drawernavigation;
 
-import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.scottsu.library.mvp.presenter.IMvpPresenter;
@@ -33,7 +32,7 @@ public class DrawerNavigationFragment extends BaseFragment
     @Override
     protected int provideContentLayoutRes()
     {
-        return R.layout.fragment_drawer_navigation;
+        return R.layout.header_drawer_navigation;
     }
 
     @Override
