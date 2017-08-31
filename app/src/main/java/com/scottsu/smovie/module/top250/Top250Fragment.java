@@ -1,6 +1,7 @@
 package com.scottsu.smovie.module.top250;
 
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -103,6 +104,11 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
         super.onListDragging();
 
         EventBus.getDefault().post(new ListDraggingEvent());
+    }
+
+    @Override
+    protected int getDefaultStateBackgroundColor() {
+        return Color.TRANSPARENT;
     }
 
     @Override

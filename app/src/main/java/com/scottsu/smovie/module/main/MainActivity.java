@@ -101,20 +101,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         getPresenter().subscribe(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-
-        return true;
-    }
-
     private void openDrawer() {
         mDrawerLayout.openDrawer(Gravity.START);
     }
@@ -131,7 +117,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     public void onClick(View view) {
         if (mFab == view) {
             notifyScrollToTop();
-            showSnackbar("gaga");
         } else if (mSearchCardView == view) {
             launchSearch();
         }

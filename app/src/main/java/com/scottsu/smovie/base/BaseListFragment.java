@@ -1,5 +1,7 @@
 package com.scottsu.smovie.base;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,7 +95,7 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         if (getErrorLayout() != LAYOUT_RES_NONE) {
             mStatesLayout.setErrorView(getErrorLayout());
         }
-
+        mStatesLayout.setDefaultStateBackgroundColor(getDefaultStateBackgroundColor());
         mStatesLayout.setCallback(new StatesLayout.StatesLayoutCallback() {
             @Override
             public void onEmptyClick(View view) {
@@ -253,6 +255,12 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
     @LayoutRes
     int getErrorLayout() {
         return LAYOUT_RES_NONE;
+    }
+
+    protected
+    @ColorInt
+    int getDefaultStateBackgroundColor() {
+        return Color.WHITE;
     }
 
     public RecyclerView getListRecyclerView() {
