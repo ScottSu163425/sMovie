@@ -7,20 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:fitsSystemWindows="true"
     tools:context="com.scottsu.smovie.module.main.MainActivity">
 
     <include layout="@layout/include_activity_main_content"/>
 
-    <android.support.percent.PercentFrameLayout
+    <FrameLayout
+        android:id="@+id/fl_container_drawer_navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left">
-
-        <FrameLayout
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            app:layout_widthPercent="88%"/>
-    </android.support.percent.PercentFrameLayout>
+        android:layout_gravity="left" />
 
 
 </android.support.v4.widget.DrawerLayout>

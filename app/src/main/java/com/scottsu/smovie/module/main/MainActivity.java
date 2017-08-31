@@ -1,8 +1,10 @@
 package com.scottsu.smovie.module.main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
@@ -15,11 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.jaeger.library.StatusBarUtil;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
+import com.scottsu.smovie.module.drawernavigation.DrawerNavigationFragment;
 import com.scottsu.smovie.module.search.SearchActivity;
 import com.scottsu.smovie.module.top250.Top250Fragment;
 import com.scottsu.utils.ActivityLauncher;
@@ -45,6 +49,8 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private CardView mSearchCardView;
     private View mSearchCardIcon;
     private FloatingActionButton mFab;
+
+    private DrawerNavigationFragment mNavigationFragment;
 
     /*Content Fragments.*/
     private Top250Fragment mTop250Fragment;
@@ -81,11 +87,19 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         drawerToggle.syncState();
         mDrawerLayout.addDrawerListener(drawerToggle);
 
+        mNavigationFragment=DrawerNavigationFragment.newInstance();
+        FragmentUtil.show(MainActivity.this, R.id.fl_container_drawer_navigation, mNavigationFragment);
+
         mTop250Fragment = Top250Fragment.newInstance();
         FragmentUtil.show(MainActivity.this, ID_MAIN_CONTENT_CONTAINER, mTop250Fragment);
 
         mSearchCardView.setOnClickListener(this);
         mFab.setOnClickListener(this);
+
+        StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout,
+                ContextCompat.getColor(this,R.color.colorPrimary),60);
+
+        getPresenter().subscribe(this);
     }
 
     @Override
