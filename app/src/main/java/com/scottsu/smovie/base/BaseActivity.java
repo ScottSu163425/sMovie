@@ -26,8 +26,6 @@ public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V
         extends MvpActivity<V, P>
         implements BaseView, View.OnClickListener {
 
-    protected abstract boolean subscribeEvents();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +61,10 @@ public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V
 
         showSnackbar(getString(R.string.bad_connection));
 
+        return false;
+    }
+
+    protected boolean subscribeEvents() {
         return false;
     }
 

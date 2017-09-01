@@ -43,6 +43,7 @@ public interface ApiService {
                                                    @Field("q") String keyword, @Field("start") int start,
                                                    @Field("count") int count);
 
+    @FormUrlEncoded
     @POST("subject/{id}")
     Observable<MovieDetailResponseEntity> requestDetail(@Field("apikey") String apikey,
                                                         @Path("id") String movieId);

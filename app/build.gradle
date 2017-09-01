@@ -36,13 +36,14 @@ dependencies {
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:palette-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:percent:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
 
     /*scott*/
     compile 'com.scottsu:material-design-resource:1.1.2'
     compile 'com.scottsu:smvp:1.2.8'
-    compile 'com.scottsu:sutils:1.0.8'
+    compile 'com.scottsu:sutils:1.0.9'
     compile 'com.scottsu:slist:1.1.1'
     compile 'com.scottsu:states-layout:1.1.9'
 

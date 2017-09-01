@@ -19,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:transitionName="cover"
             app:layout_aspectRatio="86%"
             app:layout_widthPercent="100%"
             tools:background="#eaeaea" />

@@ -1,5 +1,6 @@
 package com.scottsu.smovie.data.enity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,8 +10,7 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/23 16:50
  **/
-public class MovieSubject
-{
+public class MovieSubject implements Serializable {
 
     /**
      * rating : {"max":10,"average":9.6,"stars":"50","min":0}
@@ -40,128 +40,103 @@ public class MovieSubject
     private List<CastsBean> casts;
     private List<DirectorsBean> directors;
 
-    public RatingBean getRating()
-    {
+    public RatingBean getRating() {
         return rating;
     }
 
-    public void setRating(RatingBean rating)
-    {
+    public void setRating(RatingBean rating) {
         this.rating = rating;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public int getCollect_count()
-    {
+    public int getCollect_count() {
         return collect_count;
     }
 
-    public void setCollect_count(int collect_count)
-    {
+    public void setCollect_count(int collect_count) {
         this.collect_count = collect_count;
     }
 
-    public String getOriginal_title()
-    {
+    public String getOriginal_title() {
         return original_title;
     }
 
-    public void setOriginal_title(String original_title)
-    {
+    public void setOriginal_title(String original_title) {
         this.original_title = original_title;
     }
 
-    public String getSubtype()
-    {
+    public String getSubtype() {
         return subtype;
     }
 
-    public void setSubtype(String subtype)
-    {
+    public void setSubtype(String subtype) {
         this.subtype = subtype;
     }
 
-    public String getYear()
-    {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(String year)
-    {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public ImagesBean getImages()
-    {
+    public ImagesBean getImages() {
         return images;
     }
 
-    public void setImages(ImagesBean images)
-    {
+    public void setImages(ImagesBean images) {
         this.images = images;
     }
 
-    public String getAlt()
-    {
+    public String getAlt() {
         return alt;
     }
 
-    public void setAlt(String alt)
-    {
+    public void setAlt(String alt) {
         this.alt = alt;
     }
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId(String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public List<String> getGenres()
-    {
+    public List<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres)
-    {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
     }
 
-    public List<CastsBean> getCasts()
-    {
+    public List<CastsBean> getCasts() {
         return casts;
     }
 
-    public void setCasts(List<CastsBean> casts)
-    {
+    public void setCasts(List<CastsBean> casts) {
         this.casts = casts;
     }
 
-    public List<DirectorsBean> getDirectors()
-    {
+    public List<DirectorsBean> getDirectors() {
         return directors;
     }
 
-    public void setDirectors(List<DirectorsBean> directors)
-    {
+    public void setDirectors(List<DirectorsBean> directors) {
         this.directors = directors;
     }
 
-    public static class RatingBean
-    {
+    public static class RatingBean implements Serializable {
         /**
          * max : 10
          * average : 9.6
@@ -174,49 +149,40 @@ public class MovieSubject
         private String stars;
         private int min;
 
-        public int getMax()
-        {
+        public int getMax() {
             return max;
         }
 
-        public void setMax(int max)
-        {
+        public void setMax(int max) {
             this.max = max;
         }
 
-        public double getAverage()
-        {
+        public double getAverage() {
             return average;
         }
 
-        public void setAverage(double average)
-        {
+        public void setAverage(double average) {
             this.average = average;
         }
 
-        public String getStars()
-        {
+        public String getStars() {
             return stars;
         }
 
-        public void setStars(String stars)
-        {
+        public void setStars(String stars) {
             this.stars = stars;
         }
 
-        public int getMin()
-        {
+        public int getMin() {
             return min;
         }
 
-        public void setMin(int min)
-        {
+        public void setMin(int min) {
             this.min = min;
         }
     }
 
-    public static class ImagesBean
-    {
+    public static class ImagesBean implements Serializable {
         /**
          * small : http://img7.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.webp
          * large : http://img7.doubanio.com/view/movie_poster_cover/lpst/public/p480747492.webp
@@ -227,39 +193,32 @@ public class MovieSubject
         private String large;
         private String medium;
 
-        public String getSmall()
-        {
+        public String getSmall() {
             return small;
         }
 
-        public void setSmall(String small)
-        {
+        public void setSmall(String small) {
             this.small = small;
         }
 
-        public String getLarge()
-        {
+        public String getLarge() {
             return large;
         }
 
-        public void setLarge(String large)
-        {
+        public void setLarge(String large) {
             this.large = large;
         }
 
-        public String getMedium()
-        {
+        public String getMedium() {
             return medium;
         }
 
-        public void setMedium(String medium)
-        {
+        public void setMedium(String medium) {
             this.medium = medium;
         }
     }
 
-    public static class CastsBean
-    {
+    public static class CastsBean implements Serializable {
         /**
          * alt : https://movie.douban.com/celebrity/1054521/
          * avatars : {"small":"http://img7.doubanio.com/img/celebrity/small/17525.jpg","large":"http://img7.doubanio.com/img/celebrity/large/17525.jpg","medium":"http://img7.doubanio.com/img/celebrity/medium/17525.jpg"}
@@ -272,48 +231,39 @@ public class MovieSubject
         private String name;
         private String id;
 
-        public String getAlt()
-        {
+        public String getAlt() {
             return alt;
         }
 
-        public void setAlt(String alt)
-        {
+        public void setAlt(String alt) {
             this.alt = alt;
         }
 
-        public AvatarsBean getAvatars()
-        {
+        public AvatarsBean getAvatars() {
             return avatars;
         }
 
-        public void setAvatars(AvatarsBean avatars)
-        {
+        public void setAvatars(AvatarsBean avatars) {
             this.avatars = avatars;
         }
 
-        public String getName()
-        {
+        public String getName() {
             return name;
         }
 
-        public void setName(String name)
-        {
+        public void setName(String name) {
             this.name = name;
         }
 
-        public String getId()
-        {
+        public String getId() {
             return id;
         }
 
-        public void setId(String id)
-        {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public static class AvatarsBean
-        {
+        public static class AvatarsBean implements Serializable {
             /**
              * small : http://img7.doubanio.com/img/celebrity/small/17525.jpg
              * large : http://img7.doubanio.com/img/celebrity/large/17525.jpg
@@ -324,40 +274,33 @@ public class MovieSubject
             private String large;
             private String medium;
 
-            public String getSmall()
-            {
+            public String getSmall() {
                 return small;
             }
 
-            public void setSmall(String small)
-            {
+            public void setSmall(String small) {
                 this.small = small;
             }
 
-            public String getLarge()
-            {
+            public String getLarge() {
                 return large;
             }
 
-            public void setLarge(String large)
-            {
+            public void setLarge(String large) {
                 this.large = large;
             }
 
-            public String getMedium()
-            {
+            public String getMedium() {
                 return medium;
             }
 
-            public void setMedium(String medium)
-            {
+            public void setMedium(String medium) {
                 this.medium = medium;
             }
         }
     }
 
-    public static class DirectorsBean
-    {
+    public static class DirectorsBean implements Serializable {
         /**
          * alt : https://movie.douban.com/celebrity/1047973/
          * avatars : {"small":"http://img7.doubanio.com/img/celebrity/small/230.jpg","large":"http://img7.doubanio.com/img/celebrity/large/230.jpg","medium":"http://img7.doubanio.com/img/celebrity/medium/230.jpg"}
@@ -370,48 +313,39 @@ public class MovieSubject
         private String name;
         private String id;
 
-        public String getAlt()
-        {
+        public String getAlt() {
             return alt;
         }
 
-        public void setAlt(String alt)
-        {
+        public void setAlt(String alt) {
             this.alt = alt;
         }
 
-        public AvatarsBeanX getAvatars()
-        {
+        public AvatarsBeanX getAvatars() {
             return avatars;
         }
 
-        public void setAvatars(AvatarsBeanX avatars)
-        {
+        public void setAvatars(AvatarsBeanX avatars) {
             this.avatars = avatars;
         }
 
-        public String getName()
-        {
+        public String getName() {
             return name;
         }
 
-        public void setName(String name)
-        {
+        public void setName(String name) {
             this.name = name;
         }
 
-        public String getId()
-        {
+        public String getId() {
             return id;
         }
 
-        public void setId(String id)
-        {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public static class AvatarsBeanX
-        {
+        public static class AvatarsBeanX implements Serializable {
             /**
              * small : http://img7.doubanio.com/img/celebrity/small/230.jpg
              * large : http://img7.doubanio.com/img/celebrity/large/230.jpg
@@ -422,41 +356,34 @@ public class MovieSubject
             private String large;
             private String medium;
 
-            public String getSmall()
-            {
+            public String getSmall() {
                 return small;
             }
 
-            public void setSmall(String small)
-            {
+            public void setSmall(String small) {
                 this.small = small;
             }
 
-            public String getLarge()
-            {
+            public String getLarge() {
                 return large;
             }
 
-            public void setLarge(String large)
-            {
+            public void setLarge(String large) {
                 this.large = large;
             }
 
-            public String getMedium()
-            {
+            public String getMedium() {
                 return medium;
             }
 
-            public void setMedium(String medium)
-            {
+            public void setMedium(String medium) {
                 this.medium = medium;
             }
         }
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "MovieSubject{" +
                 "rating=" + rating +
                 ", title='" + title + '\'' +

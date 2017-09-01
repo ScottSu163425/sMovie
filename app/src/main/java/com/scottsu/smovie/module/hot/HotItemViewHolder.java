@@ -48,4 +48,19 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
         mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : context.getString(R.string.no_rating));
     }
 
+    public ImageView getCoverImageView() {
+        return mCoverImageView;
+    }
+
+    public TextView getTitleTextView() {
+        return mTitleTextView;
+    }
+
+    public TextView getYearTextView() {
+        return mYearTextView;
+    }
+
+    public TextView getRatingTextView() {
+        return mRatingTextView;
+    }
 }

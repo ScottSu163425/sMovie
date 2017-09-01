@@ -57,7 +57,7 @@ public class Api {
                 .compose(Api.<SearchResponseEntity>applySchedulers());
     }
 
-    public static Observable<MovieDetailResponseEntity> requestDetail(String movieId) {
+    public static Observable<MovieDetailResponseEntity> requestMovieDetail(String movieId) {
         return getApiService().requestDetail(API_KEY,movieId)
                 .compose(Api.<MovieDetailResponseEntity>applySchedulers());
     }

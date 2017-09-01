@@ -1,5 +1,6 @@
 package com.scottsu.smovie.module.hot;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
 import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.module.moviedetail.MovieDetailActivity;
+import com.scottsu.utils.ActivityLauncher;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,11 +52,11 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
             mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+                    launchMovieDetail(entity, sharedElements, transitionNames);
                 }
 
                 @Override
                 public void onListItemLongClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
-                    Toast.makeText(getContext(), "onListItemLongClick " + entity.getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -143,6 +146,13 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
                         : getPagingRequestManager().getFirstIndex(),
                 getPagingRequestManager().getPageSize(),
                 showLoading, loadMore);
+    }
+
+    private void launchMovieDetail(MovieSubject entity, View[] sharedElements, String[] transitionNames) {
+        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT,entity);
+
+        ActivityLauncher.launchWithSharedElement(getActivity(), intent, sharedElements[0], transitionNames[0]);
     }
 
 }
