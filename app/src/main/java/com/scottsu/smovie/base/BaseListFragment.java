@@ -5,6 +5,8 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.scottsu.smovie.common.OnDraggingListener;
 import com.scottsu.smovie.common.PagingRequestManager;
 import com.scottsu.stateslayout.StatesLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -182,9 +185,19 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         stopLoading();
 
         if (loadMore) {
-            mListAdapter.addData(data);
+            if (!data.isEmpty()) {
+                mListAdapter.addData(data);
+            }
         } else {
-            mListAdapter.setData(data);
+            if (data.isEmpty()) {
+                mListAdapter.hideFooter();
+                mListAdapter.clear();
+                showEmpty();
+            } else {
+                mListAdapter.setData(data);
+                showContent();
+            }
+            mRecyclerView.scrollToPosition(0);
         }
 
         mListAdapter.setHasMoreData(hasNextPage);
@@ -195,6 +208,12 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
             mPagingRequestManager.setLastPage();
         }
 
+    }
+
+    protected
+    @ColorInt
+    int getDefaultStateBackgroundColor() {
+        return ContextCompat.getColor(getContext(), R.color.background);
     }
 
     /**
@@ -255,12 +274,6 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
     @LayoutRes
     int getErrorLayout() {
         return LAYOUT_RES_NONE;
-    }
-
-    protected
-    @ColorInt
-    int getDefaultStateBackgroundColor() {
-        return Color.WHITE;
     }
 
     public RecyclerView getListRecyclerView() {

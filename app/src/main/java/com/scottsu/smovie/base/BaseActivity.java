@@ -1,8 +1,10 @@
 package com.scottsu.smovie.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.scottsu.library.mvp.activity.MvpActivity;
 import com.scottsu.library.mvp.presenter.IMvpPresenter;
@@ -22,49 +24,40 @@ import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V>>
         extends MvpActivity<V, P>
-        implements BaseView, View.OnClickListener
-{
+        implements BaseView, View.OnClickListener {
 
     protected abstract boolean subscribeEvents();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (subscribeEvents())
-        {
+        if (subscribeEvents()) {
             EventBus.getDefault().register(this);
         }
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
 
-        if (subscribeEvents())
-        {
+        if (subscribeEvents()) {
             EventBus.getDefault().unregister(this);
         }
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
 
     }
 
-    protected void postEvent(Object event)
-    {
+    protected void postEvent(Object event) {
         EventBus.getDefault().post(event);
     }
 
     @Override
-    public boolean checkConnection()
-    {
-        if (NetworkUtil.isNetworkConnected(BaseActivity.this))
-        {
+    public boolean checkConnection() {
+        if (NetworkUtil.isNetworkConnected(BaseActivity.this)) {
             return true;
         }
 
@@ -73,14 +66,20 @@ public abstract class BaseActivity<V extends IMvpView, P extends IMvpPresenter<V
         return false;
     }
 
-    protected View getContentView()
-    {
+    protected View getContentView() {
         return findViewById(android.R.id.content);
     }
 
-    protected void showSnackbar(String text)
-    {
+    protected void showSnackbar(String text) {
         Snack.showShort(getContentView(), text);
+    }
+
+    protected void closeKeyboard() {
+        View view = getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }

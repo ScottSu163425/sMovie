@@ -43,6 +43,10 @@ public class HotPresenter extends BaseMvpPresenter<HotContract.View>
 
                     @Override
                     public void onNext(HotResponseEntity value) {
+                        if(!isInSubscription()){
+                            return;
+                        }
+
                         List<MovieSubject> list = value.getSubjects();
 
                         if (list.isEmpty()) {
@@ -60,6 +64,10 @@ public class HotPresenter extends BaseMvpPresenter<HotContract.View>
 
                     @Override
                     public void onError(Throwable e) {
+                        if(!isInSubscription()){
+                            return;
+                        }
+
                         getView().showError();
                     }
 

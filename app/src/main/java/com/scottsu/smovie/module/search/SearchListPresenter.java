@@ -1,25 +1,27 @@
-package com.scottsu.smovie.module.comingsoon;
+package com.scottsu.smovie.module.search;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
-import com.scottsu.smovie.data.source.ComingSoonResponseEntity;
 import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.source.SearchResponseEntity;
 import com.scottsu.smovie.data.source.remote.Api;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 /**
  * project: sMovie
- * package: com.scottsu.smovie.module.comingsoon
+ * package: com.scottsu.smovie.module.search
  * description:
  * author: Su
- * date: 2017/9/1 9:25
+ * date: 2017/9/1 9:55
  */
 
-public class ComingSoonPresenter extends BaseMvpPresenter<ComingSoonContract.View>
-        implements ComingSoonContract.Presenter {
+public class SearchListPresenter extends BaseMvpPresenter<SearchListContract.View>
+        implements SearchListContract.Presenter {
 
     @Override
     public void onViewSubscribed() {
@@ -32,8 +34,8 @@ public class ComingSoonPresenter extends BaseMvpPresenter<ComingSoonContract.Vie
             return;
         }
 
-        Api.requestComingSoon(start, count)
-                .subscribe(new Observer<ComingSoonResponseEntity>() {
+        Api.requestSearch(getView().getSearchKeyword(), start, count)
+                .subscribe(new Observer<SearchResponseEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         if (showLoading) {
@@ -42,20 +44,23 @@ public class ComingSoonPresenter extends BaseMvpPresenter<ComingSoonContract.Vie
                     }
 
                     @Override
-                    public void onNext(ComingSoonResponseEntity value) {
-                        if(!isInSubscription()){
+                    public void onNext(SearchResponseEntity value) {
+                        if (!isInSubscription()) {
                             return;
                         }
 
                         List<MovieSubject> list = value.getSubjects();
 
-                        if (list.isEmpty()) {
-                            if (!loadMore) {
-                                getView().showEmpty();
-                            }
-                        } else {
-                            getView().showContent();
-                        }
+//                        if (list.isEmpty()) {
+//                            if (!loadMore) {
+//                                getView().showEmpty();
+//                            }
+//
+//                            getView().setSearchSuccess(false);
+//                        } else {
+//                            getView().showContent();
+//                            getView().setSearchSuccess(true);
+//                        }
 
                         boolean hasNext = count == list.size() && (start + count + 1) < value.getTotal();
 
@@ -64,7 +69,7 @@ public class ComingSoonPresenter extends BaseMvpPresenter<ComingSoonContract.Vie
 
                     @Override
                     public void onError(Throwable e) {
-                        if(!isInSubscription()){
+                        if (!isInSubscription()) {
                             return;
                         }
 
@@ -78,4 +83,3 @@ public class ComingSoonPresenter extends BaseMvpPresenter<ComingSoonContract.Vie
                 });
     }
 }
-

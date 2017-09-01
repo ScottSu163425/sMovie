@@ -42,6 +42,10 @@ public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
 
                     @Override
                     public void onNext(Top250ResponseEntity value) {
+                        if (!isInSubscription()) {
+                            return;
+                        }
+
                         List<MovieSubject> list = value.getSubjects();
 
                         if (list.isEmpty()) {
@@ -59,6 +63,10 @@ public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
 
                     @Override
                     public void onError(Throwable e) {
+                        if (!isInSubscription()) {
+                            return;
+                        }
+
                         getView().showError();
                     }
 
