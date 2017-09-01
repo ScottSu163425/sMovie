@@ -27,6 +27,7 @@
     <string name="tag_ranking_3rd">No.3</string>
 
     <string name="no_rating">暂无评分</string>
+    <string name="hint_search_movie">搜索影片...</string>
 
 
 </resources>
