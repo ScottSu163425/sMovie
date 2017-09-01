@@ -21,8 +21,7 @@ import java.util.List;
  * date: 2017/9/1 9:53
  */
 
-public class SearchListAdapter extends SListAdapter<MovieSubject>
-        implements FastScrollRecyclerView.SectionedAdapter {
+public class SearchListAdapter extends SListAdapter<MovieSubject> {
     public SearchListAdapter(Context context) {
         super(context);
     }
@@ -46,14 +45,4 @@ public class SearchListAdapter extends SListAdapter<MovieSubject>
         holder.bindData(getContext(), entity, position);
     }
 
-
-    @NonNull
-    @Override
-    public String getSectionName(int position) {
-        MovieSubject subject = getData(position);
-        if (subject != null) {
-            return getData(position).getTitle().substring(0, 1);
-        }
-        return "";
-    }
 }

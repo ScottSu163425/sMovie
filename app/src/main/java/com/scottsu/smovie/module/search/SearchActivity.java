@@ -3,7 +3,9 @@ package com.scottsu.smovie.module.search;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -56,6 +58,8 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchCont
         mSearchListFragment = SearchListFragment.newInstance();
         FragmentUtil.show(this, R.id.fl_container_search_list, mSearchListFragment);
 
+        mSearchEditText.addTextChangedListener(mSearchTextWatcher);
+
         getPresenter().subscribe(this);
     }
 
@@ -64,14 +68,33 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchCont
         super.onClick(v);
 
         if (mSearchButton == v) {
-            notifySearch();
+            notifySearch(true);
         }
     }
 
-    private void notifySearch() {
+    private TextWatcher mSearchTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            notifySearch(false);
+        }
+    };
+
+    private void notifySearch(boolean byClick) {
         String keyword = mSearchEditText.getText().toString().trim();
         if (TextUtils.isEmpty(keyword)) {
-            showSnackbar("请输入一个搜索关键词");
+            if (byClick) {
+                showSnackbar("请输入一个搜索关键词");
+            }
             return;
         }
 

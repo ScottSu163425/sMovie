@@ -1,5 +1,6 @@
 package com.scottsu.smovie.module.search;
 
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -138,10 +139,20 @@ public class SearchListFragment extends BaseListFragment<MovieSubject, SearchLis
                 showLoading, loadMore);
     }
 
+    private long mLastSearchTime;
+
     @Subscribe
     public void onEventSearch(SearchEvent event) {
+        long current = System.currentTimeMillis();
+
+        if (current - mLastSearchTime < 500) {
+
+            return;
+        }
+        mLastSearchTime = current;
+
         mKeyword = event.getKeyword();
-        requestListData(true, false);
+        requestListData(false, false);
     }
 
 

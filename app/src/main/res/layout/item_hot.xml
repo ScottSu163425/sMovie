@@ -23,6 +23,18 @@
             app:layout_widthPercent="100%"
             tools:background="#eaeaea" />
 
+        <com.haozhang.lib.SlantedTextView
+            android:id="@+id/slanted_view_hot"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            app:slantedBackgroundColor="@color/md_red_500"
+            app:slantedLength="30dp"
+            app:slantedMode="left"
+            app:slantedText="Hot"
+            app:slantedTextColor="@color/white"
+            app:slantedTextSize="@dimen/text_size_caption" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,12 +68,12 @@
                 android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignBottom="@+id/tv_year"
+                android:layout_alignParentRight="true"
                 android:paddingRight="@dimen/padding_xs"
                 android:textColor="@color/md_red_400"
-                android:textStyle="bold"
                 android:textSize="@dimen/text_size_subhead"
+                android:textStyle="bold"
                 tools:text="9.6" />
         </RelativeLayout>
     </android.support.percent.PercentRelativeLayout>
