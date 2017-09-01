@@ -39,7 +39,7 @@ public class HotListAdapter extends SListAdapter<MovieSubject>
     @Override
     protected SListViewHolder<MovieSubject> onCreateVH(ViewGroup parent, int viewType)
     {
-        return new HotItemViewHolder(parent, R.layout.item_1);
+        return new HotItemViewHolder(parent, R.layout.item_hot);
     }
 
     @Override

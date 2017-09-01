@@ -26,7 +26,9 @@ import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
+import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.module.comingsoon.ComingSoonFragment;
+import com.scottsu.smovie.module.favorites.FavoritesActivity;
 import com.scottsu.smovie.module.hot.HotFragment;
 import com.scottsu.smovie.module.search.SearchActivity;
 import com.scottsu.smovie.module.top250.Top250Fragment;
@@ -240,7 +242,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     private void launchFavorite() {
-        Toast.makeText(this, "启动收藏界面", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
     }
 
 

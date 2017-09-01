@@ -3,12 +3,14 @@ package com.scottsu.smovie.module.hot;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
+import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseListFragment;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
@@ -29,7 +31,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View, HotContract.Presenter>
         implements HotContract.View {
 
-    private static final int MIN_SMOOTH_SCROLL_ITEM = 25;
+    private static final int MIN_SMOOTH_SCROLL_ITEM = 50;
     private HotListAdapter mListAdapter;
 
 
@@ -47,7 +49,6 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
             mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
-                    Toast.makeText(getContext(), "onListItemClick " + entity.getTitle(), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -62,7 +63,12 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
     @Nullable
     @Override
     protected RecyclerView.LayoutManager provideListLayoutManager() {
-        return null;
+        return new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+    }
+
+    @Override
+    protected int getListPadding() {
+        return getResources().getDimensionPixelSize(R.dimen.padding_xs);
     }
 
     @Override

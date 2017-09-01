@@ -18,6 +18,12 @@ public interface HotContract {
     }
 
     interface Presenter extends IListPresenter<MovieSubject, HotContract.View> {
+        boolean isMovieFavorited(MovieSubject movieSubject);
 
+        boolean favoriteMovie(MovieSubject movieSubject);
+
+        boolean unfavoriteMovie(MovieSubject movieSubject);
     }
+
+
 }

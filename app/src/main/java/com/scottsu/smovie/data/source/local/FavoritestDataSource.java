@@ -25,6 +25,8 @@ public interface FavoritestDataSource<E> {
 
     boolean update(E entity);
 
+    boolean isExist(E entity);
+
     List<E> queryAll();
 
     List<E> query(Judgment<E> judgment);

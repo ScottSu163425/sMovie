@@ -77,4 +77,19 @@ public class HotPresenter extends BaseMvpPresenter<HotContract.View>
                     }
                 });
     }
+
+    @Override
+    public boolean isMovieFavorited(MovieSubject movieSubject) {
+        return false;
+    }
+
+    @Override
+    public boolean favoriteMovie(MovieSubject movieSubject) {
+        return false;
+    }
+
+    @Override
+    public boolean unfavoriteMovie(MovieSubject movieSubject) {
+        return false;
+    }
 }

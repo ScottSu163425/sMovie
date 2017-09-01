@@ -1,18 +1,17 @@
 package com.scottsu.smovie.base;
 
-import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.scottsu.library.mvp.presenter.IMvpPresenter;
 import com.scottsu.library.mvp.view.IMvpView;
@@ -23,7 +22,6 @@ import com.scottsu.smovie.common.OnDraggingListener;
 import com.scottsu.smovie.common.PagingRequestManager;
 import com.scottsu.stateslayout.StatesLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -128,6 +126,17 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
 
         //setup RecyclerView.
         RecyclerView.LayoutManager layoutManager = provideListLayoutManager();
+        int listPadding = getListPadding();
+
+        RecyclerView.ItemDecoration itemDecoration = provideListItemDecoration();
+        if (itemDecoration != null) {
+            mRecyclerView.addItemDecoration(itemDecoration);
+        }
+
+        if(listPadding>0){
+            mRecyclerView.setPadding(listPadding,listPadding,listPadding,listPadding);
+        }
+
         mRecyclerView.setLayoutManager(layoutManager == null ? generateDefaultLayoutManager() : layoutManager);
         mRecyclerView.addOnScrollListener(new LoadMoreListener() {
             @Override
@@ -210,6 +219,11 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
 
     }
 
+    @Nullable
+    protected RecyclerView.ItemDecoration provideListItemDecoration() {
+        return null;
+    }
+
     protected
     @ColorInt
     int getDefaultStateBackgroundColor() {
@@ -225,6 +239,10 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
         return typedValue.data;
+    }
+
+    protected int getListPadding() {
+        return 0;
     }
 
     protected void onListDragging() {
