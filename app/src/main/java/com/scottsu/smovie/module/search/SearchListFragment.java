@@ -1,6 +1,5 @@
 package com.scottsu.smovie.module.search;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,7 @@ import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
 import com.scottsu.smovie.common.events.SearchEvent;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.MovieSubject;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.MovieSubject;
 
 import java.util.List;
 

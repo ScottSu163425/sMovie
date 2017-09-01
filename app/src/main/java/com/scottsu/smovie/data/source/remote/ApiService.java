@@ -1,10 +1,10 @@
 package com.scottsu.smovie.data.source.remote;
 
-import com.scottsu.smovie.data.source.ComingSoonResponseEntity;
-import com.scottsu.smovie.data.source.HotResponseEntity;
-import com.scottsu.smovie.data.source.MovieDetailResponseEntity;
-import com.scottsu.smovie.data.source.SearchResponseEntity;
-import com.scottsu.smovie.data.source.Top250ResponseEntity;
+import com.scottsu.smovie.data.enity.ComingSoonResponseEntity;
+import com.scottsu.smovie.data.enity.HotResponseEntity;
+import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
+import com.scottsu.smovie.data.enity.SearchResponseEntity;
+import com.scottsu.smovie.data.enity.Top250ResponseEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;

@@ -2,7 +2,7 @@ package com.scottsu.smovie.module.hot;
 
 import com.scottsu.library.mvp.presenter.IListPresenter;
 import com.scottsu.smovie.base.BaseListView;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.MovieSubject;
 
 /**
  * project: sMovie

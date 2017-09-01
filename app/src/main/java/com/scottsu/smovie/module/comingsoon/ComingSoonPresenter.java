@@ -1,8 +1,8 @@
 package com.scottsu.smovie.module.comingsoon;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
-import com.scottsu.smovie.data.source.ComingSoonResponseEntity;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.ComingSoonResponseEntity;
+import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.data.source.remote.Api;
 
 import java.util.List;

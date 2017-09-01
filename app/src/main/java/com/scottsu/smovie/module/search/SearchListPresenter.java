@@ -1,15 +1,13 @@
 package com.scottsu.smovie.module.search;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
-import com.scottsu.smovie.data.source.MovieSubject;
-import com.scottsu.smovie.data.source.SearchResponseEntity;
+import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.data.enity.SearchResponseEntity;
 import com.scottsu.smovie.data.source.remote.Api;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 /**

@@ -1,10 +1,8 @@
 package com.scottsu.smovie.module.top250;
 
 import com.scottsu.library.mvp.presenter.IListPresenter;
-import com.scottsu.library.mvp.view.IListView;
 import com.scottsu.smovie.base.BaseListView;
-import com.scottsu.smovie.base.BaseView;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.MovieSubject;
 
 /**
  * 项目: sMovie

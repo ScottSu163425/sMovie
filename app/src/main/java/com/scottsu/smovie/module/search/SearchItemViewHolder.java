@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.common.ImageLoader;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.MovieSubject;
 
 /**
  * project: sMovie

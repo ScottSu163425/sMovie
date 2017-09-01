@@ -2,19 +2,15 @@ package com.scottsu.smovie.module.hot;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.haozhang.lib.SlantedTextView;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.common.ImageLoader;
-import com.scottsu.smovie.data.source.MovieSubject;
-import com.scottsu.utils.ViewUtil;
+import com.scottsu.smovie.data.enity.MovieSubject;
 
 /**
  * project: sMovie

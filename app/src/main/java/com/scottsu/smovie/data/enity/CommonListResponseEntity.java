@@ -1,4 +1,4 @@
-package com.scottsu.smovie.data.source;
+package com.scottsu.smovie.data.enity;
 
 /**
  * 项目: sMovie

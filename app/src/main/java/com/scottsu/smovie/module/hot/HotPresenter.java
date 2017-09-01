@@ -1,8 +1,8 @@
 package com.scottsu.smovie.module.hot;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
-import com.scottsu.smovie.data.source.HotResponseEntity;
-import com.scottsu.smovie.data.source.MovieSubject;
+import com.scottsu.smovie.data.enity.HotResponseEntity;
+import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.data.source.remote.Api;
 
 import java.util.List;
