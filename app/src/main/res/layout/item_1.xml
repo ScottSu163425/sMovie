@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,13 +24,12 @@
             android:scaleType="centerCrop"
             app:layout_aspectRatio="178%"
             app:layout_widthPercent="100%"
-            tools:background="#eaeaea"/>
+            tools:background="#eaeaea" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_cover"
-            >
+            android:layout_below="@+id/iv_cover">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -44,7 +42,7 @@
                 android:paddingTop="@dimen/padding_s"
                 android:textColor="@color/textPrimary"
                 android:textSize="@dimen/text_size_headline"
-                tools:text="Titanic"/>
+                tools:text="Titanic" />
 
             <TextView
                 android:id="@+id/tv_year"
@@ -56,7 +54,7 @@
                 android:paddingTop="@dimen/padding_xxs"
                 android:textColor="@color/textPrimary"
                 android:textSize="@dimen/text_size_subhead"
-                tools:text="1997"/>
+                tools:text="1997" />
 
             <TextView
                 android:id="@+id/tv_rating"
@@ -68,8 +66,9 @@
                 android:maxLines="2"
                 android:paddingRight="@dimen/padding_s"
                 android:textColor="@color/md_red_400"
-                android:textSize="@dimen/text_size_display_1"
-                tools:text="9.6"/>
+                android:textSize="@dimen/text_size_headline"
+                android:textStyle="bold"
+                tools:text="9.6" />
         </RelativeLayout>
     </android.support.percent.PercentRelativeLayout>
 </android.support.v7.widget.CardView>

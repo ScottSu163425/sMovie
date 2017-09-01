@@ -8,11 +8,12 @@
     <!--modules-->
 
     <!--drawer navigation-->
-    <string name="hot_in_theaters">热映</string>
-    <string name="coming_soon">即将上映</string>
-    <string name="top250">Top250</string>
-    <string name="my_collection">我的收藏</string>
-    <string name="about">关于</string>
+    <string name="action_hot">热映</string>
+    <string name="action_coming_soon">即将上映</string>
+    <string name="action_top250">Top250</string>
+    <string name="action_favorite">我的收藏</string>
+    <string name="action_about">关于</string>
+
     <string name="section_movies">电影</string>
     <string name="section_others">其他</string>
 
@@ -24,7 +25,7 @@
     <string name="tag_ranking_2nd">No.2</string>
     <string name="tag_ranking_3rd">No.3</string>
 
-
+    <string name="no_rating">暂无评分</string>
 
 
 </resources>

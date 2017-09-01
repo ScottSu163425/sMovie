@@ -1,8 +1,8 @@
-package com.scottsu.smovie.module.top250;
+package com.scottsu.smovie.module.hot;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
+import com.scottsu.smovie.data.source.HotResponseEntity;
 import com.scottsu.smovie.data.source.MovieSubject;
-import com.scottsu.smovie.data.source.Top250ResponseEntity;
 import com.scottsu.smovie.data.source.remote.Api;
 
 import java.util.List;
@@ -11,14 +11,15 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 项目: sMovie
- * 包名: com.scottsu.smovie.module.top250
- * 描述:
- * 作者: Su
- * 日期: 2017/8/28 11:46
- **/
-public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
-        implements Top250Contract.Presenter {
+ * project: sMovie
+ * package: com.scottsu.smovie.module.hot
+ * description:
+ * author: Su
+ * date: 2017/9/1 8:04
+ */
+
+public class HotPresenter extends BaseMvpPresenter<HotContract.View>
+        implements HotContract.Presenter {
 
     @Override
     public void onViewSubscribed() {
@@ -31,8 +32,8 @@ public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
             return;
         }
 
-        Api.requestTop250(start, count)
-                .subscribe(new Observer<Top250ResponseEntity>() {
+        Api.requestHot(start, count)
+                .subscribe(new Observer<HotResponseEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         if (showLoading) {
@@ -41,7 +42,7 @@ public class Top250Presenter extends BaseMvpPresenter<Top250Contract.View>
                     }
 
                     @Override
-                    public void onNext(Top250ResponseEntity value) {
+                    public void onNext(HotResponseEntity value) {
                         List<MovieSubject> list = value.getSubjects();
 
                         if (list.isEmpty()) {

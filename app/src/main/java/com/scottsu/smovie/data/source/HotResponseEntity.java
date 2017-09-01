@@ -9,7 +9,7 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/23 16:58
  **/
-public class HotInTheatersResponseEntity extends CommonListResponseEntity
+public class HotResponseEntity extends CommonListResponseEntity
 {
 
     /**

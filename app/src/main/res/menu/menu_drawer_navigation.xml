@@ -5,21 +5,21 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/action_hot_in_theaters"
+                    android:id="@+id/action_hot"
                     android:icon="@drawable/ic_whatshot_grey_600_24dp"
-                    android:title="@string/hot_in_theaters" />
+                    android:title="@string/action_hot" />
                 <item
                     android:id="@+id/action_coming_soon"
                     android:icon="@drawable/ic_group_work_grey_600_24dp"
-                    android:title="@string/coming_soon" />
+                    android:title="@string/action_coming_soon" />
                 <item
                     android:id="@+id/action_top250"
                     android:icon="@drawable/ic_theaters_grey_600_24dp"
-                    android:title="@string/top250" />
+                    android:title="@string/action_top250" />
                 <item
-                    android:id="@+id/action_my_collection"
+                    android:id="@+id/action_favorite"
                     android:icon="@drawable/ic_book_grey_600_24dp"
-                    android:title="@string/my_collection" />
+                    android:title="@string/action_favorite" />
             </group>
         </menu>
     </item>
@@ -28,12 +28,12 @@
         <menu>
             <item
                 android:icon="@drawable/ic_search_white_24dp"
-                android:title="@string/about" />
+                android:title="@string/action_about" />
 
             <item
                 android:id="@+id/action_about"
                 android:icon="@drawable/ic_search_white_24dp"
-                android:title="@string/about" />
+                android:title="@string/action_about" />
         </menu>
 
     </item>
