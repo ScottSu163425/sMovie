@@ -33,7 +33,7 @@ public interface ApiService {
                                                    @Field("start") int start, @Field("count") int count);
 
     @FormUrlEncoded
-    @POST("action_coming_soon")
+    @POST("coming_soon")
     Observable<ComingSoonResponseEntity> requestComingSoon(@Field("apikey") String apikey,
                                                            @Field("start") int start, @Field("count") int count);
 

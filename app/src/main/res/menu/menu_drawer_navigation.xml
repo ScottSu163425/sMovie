@@ -16,20 +16,21 @@
                     android:id="@+id/action_top250"
                     android:icon="@drawable/ic_theaters_grey_600_24dp"
                     android:title="@string/action_top250" />
-                <item
-                    android:id="@+id/action_favorite"
-                    android:icon="@drawable/ic_book_grey_600_24dp"
-                    android:title="@string/action_favorite" />
+
             </group>
+        </menu>
+    </item>
+    <item android:title="@string/section_my">
+        <menu>
+            <item
+                android:id="@+id/action_favorite"
+                android:icon="@drawable/ic_book_grey_600_24dp"
+                android:title="@string/action_favorite" />
         </menu>
     </item>
 
     <item android:title="@string/section_others">
         <menu>
-            <item
-                android:icon="@drawable/ic_search_white_24dp"
-                android:title="@string/action_about" />
-
             <item
                 android:id="@+id/action_about"
                 android:icon="@drawable/ic_search_white_24dp"

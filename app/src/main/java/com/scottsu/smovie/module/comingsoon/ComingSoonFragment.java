@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.hot;
+package com.scottsu.smovie.module.comingsoon;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -20,21 +20,21 @@ import org.greenrobot.eventbus.Subscribe;
 
 /**
  * project: sMovie
- * package: com.scottsu.smovie.module.hot
+ * package: com.scottsu.smovie.module.comingsoon
  * description:
  * author: Su
- * date: 2017/9/1 8:16
+ * date: 2017/9/1 9:26
  */
 
-public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View, HotContract.Presenter>
-        implements HotContract.View {
+public class ComingSoonFragment extends BaseListFragment<MovieSubject, ComingSoonContract.View, ComingSoonContract.Presenter>
+        implements ComingSoonContract.View {
 
     private static final int MIN_SMOOTH_SCROLL_ITEM = 25;
-    private HotListAdapter mListAdapter;
+    private ComingSoonListAdapter mListAdapter;
 
 
-    public static HotFragment newInstance() {
-        HotFragment fragment = new HotFragment();
+    public static ComingSoonFragment newInstance() {
+        ComingSoonFragment fragment = new ComingSoonFragment();
         return fragment;
     }
 
@@ -42,7 +42,7 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
     @Override
     protected SListAdapter<MovieSubject> provideListAdapter() {
         if (mListAdapter == null) {
-            mListAdapter = new HotListAdapter(getContext());
+            mListAdapter = new ComingSoonListAdapter(getContext());
             mListAdapter.setShowEndingFooter(true);
             mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
@@ -95,8 +95,8 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
     }
 
     @Override
-    protected HotContract.Presenter providePresenter() {
-        return new HotPresenter();
+    protected ComingSoonContract.Presenter providePresenter() {
+        return new ComingSoonPresenter();
     }
 
     @Override

@@ -7,7 +7,7 @@
     android:layout_marginBottom="@dimen/padding_xs"
     android:layout_marginLeft="@dimen/padding_s"
     android:layout_marginRight="@dimen/padding_s"
-    android:layout_marginTop="@dimen/padding_xs"
+    android:layout_marginTop="@dimen/padding_s"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@drawable/selector_card_elevation"
     app:cardPreventCornerOverlap="false"

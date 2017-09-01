@@ -15,10 +15,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.scottsu.smovie.R;
@@ -26,6 +26,7 @@ import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
+import com.scottsu.smovie.module.comingsoon.ComingSoonFragment;
 import com.scottsu.smovie.module.hot.HotFragment;
 import com.scottsu.smovie.module.search.SearchActivity;
 import com.scottsu.smovie.module.top250.Top250Fragment;
@@ -51,21 +52,15 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private static final int ID_NAVIGATION_ITEM_HOT = R.id.action_hot;
     private static final int ID_NAVIGATION_ITEM_COMING_SOON = R.id.action_coming_soon;
     private static final int ID_NAVIGATION_ITEM_TOP250 = R.id.action_top250;
-    private static final int ID_NAVIGATION_ITEM_FAVORITE = R.id.action_favorite;
-    private static final int ID_NAVIGATION_ITEM_ABOUT = R.id.action_about;
 
     private static final int NAVIGATION_ITEM_HOT = 0x1;
     private static final int NAVIGATION_ITEM_COMING_SOON = 0x2;
     private static final int NAVIGATION_ITEM_TOP250 = 0x3;
-    private static final int NAVIGATION_ITEM_FAVORITE = 0x4;
-    private static final int NAVIGATION_ITEM_ABOUT = 0x5;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({NAVIGATION_ITEM_HOT,
             NAVIGATION_ITEM_COMING_SOON,
             NAVIGATION_ITEM_TOP250,
-            NAVIGATION_ITEM_FAVORITE,
-            NAVIGATION_ITEM_ABOUT,
     })
 
     private @interface NavigationItem {
@@ -77,8 +72,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
             put(NAVIGATION_ITEM_HOT, ID_NAVIGATION_ITEM_HOT);
             put(NAVIGATION_ITEM_COMING_SOON, ID_NAVIGATION_ITEM_COMING_SOON);
             put(NAVIGATION_ITEM_TOP250, ID_NAVIGATION_ITEM_TOP250);
-            put(NAVIGATION_ITEM_FAVORITE, ID_NAVIGATION_ITEM_FAVORITE);
-            put(NAVIGATION_ITEM_ABOUT, ID_NAVIGATION_ITEM_ABOUT);
         }
     };
 
@@ -86,7 +79,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
-    private Toolbar mToolbar;
     private CardView mSearchCardView;
     private View mSearchCardIcon;
     private FloatingActionButton mFab;
@@ -94,6 +86,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     /*Content Fragments.*/
     private Fragment mCurrentFragment;
     private HotFragment mHotFragment;
+    private ComingSoonFragment mComingSoonFragment;
     private Top250Fragment mTop250Fragment;
 
 
@@ -111,7 +104,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
         mSearchCardView = (CardView) findViewById(R.id.card_search);
         mSearchCardIcon = findViewById(R.id.iv_search_icon);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
@@ -120,12 +113,13 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         mFab.setOnClickListener(this);
 
         //setup toolbar.
-        mToolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app_name));
+        setSupportActionBar(toolbar);
 
         //setup drawer.
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(MainActivity.this,
-                mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
+                mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerToggle.syncState();
         mDrawerLayout.addDrawerListener(drawerToggle);
 
@@ -134,6 +128,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         //setup navigation.
         mHotFragment = HotFragment.newInstance();
+        mComingSoonFragment = ComingSoonFragment.newInstance();
         mTop250Fragment = Top250Fragment.newInstance();
 
         StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout,
@@ -174,7 +169,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         int id = item.getItemId();
 
         if (R.id.action_about == id) {
-            selectNavigationItem(NAVIGATION_ITEM_ABOUT);
 
         } else if (R.id.action_hot == id) {
             selectNavigationItem(NAVIGATION_ITEM_HOT);
@@ -182,13 +176,14 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         } else if (R.id.action_coming_soon == id) {
             selectNavigationItem(NAVIGATION_ITEM_COMING_SOON);
+            showContentFragment(mComingSoonFragment);
 
         } else if (R.id.action_top250 == id) {
             selectNavigationItem(NAVIGATION_ITEM_TOP250);
             showContentFragment(mTop250Fragment);
 
         } else if (R.id.action_favorite == id) {
-            selectNavigationItem(NAVIGATION_ITEM_FAVORITE);
+            launchFavorite();
         }
 
         closeDrawer();
@@ -242,6 +237,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
                 new Intent(MainActivity.this, SearchActivity.class),
                 new View[]{mSearchCardView, mSearchCardIcon},
                 new String[]{ViewCompat.getTransitionName(mSearchCardView), ViewCompat.getTransitionName(mSearchCardIcon)});
+    }
+
+    private void launchFavorite() {
+        Toast.makeText(this, "启动收藏界面", Toast.LENGTH_SHORT).show();
     }
 
 
