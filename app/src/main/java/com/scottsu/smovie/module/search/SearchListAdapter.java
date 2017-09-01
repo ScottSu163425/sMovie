@@ -1,6 +1,7 @@
 package com.scottsu.smovie.module.search;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
@@ -8,6 +9,7 @@ import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.module.hot.HotItemViewHolder;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.List;
 
@@ -19,7 +21,8 @@ import java.util.List;
  * date: 2017/9/1 9:53
  */
 
-public class SearchListAdapter extends SListAdapter<MovieSubject> {
+public class SearchListAdapter extends SListAdapter<MovieSubject>
+        implements FastScrollRecyclerView.SectionedAdapter{
     public SearchListAdapter(Context context) {
         super(context);
     }
@@ -44,4 +47,9 @@ public class SearchListAdapter extends SListAdapter<MovieSubject> {
     }
 
 
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        return getData(position).getTitle().substring(0,1);
+    }
 }

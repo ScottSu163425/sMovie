@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/padding_xs"
-    android:layout_marginLeft="@dimen/padding_s"
-    android:layout_marginRight="@dimen/padding_s"
-    android:layout_marginTop="@dimen/padding_s"
+    android:layout_marginLeft="@dimen/padding_xs"
+    android:layout_marginRight="@dimen/padding_xs"
+    android:layout_marginTop="@dimen/padding_xs"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@drawable/selector_card_elevation"
     app:cardPreventCornerOverlap="false"
@@ -52,7 +52,7 @@
             android:paddingRight="@dimen/padding_s"
             android:paddingTop="@dimen/padding_m"
             android:textColor="@color/textPrimary"
-            android:textSize="@dimen/text_size_headline"
+            android:textSize="@dimen/text_size_title"
             tools:text="官方代表vcfds反倒是反倒是代表vcfds反倒是反倒是" />
 
         <TextView
@@ -79,9 +79,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_cover"
-            android:layout_marginBottom="@dimen/padding_s"
+            android:layout_marginBottom="@dimen/padding_xs"
             android:layout_marginLeft="@dimen/padding_xs"
-            android:layout_marginTop="@dimen/padding_s"
+            android:layout_marginTop="@dimen/padding_xs"
             android:max="10"
             android:stepSize="0.5"
             tools:progress="8" />
@@ -96,7 +96,7 @@
             android:maxLines="2"
             android:paddingLeft="@dimen/padding_xxs"
             android:textColor="@color/md_red_400"
-            android:textSize="@dimen/text_size_headline"
+            android:textSize="@dimen/text_size_title"
             android:textStyle="bold"
             tools:text="9.6" />
     </android.support.percent.PercentRelativeLayout>

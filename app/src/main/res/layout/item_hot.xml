@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:layout_aspectRatio="78%"
+            app:layout_aspectRatio="86%"
             app:layout_widthPercent="100%"
             tools:background="#eaeaea" />
 
@@ -33,12 +33,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:paddingLeft="@dimen/padding_xs"
                 android:paddingRight="@dimen/padding_xs"
                 android:paddingTop="@dimen/padding_xs"
                 android:textColor="@color/textPrimary"
-                android:textSize="@dimen/text_size_title"
+                android:textSize="@dimen/text_size_subhead"
                 tools:text="Titanic" />
 
             <TextView
@@ -46,9 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:paddingBottom="@dimen/padding_xs"
+                android:layout_marginBottom="@dimen/padding_xs"
                 android:paddingLeft="@dimen/padding_xs"
-                android:paddingTop="@dimen/padding_xxs"
                 android:textColor="@color/textSecondary"
                 android:textSize="@dimen/text_size_caption"
                 tools:text="1997" />
@@ -58,11 +57,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:layout_alignBottom="@+id/tv_year"
                 android:paddingRight="@dimen/padding_xs"
                 android:textColor="@color/md_red_400"
-                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"
+                android:textSize="@dimen/text_size_subhead"
                 tools:text="9.6" />
         </RelativeLayout>
     </android.support.percent.PercentRelativeLayout>

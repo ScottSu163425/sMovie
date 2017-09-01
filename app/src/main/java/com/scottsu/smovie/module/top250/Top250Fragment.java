@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
+import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseListFragment;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
@@ -63,6 +64,11 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
     @Override
     protected RecyclerView.LayoutManager provideListLayoutManager() {
         return null;
+    }
+
+    @Override
+    protected int getListPadding() {
+        return getResources().getDimensionPixelSize(R.dimen.padding_xs);
     }
 
     @Override
