@@ -49,6 +49,10 @@ public class HotListAdapter extends SListAdapter<MovieSubject>
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return getData(position).getTitle().substring(0,1);
+        if (isFooterShown() && position == getItemCount() - 1) {
+            return "";
+        }
+        return getData(position).getTitle().substring(0, 1);
     }
+
 }

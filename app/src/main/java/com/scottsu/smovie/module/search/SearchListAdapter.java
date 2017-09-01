@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public class SearchListAdapter extends SListAdapter<MovieSubject>
-        implements FastScrollRecyclerView.SectionedAdapter{
+        implements FastScrollRecyclerView.SectionedAdapter {
     public SearchListAdapter(Context context) {
         super(context);
     }
@@ -50,6 +50,10 @@ public class SearchListAdapter extends SListAdapter<MovieSubject>
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return getData(position).getTitle().substring(0,1);
+        MovieSubject subject = getData(position);
+        if (subject != null) {
+            return getData(position).getTitle().substring(0, 1);
+        }
+        return "";
     }
 }

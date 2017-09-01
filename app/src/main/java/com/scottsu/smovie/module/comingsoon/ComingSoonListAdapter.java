@@ -49,6 +49,9 @@ public class ComingSoonListAdapter extends SListAdapter<MovieSubject>
     @NonNull
     @Override
     public String getSectionName(int position) {
+        if (isFooterShown() && position == getItemCount() - 1) {
+            return "";
+        }
         return getData(position).getTitle().substring(0, 1);
     }
 
