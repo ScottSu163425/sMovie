@@ -29,17 +29,24 @@ public class ComingSoonItemViewHolder extends SListViewHolder<MovieSubject> {
 
     public ComingSoonItemViewHolder(View itemView) {
         super(itemView);
+
+        init();
     }
 
     public ComingSoonItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
+        init();
+    }
+
+    private void init() {
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
         mTitleTextView = (TextView) findViewById(R.id.tv_title);
         mYearTextView = (TextView) findViewById(R.id.tv_year);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating);
 //        mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
 //        mRankingSlantedTextView = (SlantedTextView) findViewById(R.id.slanted_view_ranking);
+
     }
 
     @Override

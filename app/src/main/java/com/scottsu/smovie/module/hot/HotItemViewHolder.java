@@ -27,11 +27,17 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
 
     public HotItemViewHolder(View itemView) {
         super(itemView);
+
+        init();
     }
 
     public HotItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
+        init();
+    }
+
+    private void init(){
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
         mTitleTextView = (TextView) findViewById(R.id.tv_title);
         mYearTextView = (TextView) findViewById(R.id.tv_year);

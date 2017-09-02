@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -57,7 +58,7 @@
                             android:id="@+id/anchor_aka"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="又名:"/>
+                            android:text="@string/subhead_aka"/>
 
                         <TextView
                             android:id="@+id/tv_aka"
@@ -80,7 +81,7 @@
                             android:id="@+id/anchor_director"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="导演:"/>
+                            android:text="@string/subhead_director"/>
 
                         <TextView
                             android:id="@+id/tv_director"
@@ -103,7 +104,7 @@
                             android:id="@+id/anchor_year"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="年代:"/>
+                            android:text="@string/subhead_year"/>
 
                         <TextView
                             android:id="@+id/tv_year"
@@ -126,7 +127,7 @@
                             android:id="@+id/anchor_region"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="地区:"/>
+                            android:text="@string/subhead_region"/>
 
                         <TextView
                             android:id="@+id/tv_region"
@@ -146,13 +147,13 @@
                         android:paddingTop="@dimen/padding_xs">
 
                         <TextView
-                            android:id="@+id/anchor_genre"
+                            android:id="@+id/anchor_genres"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="类型:"/>
+                            android:text="@string/subhead_genres"/>
 
                         <TextView
-                            android:id="@+id/tv_genre"
+                            android:id="@+id/tv_genres"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -170,13 +171,13 @@
                         android:paddingTop="@dimen/padding_xs">
 
                         <TextView
-                            android:id="@+id/anchor_cast"
+                            android:id="@+id/anchor_casts"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="主演:"/>
+                            android:text="@string/subhead_casts"/>
 
                         <TextView
-                            android:id="@+id/tv_cast"
+                            android:id="@+id/tv_casts"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -236,10 +237,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_s"
                 android:layout_marginRight="@dimen/padding_s"
-                android:layout_marginTop="@dimen/padding_m"
+                android:layout_marginTop="@dimen/padding_xl"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:stateListAnimator="@drawable/selector_card_elevation">
+                android:stateListAnimator="@drawable/selector_card_elevation"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -273,11 +276,47 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:maxLines="4"
+                        android:maxLines="3"
                         android:paddingTop="@dimen/padding_xs"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_body"
                         tools:text="范德萨解放路当升科技发的杀戮空间法律框架法律框架法律框架法律框架费德勒科技范德萨解放路当升科技发的杀戮空间法律框架法律框架法律框架法律框架费德勒科技"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_casts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_s"
+                android:layout_marginRight="@dimen/padding_s"
+                android:layout_marginTop="@dimen/padding_s"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_s"
+                        android:layout_marginTop="@dimen/padding_s"
+                        android:text="主演"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_casts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_xs"
+                        android:clipToPadding="false"
+                        android:paddingLeft="@dimen/padding_xs"
+                        android:paddingRight="@dimen/padding_xs"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -298,6 +337,6 @@
         app:elevation="@dimen/padding_xs"
         app:fabSize="normal"
         app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="bottom|right"
+        app:layout_anchorGravity="bottom|l"
         app:pressedTranslationZ="@dimen/padding_s"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,33 +1,40 @@
 <resources>
-    <!--common-->
+    <!--Common-->
     <string name="app_name">SMovie</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string name="bad_connection">请检查网络</string>
 
-    <!--modules-->
-
-    <!--drawer navigation-->
+    <!--Drawer navigation-->
     <string name="action_hot">热映</string>
     <string name="action_coming_soon">即将上映</string>
     <string name="action_top250">Top250</string>
     <string name="action_favorite">我的收藏</string>
     <string name="action_about">关于</string>
-
     <string name="section_movies">电影</string>
     <string name="section_my">我的</string>
     <string name="section_others">其他</string>
 
-
+    <!--Main-->
     <string name="action_search">搜索</string>
     <string name="action_more">更多</string>
 
+    <!--Top250-->
     <string name="tag_ranking_1st">No.1</string>
     <string name="tag_ranking_2nd">No.2</string>
     <string name="tag_ranking_3rd">No.3</string>
-
     <string name="no_rating">暂无评分</string>
+
+    <!--Search-->
     <string name="hint_search_movie">搜索影片...</string>
+
+    <!--Movie detail-->
+    <string name="subhead_aka">又名:</string>
+    <string name="subhead_director">导演:</string>
+    <string name="subhead_year">年代:</string>
+    <string name="subhead_region">地区:</string>
+    <string name="subhead_genres">类型:</string>
+    <string name="subhead_casts">主演:</string>
 
 
 </resources>

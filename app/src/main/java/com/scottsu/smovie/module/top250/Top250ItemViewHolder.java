@@ -32,11 +32,17 @@ public class Top250ItemViewHolder extends SListViewHolder<MovieSubject> {
 
     public Top250ItemViewHolder(View itemView) {
         super(itemView);
+
+        init();
     }
 
     public Top250ItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
+        init();
+    }
+
+    private void init() {
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
         mTitleTextView = (TextView) findViewById(R.id.tv_title);
         mYearTextView = (TextView) findViewById(R.id.tv_year);
@@ -44,6 +50,7 @@ public class Top250ItemViewHolder extends SListViewHolder<MovieSubject> {
         mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
         mRankingSlantedTextView = (SlantedTextView) findViewById(R.id.slanted_view_ranking);
     }
+
 
     @Override
     public void bindData(Context context, MovieSubject entity, int position) {

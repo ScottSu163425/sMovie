@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private NavigationView mNavigationView;
     private CardView mSearchCardView;
     private View mSearchCardIcon;
-    private FloatingActionButton mFab;
+//    private FloatingActionButton mFab;
 
     /*Content Fragments.*/
     private Fragment mCurrentFragment;
@@ -109,10 +109,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         mSearchCardView = (CardView) findViewById(R.id.card_search);
         mSearchCardIcon = findViewById(R.id.iv_search_icon);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+//        mFab = (FloatingActionButton) findViewById(R.id.fab);
 
         mSearchCardView.setOnClickListener(this);
-        mFab.setOnClickListener(this);
+//        mFab.setOnClickListener(this);
 
         //setup toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -144,9 +144,9 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     public void onClick(View view) {
-        if (mFab == view) {
+      /*  if (mFab == view) {
             notifyScrollToTop();
-        } else if (mSearchCardView == view) {
+        } else */if (mSearchCardView == view) {
             launchSearch();
         }
     }
@@ -192,27 +192,37 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            closeDrawer();
+            return;
+        }
+
+    }
+
     private void showContentFragment(Fragment content) {
         FragmentUtil.showAndHideFragment(MainActivity.this, ID_MAIN_CONTENT_CONTAINER, content, mCurrentFragment);
         mCurrentFragment = content;
     }
 
     private void showFAB() {
-        mFab.animate()
-                .translationY(0)
-                .setInterpolator(new FastOutSlowInInterpolator())
-                .setDuration(600)
-                .start();
+//        mFab.animate()
+//                .translationY(0)
+//                .setInterpolator(new FastOutSlowInInterpolator())
+//                .setDuration(600)
+//                .start();
     }
 
     private void hideFAB() {
-        mFab.animate()
-                .translationY(mFab.getBottom())
-                .setInterpolator(new FastOutSlowInInterpolator())
-                .setDuration(600)
-                .start();
+//        mFab.animate()
+//                .translationY(mFab.getBottom())
+//                .setInterpolator(new FastOutSlowInInterpolator())
+//                .setDuration(600)
+//                .start();
     }
-
 
     private void openDrawer() {
         mDrawerLayout.openDrawer(Gravity.START);
@@ -221,11 +231,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private void closeDrawer() {
         mDrawerLayout.closeDrawer(Gravity.START);
     }
-
-    private void openSearch() {
-
-    }
-
     private void notifyScrollToTop() {
         postEvent(new ScrollToTopEvent());
     }
