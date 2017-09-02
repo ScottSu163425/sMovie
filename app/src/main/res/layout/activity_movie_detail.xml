@@ -189,25 +189,22 @@
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
-            <android.support.percent.PercentRelativeLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 app:layout_collapseMode="parallax">
 
                 <ImageView
                     android:id="@+id/iv_cover"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="145dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/padding_s"
                     android:layout_marginLeft="@dimen/padding_s"
-                    android:layout_marginRight="@dimen/padding_s"
                     android:layout_marginTop="?attr/actionBarSize"
                     android:scaleType="centerCrop"
                     android:transitionName="cover"
-                    app:layout_aspectRatio="60%"
-                    app:layout_heightPercent="100%"
                     tools:src="@drawable/bg_header_navigation"/>
-            </android.support.percent.PercentRelativeLayout>
+            </FrameLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -276,7 +273,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:maxLines="2"
+                        android:maxLines="4"
                         android:paddingTop="@dimen/padding_xs"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_body"

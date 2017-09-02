@@ -121,7 +121,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                 mSummaryCard.setSelected(!mSummaryCard.isSelected());
 
                 final int duration = 300;
-                final int maxLineCollapsed = 2;
+                final int maxLineCollapsed = 4;
                 final TimeInterpolator interpolator = new FastOutSlowInInterpolator();
 
                 AutoTransition transition = new AutoTransition();
@@ -166,10 +166,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
                         setUpTextColor(primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
 
+                        final int duration = 1200;
                         mHeaderBackground.post(new Runnable() {
                             @Override
                             public void run() {
-                                CircularRevealUtil.revealIn(mHeaderBackground, CircularRevealUtil.CENTER, 1500);
+                                CircularRevealUtil.revealIn(mHeaderBackground, CircularRevealUtil.CENTER, duration);
                             }
                         });
 
@@ -180,7 +181,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                                 mFavoriteFAB.setScaleY(0);
 
                                 mFavoriteFAB.animate()
-                                        .setDuration(700)
+                                        .setDuration(duration/2)
                                         .setInterpolator(new FastOutSlowInInterpolator())
                                         .rotation(360)
                                         .scaleX(1)
