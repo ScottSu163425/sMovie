@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_s"
                 android:layout_marginRight="@dimen/padding_s"
-                android:layout_marginTop="@dimen/padding_xl"
+                android:layout_marginTop="@dimen/padding_l"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:stateListAnimator="@drawable/selector_card_elevation"
@@ -337,6 +337,6 @@
         app:elevation="@dimen/padding_xs"
         app:fabSize="normal"
         app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="bottom|l"
+        app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="@dimen/padding_s"/>
 </android.support.design.widget.CoordinatorLayout>
