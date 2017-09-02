@@ -76,4 +76,7 @@ public class Top250ItemViewHolder extends SListViewHolder<MovieSubject> {
 
     }
 
+    public ImageView getCoverImageView() {
+        return mCoverImageView;
+    }
 }

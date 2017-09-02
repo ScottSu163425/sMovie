@@ -46,7 +46,7 @@ public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.V
                             return;
                         }
 
-                        getView().onRequestFailed();
+                        getView().onRequestFailed(e.getMessage());
                     }
 
                     @Override

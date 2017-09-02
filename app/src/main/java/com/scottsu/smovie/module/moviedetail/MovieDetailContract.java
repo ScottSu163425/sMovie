@@ -16,7 +16,7 @@ public interface MovieDetailContract {
     interface View extends IMvpView {
         void onRequestSuccess(MovieDetailResponseEntity responseEntity);
 
-        void onRequestFailed();
+        void onRequestFailed(String message);
     }
 
     interface Presenter extends IMvpPresenter<MovieDetailContract.View> {
