@@ -225,7 +225,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                     : responseEntity.getDirectors().get(0).getName());
             mYearTextView.setText(responseEntity.getYear());
             mRegionTextView.setText(responseEntity.getCountries().isEmpty() ? "-" : responseEntity.getCountries().get(0));
-            mSummaryTextView.setText(responseEntity.getSummary());
+            mSummaryTextView.setText("    " + responseEntity.getSummary());
 
             //Build genres.
             StringBuilder genresBuilder = new StringBuilder();
