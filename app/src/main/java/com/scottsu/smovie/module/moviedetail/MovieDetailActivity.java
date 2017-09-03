@@ -1,6 +1,7 @@
 package com.scottsu.smovie.module.moviedetail;
 
 import android.animation.TimeInterpolator;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -35,6 +36,8 @@ import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.module.celebrity.Celebrity;
 import com.scottsu.smovie.module.celebrity.CelebrityListAdapter;
+import com.scottsu.smovie.module.web.CommonWebActivity;
+import com.scottsu.utils.ActivityLauncher;
 import com.scottsu.utils.CircularRevealUtil;
 import com.scottsu.utils.ViewUtil;
 
@@ -132,7 +135,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mCastListAdapter.setItemCallback(new ListItemCallback<Celebrity>() {
             @Override
             public void onListItemClick(View itemView, Celebrity entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
-                Toast.makeText(MovieDetailActivity.this, "调转名人界面", Toast.LENGTH_SHORT).show();
+                launchCastDetail(entity);
             }
 
             @Override
@@ -152,6 +155,12 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
         getPresenter().subscribe(this);
         getPresenter().requestMovieDetail(mMovieSubject.getId());
+    }
+
+    private void launchCastDetail(Celebrity entity) {
+        Intent intent = new Intent(MovieDetailActivity.this, CommonWebActivity.class);
+        intent.putExtra(CommonWebActivity.KEY_EXTRA_URL, entity.getUrl());
+        ActivityLauncher.launchWithTransition(MovieDetailActivity.this, intent);
     }
 
     private void popCastMenu(View anchor) {
