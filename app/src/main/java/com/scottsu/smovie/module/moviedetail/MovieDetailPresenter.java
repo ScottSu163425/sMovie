@@ -2,7 +2,10 @@ package com.scottsu.smovie.module.moviedetail;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
+import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.data.source.remote.Api;
+import com.scottsu.smovie.module.celebrity.Celebrity;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -17,9 +20,11 @@ import io.reactivex.disposables.Disposable;
 
 public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.View>
         implements MovieDetailContract.Presenter {
+    private FavoriteMovieRepository mFavoriteMovieRepository;
+
     @Override
     public void onViewSubscribed() {
-
+        mFavoriteMovieRepository = new FavoriteMovieRepository();
     }
 
     @Override
@@ -37,7 +42,7 @@ public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.V
                             return;
                         }
 
-                        getView().onRequestSuccess(value);
+                        getView().onRequestDetailSuccess(value);
                     }
 
                     @Override
@@ -46,7 +51,7 @@ public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.V
                             return;
                         }
 
-                        getView().onRequestFailed(e.getMessage());
+                        getView().onRequestDetailFailed(e.getMessage());
                     }
 
                     @Override
@@ -54,6 +59,20 @@ public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.V
 
                     }
                 });
+
+    }
+
+    @Override
+    public void favoriteMovie(MovieSubject movie) {
+        if (mFavoriteMovieRepository.save(movie)) {
+            getView().onFavoriteMovieSuccess();
+        } else {
+            getView().onFavoriteMovieExists();
+        }
+    }
+
+    @Override
+    public void favoriteCelebrity(Celebrity celebrity) {
 
     }
 

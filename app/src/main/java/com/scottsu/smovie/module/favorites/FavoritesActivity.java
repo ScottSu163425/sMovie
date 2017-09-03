@@ -2,6 +2,9 @@ package com.scottsu.smovie.module.favorites;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.transition.Slide;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
@@ -20,6 +23,7 @@ import java.util.List;
 
 public class FavoritesActivity extends BaseActivity<FavoritesContract.View, FavoritesContract.Presenter>
         implements FavoritesContract.View {
+    public static final String KEY_EXTRA_NEED_TRANSITION = "KEY_EXTRA_NEED_TRANSITION";
 
     @Override
     protected boolean subscribeEvents() {
@@ -38,8 +42,25 @@ public class FavoritesActivity extends BaseActivity<FavoritesContract.View, Favo
 
     @Override
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        if (getIntent().getBooleanExtra(KEY_EXTRA_NEED_TRANSITION, false)) {
+            if (isLollipop()) {
+                getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
+            }
+        } else {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
 
-        List<MovieSubject> movieSubjects = new FavoriteMovieRepository().queryAll();
+        FavoriteMovieRepository repository = new FavoriteMovieRepository();
+
+
+        List<MovieSubject> movieSubjects = repository.queryAll();
+        Toast.makeText(this, movieSubjects.size() + "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
 

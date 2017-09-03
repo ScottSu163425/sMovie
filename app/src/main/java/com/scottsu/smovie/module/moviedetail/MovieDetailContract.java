@@ -3,6 +3,8 @@ package com.scottsu.smovie.module.moviedetail;
 import com.scottsu.library.mvp.presenter.IMvpPresenter;
 import com.scottsu.library.mvp.view.IMvpView;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
+import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.module.celebrity.Celebrity;
 
 /**
  * project: sMovie
@@ -14,13 +16,21 @@ import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 
 public interface MovieDetailContract {
     interface View extends IMvpView {
-        void onRequestSuccess(MovieDetailResponseEntity responseEntity);
+        void onRequestDetailSuccess(MovieDetailResponseEntity responseEntity);
 
-        void onRequestFailed(String message);
+        void onRequestDetailFailed(String message);
+
+        void onFavoriteMovieSuccess();
+
+        void onFavoriteMovieExists();
     }
 
     interface Presenter extends IMvpPresenter<MovieDetailContract.View> {
         void requestMovieDetail(String movieId);
+
+        void favoriteMovie(MovieSubject movie);
+
+        void favoriteCelebrity(Celebrity celebrity);
     }
 
 }

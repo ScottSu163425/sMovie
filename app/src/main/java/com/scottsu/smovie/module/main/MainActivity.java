@@ -33,6 +33,7 @@ import com.scottsu.smovie.module.hot.HotFragment;
 import com.scottsu.smovie.module.search.SearchActivity;
 import com.scottsu.smovie.module.top250.Top250Fragment;
 import com.scottsu.utils.ActivityLauncher;
+import com.scottsu.utils.CircularRevealUtil;
 import com.scottsu.utils.FragmentUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -83,7 +84,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private NavigationView mNavigationView;
     private CardView mSearchCardView;
     private View mSearchCardIcon;
-//    private FloatingActionButton mFab;
+    private FloatingActionButton mFab;
 
     /*Content Fragments.*/
     private Fragment mCurrentFragment;
@@ -109,10 +110,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         mSearchCardView = (CardView) findViewById(R.id.card_search);
         mSearchCardIcon = findViewById(R.id.iv_search_icon);
-//        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
 
         mSearchCardView.setOnClickListener(this);
-//        mFab.setOnClickListener(this);
+        mFab.setOnClickListener(this);
 
         //setup toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -144,9 +145,9 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     public void onClick(View view) {
-      /*  if (mFab == view) {
-            notifyScrollToTop();
-        } else */if (mSearchCardView == view) {
+        if (mFab == view) {
+            launchFavoriteWithReveal(mFab);
+        } else if (mSearchCardView == view) {
             launchSearch();
         }
     }
@@ -209,19 +210,19 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     private void showFAB() {
-//        mFab.animate()
-//                .translationY(0)
-//                .setInterpolator(new FastOutSlowInInterpolator())
-//                .setDuration(600)
-//                .start();
+        mFab.animate()
+                .translationY(0)
+                .setInterpolator(new FastOutSlowInInterpolator())
+                .setDuration(600)
+                .start();
     }
 
     private void hideFAB() {
-//        mFab.animate()
-//                .translationY(mFab.getBottom())
-//                .setInterpolator(new FastOutSlowInInterpolator())
-//                .setDuration(600)
-//                .start();
+        mFab.animate()
+                .translationY(mFab.getBottom())
+                .setInterpolator(new FastOutSlowInInterpolator())
+                .setDuration(600)
+                .start();
     }
 
     private void openDrawer() {
@@ -230,9 +231,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     private void closeDrawer() {
         mDrawerLayout.closeDrawer(Gravity.START);
-    }
-    private void notifyScrollToTop() {
-        postEvent(new ScrollToTopEvent());
     }
 
     private void selectNavigationItem(@NavigationItem int item) {
@@ -248,6 +246,14 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     private void launchFavorite() {
         startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+    }
+
+    private void launchFavoriteWithReveal(@NonNull View starter) {
+        Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
+
+        CircularRevealUtil.startActivity(MainActivity.this, intent, null, starter,
+                ContextCompat.getColor(MainActivity.this, R.color.colorAccent)
+                , true, 600, 800, null, null);
     }
 
 

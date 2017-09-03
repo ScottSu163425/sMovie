@@ -53,7 +53,7 @@ public class ComingSoonItemViewHolder extends SListViewHolder<MovieSubject> {
     public void bindData(Context context, MovieSubject entity, int position) {
         double rating = entity.getRating().getAverage();
 
-        ImageLoader.load(context, entity.getImages().getLarge(), mCoverImageView);
+        ImageLoader.load(context, entity.getImages().getMedium(), mCoverImageView);
         mTitleTextView.setText(entity.getTitle());
         mYearTextView.setText(entity.getYear());
         mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : context.getString(R.string.no_rating));

@@ -10,6 +10,7 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/23 16:50
  **/
+
 public class MovieSubject implements Serializable {
 
     /**

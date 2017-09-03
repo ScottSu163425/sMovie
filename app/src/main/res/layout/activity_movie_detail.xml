@@ -285,7 +285,7 @@
 
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:id="@+id/card_casts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -305,7 +305,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/padding_s"
                         android:layout_marginTop="@dimen/padding_s"
-                        android:text="主演"
+                        android:text="演员"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_subhead"/>
 
@@ -313,13 +313,10 @@
                         android:id="@+id/rv_casts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_xs"
-                        android:clipToPadding="false"
-                        android:paddingLeft="@dimen/padding_xs"
-                        android:paddingRight="@dimen/padding_xs"/>
+                        android:layout_marginTop="@dimen/padding_xs"/>
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </FrameLayout>
 
             <android.support.v4.widget.Space
                 android:layout_width="wrap_content"

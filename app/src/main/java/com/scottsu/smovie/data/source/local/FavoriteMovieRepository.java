@@ -15,18 +15,8 @@ import java.util.List;
  * date: 2017/9/1 13:56
  */
 
-public class FavoriteMovieRepository implements FavoritestDataSource<MovieSubject> {
+public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubject> {
     private static final Gson sGson = new Gson();
-
-    private List<MovieSubject> convert(List<MovieSubjectInDB> list) {
-        List<MovieSubject> result = new ArrayList<>();
-
-        for (int i = 0, n = list.size(); i < n; i++) {
-            result.add(sGson.fromJson(list.get(i).getJson(), MovieSubject.class));
-        }
-        return result;
-    }
-
 
     @Override
     public boolean save(MovieSubject entity) {
@@ -34,9 +24,6 @@ public class FavoriteMovieRepository implements FavoritestDataSource<MovieSubjec
             return false;
         }
 
-        MovieSubjectDbHelper.getDaoSession()
-                .getMovieSubjectInDBDao()
-                .save(new MovieSubjectInDB(sGson.toJson(entity)));
         return true;
     }
 
@@ -47,6 +34,9 @@ public class FavoriteMovieRepository implements FavoritestDataSource<MovieSubjec
 
     @Override
     public boolean remove(MovieSubject entity) {
+        if (isExist(entity)) {
+        }
+
         return false;
     }
 
@@ -77,15 +67,9 @@ public class FavoriteMovieRepository implements FavoritestDataSource<MovieSubjec
 
     @Override
     public List<MovieSubject> queryAll() {
-        List<MovieSubjectInDB> all = MovieSubjectDbHelper.getDaoSession()
-                .getMovieSubjectInDBDao()
-                .loadAll();
+        List<MovieSubject> all = new ArrayList<>();
 
-        if (null == all) {
-            all = new ArrayList<>();
-        }
-
-        return convert(all);
+        return all;
     }
 
     @Override
@@ -106,7 +90,8 @@ public class FavoriteMovieRepository implements FavoritestDataSource<MovieSubjec
 
     @Override
     public boolean clear() {
-        MovieSubjectDbHelper.getDaoSession().getMovieSubjectInDBDao().deleteAll();
+
+
         return true;
     }
 

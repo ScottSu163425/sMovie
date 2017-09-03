@@ -39,6 +39,7 @@ public class ImageLoader {
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(placeHolder)
+                .skipMemoryCache(false)
                 .error(errorHolder);
 
         Glide.with(context)

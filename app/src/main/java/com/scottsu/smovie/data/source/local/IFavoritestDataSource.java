@@ -12,7 +12,7 @@ import java.util.List;
  * date: 2017/9/1 13:58
  */
 
-public interface FavoritestDataSource<E> {
+public interface IFavoritestDataSource<E> {
     boolean save(E entity);
 
     boolean save(List<E> entities);

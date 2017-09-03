@@ -17,23 +17,10 @@ public class MovieSubjectDbHelper {
     private MovieSubjectDbHelper() {
     }
 
-    private static DaoMaster.DevOpenHelper devOpenHelper;
-    private static DaoMaster daoMaster;
-    private static DaoSession daoSession;
 
     public static void init(Context context) {
-        if (devOpenHelper == null) {
-            devOpenHelper = new DaoMaster.DevOpenHelper(context, DB_NAME, null);
-            daoMaster = new DaoMaster(devOpenHelper.getWritableDb());
-            daoSession = daoMaster.newSession();
-        }
+
     }
 
-    public static DaoSession getDaoSession() {
-        if (daoSession == null) {
-            throw new IllegalStateException("You must call init() first.");
-        }
-        return daoSession;
-    }
 
 }

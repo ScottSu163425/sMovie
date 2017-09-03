@@ -17,6 +17,7 @@ import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
 import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.module.moviedetail.MovieDetailActivity;
 import com.scottsu.utils.ActivityLauncher;
 
@@ -150,7 +151,7 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
 
     private void launchMovieDetail(MovieSubject entity, View[] sharedElements, String[] transitionNames) {
         Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT,entity);
+        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT, entity);
 
         ActivityLauncher.launchWithSharedElement(getActivity(), intent, sharedElements[0], transitionNames[0]);
     }

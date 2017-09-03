@@ -36,5 +36,10 @@
     <string name="subhead_genres">类型:</string>
     <string name="subhead_casts">主演:</string>
 
+    <string name="favorite_success">收藏成功</string>
+    <string name="favorite_exist">收藏夹中已存在</string>
+
+
+
 
 </resources>

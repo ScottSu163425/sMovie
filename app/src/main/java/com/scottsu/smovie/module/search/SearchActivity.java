@@ -44,11 +44,6 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchCont
 
     @Override
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setSharedElementEnterTransition(getWindow().getSharedElementEnterTransition().excludeTarget(android.R.id.statusBarBackground, true));
-            getWindow().setSharedElementEnterTransition(getWindow().getSharedElementEnterTransition().excludeTarget(android.R.id.navigationBarBackground, true));
-        }
-
         mSearchEditText = (EditText) findViewById(R.id.et_search);
         mSearchButton = findViewById(R.id.fl_search);
         mSearchButton.setOnClickListener(this);

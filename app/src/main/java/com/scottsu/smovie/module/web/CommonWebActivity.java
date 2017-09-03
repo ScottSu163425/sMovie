@@ -44,9 +44,8 @@ public class CommonWebActivity extends BaseActivity {
 
     @Override
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (isLollipop()) {
             getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
-            getWindow().setReturnTransition(new Explode());
         }
 
         mWebView = (WebView) findViewById(R.id.wv);

@@ -13,13 +13,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.ImageLoader;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.module.celebrity.Celebrity;
 import com.scottsu.smovie.module.celebrity.CelebrityListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
@@ -61,6 +63,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     private MovieDetailResponseEntity mMovieDetailResponseEntity;
 
     private LinearLayout mScrollContentParent;
+    private Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private View mHeaderBackground;
     private ImageView mCoverImageView;
@@ -68,10 +71,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             mGenreSubheadTextView, mCastSubheadTextView;
     private TextView mAKATextView, mDirectorTextView, mYearTextView, mRegionTextView, mGenresTextView,
             mCastsTextView;
-    private CardView mSummaryCard;
+    private View mSummaryContentView;
     private TextView mSummaryTextView;
     private View mSummaryArrow;
-    private CardView mCastsCard;
+    private View mCastsContentView;
     private RecyclerView mCastsRecyclerView;
     private CelebrityListAdapter mCastListAdapter;
     private FloatingActionButton mFavoriteFAB;
@@ -92,15 +95,16 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mMovieSubject = (MovieSubject) getIntent().getSerializableExtra(KEY_EXTRA_MOVIE_SUBJECT);
 
         mScrollContentParent = (LinearLayout) findViewById(R.id.ll_content);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         mHeaderBackground = findViewById(R.id.bg_header);
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
         mFavoriteFAB = (FloatingActionButton) findViewById(R.id.fab_favorite);
-        mSummaryCard = (CardView) findViewById(R.id.card_summary);
+        mSummaryContentView = findViewById(R.id.card_summary);
         mSummaryTextView = (TextView) findViewById(R.id.tv_summary);
         mSummaryArrow = findViewById(R.id.iv_arrow_summary);
         mCastsRecyclerView = (RecyclerView) findViewById(R.id.rv_casts);
-        mCastsCard = (CardView) findViewById(R.id.card_casts);
+        mCastsContentView = findViewById(R.id.card_casts);
 
 
         mAKATextView = (TextView) findViewById(R.id.tv_aka);
@@ -117,20 +121,21 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mGenreSubheadTextView = (TextView) findViewById(R.id.anchor_genres);
         mCastSubheadTextView = (TextView) findViewById(R.id.anchor_casts);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(mMovieSubject.getTitle());
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        mFavoriteFAB.setOnClickListener(this);
 
-        mSummaryCard.setOnClickListener(mSummaryCardClickListener);
+        //Setup toolbar.
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(mMovieSubject.getTitle());
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationOnClickListener(this);
 
-        //Set up casts list.
+        mSummaryContentView.setOnClickListener(mSummaryCardClickListener);
+
+        //Setup casts list.
         mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mCastsRecyclerView.setHasFixedSize(true);
+        mCastsRecyclerView.setNestedScrollingEnabled(false);
+
         mCastListAdapter = new CelebrityListAdapter(this);
         mCastListAdapter.setItemCallback(new ListItemCallback<Celebrity>() {
             @Override
@@ -172,7 +177,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (1 == item.getItemId()) {
-                    Toast.makeText(MovieDetailActivity.this, "加入收藏夹", Toast.LENGTH_SHORT).show();
+                    favoriteCelebrity();
                 }
                 return true;
             }
@@ -187,7 +192,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                 return;
             }
 
-            mSummaryCard.setSelected(!mSummaryCard.isSelected());
+            mSummaryContentView.setSelected(!mSummaryContentView.isSelected());
 
             final int duration = 300;
             final int maxLineCollapsed = 3;
@@ -199,7 +204,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
             TransitionManager.beginDelayedTransition(mScrollContentParent, transition);
 
-            if (mSummaryCard.isSelected()) {
+            if (mSummaryContentView.isSelected()) {
                 mSummaryTextView.setMaxLines(Integer.MAX_VALUE);
             } else {
                 mSummaryTextView.setMaxLines(maxLineCollapsed);
@@ -207,7 +212,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
             mSummaryArrow.animate()
                     .setDuration(duration)
-                    .rotation(mSummaryArrow.getRotation() + (mSummaryCard.isSelected() ? 180 : -180))
+                    .rotation(mSummaryArrow.getRotation() + (mSummaryContentView.isSelected() ? 180 : -180))
                     .setInterpolator(interpolator)
                     .start();
         }
@@ -280,7 +285,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     }
 
     @Override
-    public void onRequestSuccess(MovieDetailResponseEntity responseEntity) {
+    public void onRequestDetailSuccess(MovieDetailResponseEntity responseEntity) {
         mMovieDetailResponseEntity = responseEntity;
 
         if (mMovieDetailResponseEntity != null) {
@@ -320,14 +325,14 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             mCastsTextView.setText(castBuilder.toString().isEmpty() ? "-" : castBuilder.toString());
 
             //Show summary card with animation if necessary.
-            if (mSummaryCard.getVisibility() != View.VISIBLE) {
-                scaleIn(mSummaryCard, 400, 200);
+            if (mSummaryContentView.getVisibility() != View.VISIBLE) {
+                scaleIn(mSummaryContentView, 400, 200);
             }
 
             //Show casts card with animation if necessary.
 
-            if (!casts.isEmpty() && mCastsCard.getVisibility() != View.VISIBLE) {
-                scaleIn(mCastsCard, 400, 300);
+            if (!casts.isEmpty() && mCastsContentView.getVisibility() != View.VISIBLE) {
+                scaleIn(mCastsContentView, 400, 300);
             }
 
             //Set up casts list data;
@@ -361,8 +366,38 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     }
 
     @Override
-    public void onRequestFailed(String message) {
+    public void onRequestDetailFailed(String message) {
         showSnackbar("出错了..(" + message + ")");
+    }
+
+    @Override
+    public void onFavoriteMovieSuccess() {
+        showSnackbar(getString(R.string.favorite_success));
+    }
+
+    @Override
+    public void onFavoriteMovieExists() {
+        showSnackbar(getString(R.string.favorite_exist));
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+
+        if (v == mToolbar) {
+            onBackPressed();
+        } else if (v == mFavoriteFAB) {
+            favoriteMovie();
+        }
+    }
+
+    private void favoriteMovie() {
+        getPresenter().favoriteMovie(mMovieSubject);
+    }
+
+    private void favoriteCelebrity() {
+//        getPresenter().favoriteCelebrity( );
+        Toast.makeText(MovieDetailActivity.this, "加入收藏夹", Toast.LENGTH_SHORT).show();
     }
 
     @Override
