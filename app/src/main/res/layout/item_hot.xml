@@ -24,14 +24,14 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:transitionName="@string/transition_name_cover"
-            app:layout_aspectRatio="178%"
-            app:layout_widthPercent="100%"
+            app:layout_aspectRatio="66%"
+            app:layout_widthPercent="40%"
             tools:background="#eaeaea"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_cover">
+            android:layout_toRightOf="@+id/iv_cover">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -72,7 +72,6 @@
                 android:textStyle="bold"
                 tools:text="9.6"/>
         </RelativeLayout>
-
 
         <com.haozhang.lib.SlantedTextView
             android:id="@+id/slanted_view_hot"
