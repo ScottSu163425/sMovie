@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -15,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,6 +108,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        if (isLollipop()) {
+            getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
+        }
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.navigation);
 
@@ -195,13 +202,19 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
         if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
             closeDrawer();
             return;
         }
 
+        Snackbar.make(getContentView(), R.string.exit_app_confirm, Snackbar.LENGTH_LONG)
+                .setAction(R.string.confirm, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                })
+                .show();
     }
 
     private void showContentFragment(Fragment content) {
@@ -253,7 +266,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         CircularRevealUtil.startActivity(MainActivity.this, intent, null, starter,
                 ContextCompat.getColor(MainActivity.this, R.color.colorAccent)
-                , true, 600, 800, null, null);
+                , true, 600, 700, null, null);
     }
 
 

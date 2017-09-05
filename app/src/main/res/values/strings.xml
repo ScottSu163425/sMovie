@@ -5,6 +5,10 @@
     <string name="drawer_close">close</string>
     <string name="bad_connection">请检查网络</string>
 
+    <!--Main-->
+    <string name="exit_app_confirm">退出应用?</string>
+
+
     <!--Drawer navigation-->
     <string name="action_hot">热映</string>
     <string name="action_coming_soon">即将上映</string>
@@ -38,8 +42,6 @@
 
     <string name="favorite_success">收藏成功</string>
     <string name="favorite_exist">收藏夹中已存在</string>
-
-
 
 
 </resources>

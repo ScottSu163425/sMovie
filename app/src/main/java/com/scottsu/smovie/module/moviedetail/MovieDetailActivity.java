@@ -326,13 +326,13 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
             //Show summary card with animation if necessary.
             if (mSummaryContentView.getVisibility() != View.VISIBLE) {
-                scaleIn(mSummaryContentView, 400, 200);
+                scaleIn(mSummaryContentView, 300, 200);
             }
 
             //Show casts card with animation if necessary.
 
             if (!casts.isEmpty() && mCastsContentView.getVisibility() != View.VISIBLE) {
-                scaleIn(mCastsContentView, 400, 300);
+                scaleIn(mCastsContentView, 300, 300);
             }
 
             //Set up casts list data;
@@ -342,7 +342,9 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
                 for (int i = 0, n = casts.size(); i < n; i++) {
                     MovieDetailResponseEntity.CastsBean cast = casts.get(i);
-                    list.add(new Celebrity(cast.getId(), cast.getName(), cast.getAvatars().getMedium(), cast.getAlt()));
+                    String avatar = cast.getAvatars() == null ? "" : cast.getAvatars().getMedium();
+
+                    list.add(new Celebrity(cast.getId(), cast.getName(), avatar, cast.getAlt()));
                 }
                 mCastListAdapter.setData(list);
             }
