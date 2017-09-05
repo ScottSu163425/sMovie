@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.comingsoon;
+package com.scottsu.smovie.module.favorites.movie;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,26 +11,26 @@ import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.module.hot.HotItemViewHolder;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.List;
 
 /**
  * project: sMovie
- * package: com.scottsu.smovie.module.comingsoon
+ * package: com.scottsu.smovie.module.favorites.movie
  * description:
  * author: Su
- * date: 2017/9/1 9:24
+ * date: 2017/9/5 20:58
  */
 
-public class ComingSoonListAdapter extends SListAdapter<MovieSubject>
+public class FavoriteMovieListAdapter extends SListAdapter<MovieSubject>
         implements FastScrollRecyclerView.SectionedAdapter {
-    public ComingSoonListAdapter(Context context) {
+
+    public FavoriteMovieListAdapter(Context context) {
         super(context);
     }
 
-    public ComingSoonListAdapter(Context context, List<MovieSubject> dataList) {
+    public FavoriteMovieListAdapter(Context context, List<MovieSubject> dataList) {
         super(context, dataList);
     }
 
@@ -41,14 +41,14 @@ public class ComingSoonListAdapter extends SListAdapter<MovieSubject>
 
     @Override
     protected SListViewHolder<MovieSubject> onCreateVH(ViewGroup parent, int viewType) {
-        return new ComingSoonItemViewHolder(parent, R.layout.item_coming_soon);
+        return new FavoriteMovieItemViewHolder(parent, R.layout.item_hot);
     }
 
     @Override
-    protected void onBindVH(SListViewHolder<MovieSubject> holder, final MovieSubject entity, final int position) {
+    protected void onBindVH(final SListViewHolder<MovieSubject> holder, final MovieSubject entity, final int position) {
         holder.bindData(getContext(), entity, position);
 
-        final ComingSoonItemViewHolder viewHolder = (ComingSoonItemViewHolder) holder;
+        final FavoriteMovieItemViewHolder viewHolder = (FavoriteMovieItemViewHolder) holder;
         final ImageView sharedElement = viewHolder.getCoverImageView();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,6 @@ public class ComingSoonListAdapter extends SListAdapter<MovieSubject>
             }
         });
     }
-
 
     @NonNull
     @Override

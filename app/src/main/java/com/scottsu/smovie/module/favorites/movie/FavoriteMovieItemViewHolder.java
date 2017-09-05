@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.comingsoon;
+package com.scottsu.smovie.module.favorites.movie;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -14,24 +14,23 @@ import com.scottsu.smovie.data.enity.MovieSubject;
 
 /**
  * project: sMovie
- * package: com.scottsu.smovie.module.comingsoon
+ * package: com.scottsu.smovie.module.favorites.movie
  * description:
  * author: Su
- * date: 2017/9/1 9:23
+ * date: 2017/9/5 20:57
  */
 
-public class ComingSoonItemViewHolder extends SListViewHolder<MovieSubject> {
+public class FavoriteMovieItemViewHolder extends SListViewHolder<MovieSubject> {
     private ImageView mCoverImageView;
     private TextView mTitleTextView, mYearTextView, mRatingTextView;
 
-
-    public ComingSoonItemViewHolder(View itemView) {
+    public FavoriteMovieItemViewHolder(View itemView) {
         super(itemView);
 
         init();
     }
 
-    public ComingSoonItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
+    public FavoriteMovieItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
         init();
@@ -56,5 +55,17 @@ public class ComingSoonItemViewHolder extends SListViewHolder<MovieSubject> {
 
     public ImageView getCoverImageView() {
         return mCoverImageView;
+    }
+
+    public TextView getTitleTextView() {
+        return mTitleTextView;
+    }
+
+    public TextView getYearTextView() {
+        return mYearTextView;
+    }
+
+    public TextView getRatingTextView() {
+        return mRatingTextView;
     }
 }

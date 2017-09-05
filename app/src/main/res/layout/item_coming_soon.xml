@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/padding_xs"
-    android:layout_marginLeft="@dimen/padding_s"
-    android:layout_marginRight="@dimen/padding_s"
-    android:layout_marginTop="@dimen/padding_s"
+    android:layout_margin="@dimen/padding_xs"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@drawable/selector_card_elevation"
     app:cardPreventCornerOverlap="false"
@@ -22,7 +19,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:layout_aspectRatio="178%"
+            android:transitionName="@string/transition_name_cover"
+            app:layout_aspectRatio="86%"
             app:layout_widthPercent="100%"
             tools:background="#eaeaea" />
 
@@ -36,12 +34,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingRight="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_s"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/padding_xs"
+                android:paddingRight="@dimen/padding_xs"
+                android:paddingTop="@dimen/padding_xs"
                 android:textColor="@color/textPrimary"
-                android:textSize="@dimen/text_size_headline"
+                android:textSize="@dimen/text_size_subhead"
                 tools:text="Titanic" />
 
             <TextView
@@ -49,24 +47,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:paddingBottom="@dimen/padding_s"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_xxs"
+                android:layout_marginBottom="@dimen/padding_xs"
+                android:paddingLeft="@dimen/padding_xs"
                 android:textColor="@color/textSecondary"
-                android:textSize="@dimen/text_size_subhead"
+                android:textSize="@dimen/text_size_caption"
                 tools:text="1997" />
 
             <TextView
                 android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_year"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:paddingRight="@dimen/padding_s"
+                android:paddingRight="@dimen/padding_xs"
                 android:textColor="@color/md_red_400"
-                android:textSize="@dimen/text_size_headline"
+                android:textSize="@dimen/text_size_subhead"
                 android:textStyle="bold"
                 tools:text="9.6" />
         </RelativeLayout>

@@ -110,19 +110,22 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         });
 
         //setup SwipeRefreshLayout.
-        mSwipeRefreshLayout.setColorSchemeColors(loadingColor);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        mSwipeRefreshLayout.setEnabled(enableSwipeRefresh());
+        if (enableSwipeRefresh()) {
+            mSwipeRefreshLayout.setColorSchemeColors(loadingColor);
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
 //                if (isLoadingFooter())
 //                {
 //                    return;
 //                }
 
-                mPagingRequestManager.turnToFirstPage();
-                BaseListFragment.this.onRefresh();
-            }
-        });
+                    mPagingRequestManager.turnToFirstPage();
+                    BaseListFragment.this.onRefresh();
+                }
+            });
+        }
 
         //setup RecyclerView.
         RecyclerView.LayoutManager layoutManager = provideListLayoutManager();
@@ -133,14 +136,18 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
             mRecyclerView.addItemDecoration(itemDecoration);
         }
 
-        if(listPadding>0){
-            mRecyclerView.setPadding(listPadding,listPadding,listPadding,listPadding);
+        if (listPadding > 0) {
+            mRecyclerView.setPadding(listPadding, listPadding, listPadding, listPadding);
         }
 
         mRecyclerView.setLayoutManager(layoutManager == null ? generateDefaultLayoutManager() : layoutManager);
         mRecyclerView.addOnScrollListener(new LoadMoreListener() {
             @Override
             public void onLoadMore() {
+                if (!enableLoadMore()) {
+                    return;
+                }
+
                 if (isRefreshing()) {
                     return;
                 }
@@ -274,6 +281,14 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
         } else {
             mRecyclerView.scrollToPosition(0);
         }
+    }
+
+    protected boolean enableSwipeRefresh() {
+        return true;
+    }
+
+    protected boolean enableLoadMore() {
+        return true;
     }
 
     protected

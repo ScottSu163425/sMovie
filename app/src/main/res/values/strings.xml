@@ -3,11 +3,13 @@
     <string name="app_name">SMovie</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
+    <string name="transition_name_cover">cover</string>
+
+
     <string name="bad_connection">请检查网络</string>
 
     <!--Main-->
     <string name="exit_app_confirm">退出应用?</string>
-
 
     <!--Drawer navigation-->
     <string name="action_hot">热映</string>

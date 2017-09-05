@@ -35,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View, HotContract.Presenter>
         implements HotContract.View {
 
-    private static final int MIN_SMOOTH_SCROLL_ITEM = 50;
+    private static final int MIN_SMOOTH_SCROLL_ITEM = 30;
     private HotListAdapter mListAdapter;
 
 
@@ -54,6 +54,7 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
                     launchMovieDetail(entity, sharedElements, transitionNames);
+                    new FavoriteMovieRepository().save(entity);
                 }
 
                 @Override
@@ -67,12 +68,7 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
     @Nullable
     @Override
     protected RecyclerView.LayoutManager provideListLayoutManager() {
-        return new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-    }
-
-    @Override
-    protected int getListPadding() {
-        return getResources().getDimensionPixelSize(R.dimen.padding_xs);
+        return null;
     }
 
     @Override

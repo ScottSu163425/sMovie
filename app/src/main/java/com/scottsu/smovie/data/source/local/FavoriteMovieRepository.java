@@ -24,6 +24,11 @@ public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubje
             return false;
         }
 
+        MovieSubjectDbHelper.getsInstance()
+                .getsDaoSession()
+                .getMovieSubjectInDbDao()
+                .save(convertToDb(entity));
+
         return true;
     }
 
@@ -69,7 +74,27 @@ public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubje
     public List<MovieSubject> queryAll() {
         List<MovieSubject> all = new ArrayList<>();
 
+        List<MovieSubjectInDb> dbList = MovieSubjectDbHelper.getsInstance()
+                .getsDaoSession()
+                .getMovieSubjectInDbDao()
+                .loadAll();
+
+        for (int i = 0, n = dbList.size(); i < n; i++) {
+            all.add(convert(dbList.get(i)));
+        }
+
         return all;
+    }
+
+    private MovieSubject convert(MovieSubjectInDb subjectInDb) {
+        return sGson.fromJson(subjectInDb.getJson(), MovieSubject.class);
+    }
+
+    private MovieSubjectInDb convertToDb(MovieSubject subject) {
+        MovieSubjectInDb db = new MovieSubjectInDb();
+//        db.setId(Long.valueOf(subject.getId()));
+        db.setJson(sGson.toJson(subject));
+        return db;
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -39,23 +40,25 @@ public class ImageLoader {
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(placeHolder)
-                .skipMemoryCache(false)
                 .error(errorHolder);
 
-        Glide.with(context)
+        RequestBuilder<Drawable> requestBuilder = Glide.with(context)
                 .load(url)
                 .apply(options)
-                .transition(new DrawableTransitionOptions().crossFade())
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        target.setImageDrawable(resource);
+                .transition(new DrawableTransitionOptions().crossFade());
 
-                        if (callback != null) {
-                            callback.onResourceReady(resource);
-                        }
-                    }
-                });
+        if (callback != null) {
+            requestBuilder.into(new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                    target.setImageDrawable(resource);
+
+                    callback.onResourceReady(resource);
+                }
+            });
+        } else {
+            requestBuilder.into(target);
+        }
     }
 
 

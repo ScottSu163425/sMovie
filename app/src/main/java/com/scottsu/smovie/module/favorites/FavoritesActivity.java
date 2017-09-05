@@ -10,6 +10,7 @@ import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
+import com.scottsu.smovie.module.favorites.movie.FavoriteMovieFragment;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ import java.util.List;
 public class FavoritesActivity extends BaseActivity<FavoritesContract.View, FavoritesContract.Presenter>
         implements FavoritesContract.View {
     public static final String KEY_EXTRA_NEED_TRANSITION = "KEY_EXTRA_NEED_TRANSITION";
+
+    private FavoriteMovieFragment mFavoriteMovieFragment;
+
 
     @Override
     protected boolean subscribeEvents() {
@@ -50,11 +54,11 @@ public class FavoritesActivity extends BaseActivity<FavoritesContract.View, Favo
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
 
-        FavoriteMovieRepository repository = new FavoriteMovieRepository();
+        mFavoriteMovieFragment = FavoriteMovieFragment.newInstance();
 
-
-        List<MovieSubject> movieSubjects = repository.queryAll();
-        Toast.makeText(this, movieSubjects.size() + "", Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fl_container,mFavoriteMovieFragment)
+                .commit();
     }
 
     @Override
