@@ -2,19 +2,15 @@ package com.scottsu.smovie.module.common;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.haozhang.lib.SlantedTextView;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.common.ImageLoader;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.utils.ViewUtil;
 
 import java.util.List;
 
@@ -28,7 +24,6 @@ import java.util.List;
 public class CommonMovieSubjectItemViewHolder extends SListViewHolder<MovieSubject> {
     private ImageView mCoverImageView;
     private TextView mTitleTextView, mGenresTextView, mYearTextView, mRatingTextView;
-    private RatingBar mRatingBar;
 
 
     public CommonMovieSubjectItemViewHolder(View itemView) {
@@ -49,7 +44,6 @@ public class CommonMovieSubjectItemViewHolder extends SListViewHolder<MovieSubje
         mGenresTextView = (TextView) findViewById(R.id.tv_genres);
         mYearTextView = (TextView) findViewById(R.id.tv_year);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating);
-        mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
     }
 
 
@@ -61,8 +55,6 @@ public class CommonMovieSubjectItemViewHolder extends SListViewHolder<MovieSubje
         mTitleTextView.setText(entity.getTitle());
         mYearTextView.setText(entity.getYear());
         mRatingTextView.setText(String.valueOf(rating));
-
-        mRatingBar.setProgress((int) entity.getRating().getAverage());
 
         //Show genres text.
         StringBuilder genresBuilder = new StringBuilder();
