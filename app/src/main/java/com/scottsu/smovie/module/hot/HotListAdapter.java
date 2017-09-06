@@ -48,8 +48,8 @@ public class HotListAdapter extends SListAdapter<MovieSubject>
     protected void onBindVH(final SListViewHolder<MovieSubject> holder, final MovieSubject entity, final int position) {
         holder.bindData(getContext(), entity, position);
 
-        final HotItemViewHolder hotItemViewHolder = (HotItemViewHolder) holder;
-        final ImageView sharedElement = hotItemViewHolder.getCoverImageView();
+        final HotItemViewHolder viewHolder = (HotItemViewHolder) holder;
+        final ImageView sharedElement = viewHolder.getCoverImageView();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.top250;
+package com.scottsu.smovie.module.common;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -25,20 +25,19 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/28 8:48
  **/
-public class Top250ItemViewHolder extends SListViewHolder<MovieSubject> {
+public class CommonMovieSubjectItemViewHolder extends SListViewHolder<MovieSubject> {
     private ImageView mCoverImageView;
-    private TextView mTitleTextView, mGenresTextView,mYearTextView, mRatingTextView;
+    private TextView mTitleTextView, mGenresTextView, mYearTextView, mRatingTextView;
     private RatingBar mRatingBar;
-    private SlantedTextView mRankingSlantedTextView;
 
 
-    public Top250ItemViewHolder(View itemView) {
+    public CommonMovieSubjectItemViewHolder(View itemView) {
         super(itemView);
 
         init();
     }
 
-    public Top250ItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
+    public CommonMovieSubjectItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
         init();
@@ -51,7 +50,6 @@ public class Top250ItemViewHolder extends SListViewHolder<MovieSubject> {
         mYearTextView = (TextView) findViewById(R.id.tv_year);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating);
         mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
-        mRankingSlantedTextView = (SlantedTextView) findViewById(R.id.slanted_view_ranking);
     }
 
 
@@ -79,25 +77,6 @@ public class Top250ItemViewHolder extends SListViewHolder<MovieSubject> {
             }
         }
         mGenresTextView.setText(genresBuilder.toString().isEmpty() ? "-" : genresBuilder.toString());
-
-        if (3 > position) {
-            //Top 3.
-            ViewUtil.setViewVisible(mRankingSlantedTextView);
-
-            if (0 == position) {
-                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context, R.color.ranking_1st));
-                mRankingSlantedTextView.setText(context.getString(R.string.tag_ranking_1st));
-            } else if (1 == position) {
-                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context, R.color.ranking_2nd));
-                mRankingSlantedTextView.setText(context.getString(R.string.tag_ranking_2nd));
-            } else if (2 == position) {
-                mRankingSlantedTextView.setSlantedBackgroundColor(ContextCompat.getColor(context, R.color.ranking_3rd));
-                mRankingSlantedTextView.setText(context.getString(R.string.tag_ranking_3rd));
-            }
-        } else {
-            ViewUtil.setViewGone(mRankingSlantedTextView);
-        }
-
 
     }
 

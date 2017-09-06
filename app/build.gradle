@@ -60,4 +60,5 @@ dependencies {
     compile 'com.jaeger.statusbarutil:library:1.4.0'
     compile 'com.haozhang.libary:android-slanted-textview:1.2'
     compile 'com.simplecityapps:recyclerview-fastscroll:1.0.16'
+
 }

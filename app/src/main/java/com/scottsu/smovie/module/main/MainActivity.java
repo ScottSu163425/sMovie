@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -21,15 +20,12 @@ import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
-import com.scottsu.smovie.common.events.ScrollToTopEvent;
-import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.module.comingsoon.ComingSoonFragment;
 import com.scottsu.smovie.module.favorites.FavoritesActivity;
 import com.scottsu.smovie.module.hot.HotFragment;
@@ -266,7 +262,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         CircularRevealUtil.startActivity(MainActivity.this, intent, null, starter,
                 ContextCompat.getColor(MainActivity.this, R.color.colorAccent)
-                , true, 600, 700, null, null);
+                , true, 700, 800, null, null);
     }
 
 

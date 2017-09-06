@@ -51,7 +51,7 @@ public class ComingSoonItemViewHolder extends SListViewHolder<MovieSubject> {
         ImageLoader.load(context, entity.getImages().getLarge(), mCoverImageView);
         mTitleTextView.setText(entity.getTitle());
         mYearTextView.setText(entity.getYear());
-        mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : context.getString(R.string.no_rating));
+        mRatingTextView.setText(String.valueOf(rating));
     }
 
     public ImageView getCoverImageView() {

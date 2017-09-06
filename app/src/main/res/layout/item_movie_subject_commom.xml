@@ -26,20 +26,6 @@
             app:layout_widthPercent="29%"
             tools:background="#eaeaea"/>
 
-        <com.haozhang.lib.SlantedTextView
-            android:id="@+id/slanted_view_ranking"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:visibility="gone"
-            app:slantedBackgroundColor="@color/colorAccent"
-            app:slantedLength="45dp"
-            app:slantedMode="right"
-            app:slantedTextColor="@color/white"
-            app:slantedTextSize="@dimen/text_size_body"
-            tools:visibility="visible"/>
-
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.scottsu.smovie.module.favorites.movie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,8 +10,11 @@ import android.widget.Toast;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
+import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseListFragment;
 import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.module.moviedetail.MovieDetailActivity;
+import com.scottsu.utils.ActivityLauncher;
 
 /**
  * project: sMovie
@@ -44,7 +48,7 @@ public class FavoriteMovieFragment
             mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
-                    Toast.makeText(getContext(), entity.getTitle(), Toast.LENGTH_SHORT).show();
+                    launchMovieDetail(entity, sharedElements, transitionNames);
                 }
 
                 @Override
@@ -60,6 +64,11 @@ public class FavoriteMovieFragment
     @Override
     protected RecyclerView.LayoutManager provideListLayoutManager() {
         return null;
+    }
+
+    @Override
+    protected int getListPadding() {
+        return getResources().getDimensionPixelSize(R.dimen.padding_s);
     }
 
     @Override
@@ -104,5 +113,11 @@ public class FavoriteMovieFragment
         return false;
     }
 
+    private void launchMovieDetail(MovieSubject entity, View[] sharedElements, String[] transitionNames) {
+        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT, entity);
+
+        ActivityLauncher.launchWithSharedElement(getActivity(), intent, sharedElements[0], transitionNames[0]);
+    }
 
 }

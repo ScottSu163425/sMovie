@@ -1,5 +1,6 @@
 package com.scottsu.smovie.module.search;
 
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,12 +10,15 @@ import android.widget.Toast;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
+import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseListFragment;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
 import com.scottsu.smovie.common.events.ScrollToTopEvent;
 import com.scottsu.smovie.common.events.SearchEvent;
 import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.module.moviedetail.MovieDetailActivity;
+import com.scottsu.utils.ActivityLauncher;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,7 +34,6 @@ import org.greenrobot.eventbus.Subscribe;
 public class SearchListFragment extends BaseListFragment<MovieSubject, SearchListContract.View, SearchListContract.Presenter>
         implements SearchListContract.View {
 
-    private static final int MIN_SMOOTH_SCROLL_ITEM = 25;
     private SearchListAdapter mListAdapter;
     private String mKeyword = "";
 
@@ -49,7 +52,7 @@ public class SearchListFragment extends BaseListFragment<MovieSubject, SearchLis
             mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
-                    Toast.makeText(getContext(), "onListItemClick " + entity.getTitle(), Toast.LENGTH_SHORT).show();
+                    launchMovieDetail(entity, sharedElements, transitionNames);
                 }
 
                 @Override
@@ -65,6 +68,11 @@ public class SearchListFragment extends BaseListFragment<MovieSubject, SearchLis
     @Override
     protected RecyclerView.LayoutManager provideListLayoutManager() {
         return null;
+    }
+
+    @Override
+    protected int getListPadding() {
+        return getResources().getDimensionPixelSize(R.dimen.padding_s);
     }
 
     @Override
@@ -118,15 +126,6 @@ public class SearchListFragment extends BaseListFragment<MovieSubject, SearchLis
         return true;
     }
 
-    @Subscribe
-    public void onScrollToTop(ScrollToTopEvent event) {
-        if (isHidden()) {
-            return;
-        }
-
-        scrollToTop(getLastVisibleItemPosition() < MIN_SMOOTH_SCROLL_ITEM);
-    }
-
     @Override
     public String getSearchKeyword() {
         return mKeyword;
@@ -155,6 +154,12 @@ public class SearchListFragment extends BaseListFragment<MovieSubject, SearchLis
         requestListData(false, false);
     }
 
+    private void launchMovieDetail(MovieSubject entity, View[] sharedElements, String[] transitionNames) {
+        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT, entity);
+
+        ActivityLauncher.launchWithSharedElement(getActivity(), intent, sharedElements[0], transitionNames[0]);
+    }
 
 }
 

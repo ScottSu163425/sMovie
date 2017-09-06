@@ -35,7 +35,6 @@ import org.greenrobot.eventbus.Subscribe;
 public class ComingSoonFragment extends BaseListFragment<MovieSubject, ComingSoonContract.View, ComingSoonContract.Presenter>
         implements ComingSoonContract.View {
 
-    private static final int MIN_SMOOTH_SCROLL_ITEM = 40;
     private ComingSoonListAdapter mListAdapter;
 
 
@@ -54,7 +53,8 @@ public class ComingSoonFragment extends BaseListFragment<MovieSubject, ComingSoo
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
                     launchMovieDetail(entity, sharedElements, transitionNames);
-                    new FavoriteMovieRepository().save(entity);                }
+                    new FavoriteMovieRepository().save(entity);
+                }
 
                 @Override
                 public void onListItemLongClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
@@ -130,16 +130,7 @@ public class ComingSoonFragment extends BaseListFragment<MovieSubject, ComingSoo
 
     @Override
     protected boolean subscribeEvents() {
-        return true;
-    }
-
-    @Subscribe
-    public void onScrollToTop(ScrollToTopEvent event) {
-        if (isHidden()) {
-            return;
-        }
-
-        scrollToTop(getLastVisibleItemPosition() < MIN_SMOOTH_SCROLL_ITEM);
+        return false;
     }
 
     private void requestListData(boolean showLoading, boolean loadMore) {

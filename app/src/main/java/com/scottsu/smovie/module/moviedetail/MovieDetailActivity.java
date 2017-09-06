@@ -127,7 +127,12 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(mMovieSubject.getTitle());
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(this);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         mSummaryContentView.setOnClickListener(mSummaryCardClickListener);
 
@@ -386,9 +391,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     public void onClick(View v) {
         super.onClick(v);
 
-        if (v == mToolbar) {
-            onBackPressed();
-        } else if (v == mFavoriteFAB) {
+        if (v == mFavoriteFAB) {
             favoriteMovie();
         }
     }

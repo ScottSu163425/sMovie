@@ -5,12 +5,15 @@ import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.common.ImageLoader;
 import com.scottsu.smovie.data.enity.MovieSubject;
+
+import java.util.List;
 
 /**
  * project: sMovie
@@ -22,8 +25,8 @@ import com.scottsu.smovie.data.enity.MovieSubject;
 
 public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
     private ImageView mCoverImageView;
-    private TextView mTitleTextView, mYearTextView, mRatingTextView;
-
+    private TextView mTitleTextView, mGenresTextView, mYearTextView, mRatingTextView;
+    private RatingBar mRatingBar;
 
     public HotItemViewHolder(View itemView) {
         super(itemView);
@@ -37,11 +40,13 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
         init();
     }
 
-    private void init(){
+    private void init() {
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
         mTitleTextView = (TextView) findViewById(R.id.tv_title);
+        mGenresTextView = (TextView) findViewById(R.id.tv_genres);
         mYearTextView = (TextView) findViewById(R.id.tv_year);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating);
+        mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
     }
 
     @Override
@@ -51,7 +56,23 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
         ImageLoader.load(context, entity.getImages().getLarge(), mCoverImageView);
         mTitleTextView.setText(entity.getTitle());
         mYearTextView.setText(entity.getYear());
-        mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : context.getString(R.string.no_rating));
+        mRatingTextView.setText(String.valueOf(rating));
+
+        mRatingBar.setProgress((int) entity.getRating().getAverage());
+
+        //Show genres text.
+        StringBuilder genresBuilder = new StringBuilder();
+        List<String> genres = entity.getGenres();
+
+        for (int i = 0, n = genres.size(); i < n; i++) {
+            if (0 == i) {
+                genresBuilder.append(genres.get(0));
+            } else {
+                genresBuilder.append("/");
+                genresBuilder.append(genres.get(i));
+            }
+        }
+        mGenresTextView.setText(genresBuilder.toString().isEmpty() ? "-" : genresBuilder.toString());
     }
 
     public ImageView getCoverImageView() {
@@ -60,10 +81,6 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
 
     public TextView getTitleTextView() {
         return mTitleTextView;
-    }
-
-    public TextView getYearTextView() {
-        return mYearTextView;
     }
 
     public TextView getRatingTextView() {

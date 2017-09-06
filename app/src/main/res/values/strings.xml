@@ -45,5 +45,7 @@
     <string name="favorite_success">收藏成功</string>
     <string name="favorite_exist">收藏夹中已存在</string>
 
+    <string name="hot">Hot</string>
+
 
 </resources>

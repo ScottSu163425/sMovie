@@ -235,10 +235,8 @@
                 android:id="@+id/card_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_s"
-                android:layout_marginRight="@dimen/padding_s"
-                android:layout_marginTop="@dimen/padding_l"
                 android:clickable="true"
+                android:layout_margin="@dimen/padding_s"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:stateListAnimator="@drawable/selector_card_elevation"
                 android:visibility="gone"
@@ -285,13 +283,12 @@
 
             </android.support.v7.widget.CardView>
 
-            <FrameLayout
+            <android.support.v7.widget.CardView
                 android:id="@+id/card_casts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_s"
                 android:layout_marginRight="@dimen/padding_s"
-                android:layout_marginTop="@dimen/padding_s"
                 android:visibility="gone"
                 tools:visibility="visible">
 
@@ -313,10 +310,11 @@
                         android:id="@+id/rv_casts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_xs"/>
+                        android:layout_margin="@dimen/padding_xs"
+                        />
                 </LinearLayout>
 
-            </FrameLayout>
+            </android.support.v7.widget.CardView>
 
             <android.support.v4.widget.Space
                 android:layout_width="wrap_content"
@@ -329,11 +327,10 @@
         android:id="@+id/fab_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/padding_s"
         android:src="@drawable/ic_favorite_white_24dp"
         app:elevation="@dimen/padding_xs"
         app:fabSize="normal"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="@dimen/padding_s"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
@@ -15,13 +14,11 @@ import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseListFragment;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
-import com.scottsu.smovie.common.events.ScrollToTopEvent;
 import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.module.moviedetail.MovieDetailActivity;
 import com.scottsu.utils.ActivityLauncher;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * package: com.scottsu.smovie.module.top250
@@ -33,7 +30,6 @@ import org.greenrobot.eventbus.Subscribe;
 public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contract.View, Top250Contract.Presenter>
         implements Top250Contract.View {
 
-    private static final int MIN_SMOOTH_SCROLL_ITEM = 45;
     private Top250ListAdapter mListAdapter;
 
 
@@ -70,7 +66,7 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
 
     @Override
     protected int getListPadding() {
-        return getResources().getDimensionPixelSize(R.dimen.padding_xs);
+        return getResources().getDimensionPixelSize(R.dimen.padding_s);
     }
 
     @Override
@@ -128,16 +124,7 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
 
     @Override
     protected boolean subscribeEvents() {
-        return true;
-    }
-
-    @Subscribe
-    public void onScrollToTop(ScrollToTopEvent event) {
-        if (isHidden()) {
-            return;
-        }
-
-        scrollToTop(getLastVisibleItemPosition() < MIN_SMOOTH_SCROLL_ITEM);
+        return false;
     }
 
     private void requestListData(boolean showLoading, boolean loadMore) {
@@ -149,7 +136,7 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
 
     private void launchMovieDetail(MovieSubject entity, View[] sharedElements, String[] transitionNames) {
         Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT,entity);
+        intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT, entity);
 
         ActivityLauncher.launchWithSharedElement(getActivity(), intent, sharedElements[0], transitionNames[0]);
     }
