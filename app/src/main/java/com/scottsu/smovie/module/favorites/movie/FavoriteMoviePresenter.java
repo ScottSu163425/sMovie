@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -50,10 +51,25 @@ public class FavoriteMoviePresenter extends BaseMvpPresenter<FavoriteMovieContra
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<MovieSubject>>() {
+                .subscribe(new Observer<List<MovieSubject>>() {
                     @Override
-                    public void accept(List<MovieSubject> movieSubjects) throws Exception {
-                        getView().showListData(movieSubjects,false,false);
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<MovieSubject> value) {
+                        getView().showListData(value, false, false);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().showError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

@@ -257,11 +257,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
         intent.putExtra(FavoritesActivity.KEY_EXTRA_NEED_TRANSITION, true);
 
-        startActivity(intent);
+        ActivityLauncher.launchWithTransition(MainActivity.this, intent);
     }
 
     private void launchFavoriteWithReveal(@NonNull View starter) {
         Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
+        intent.putExtra(FavoritesActivity.KEY_EXTRA_NEED_TRANSITION, false);
 
         CircularRevealUtil.startActivity(MainActivity.this, intent, null, starter,
                 ContextCompat.getColor(MainActivity.this, R.color.colorAccent)

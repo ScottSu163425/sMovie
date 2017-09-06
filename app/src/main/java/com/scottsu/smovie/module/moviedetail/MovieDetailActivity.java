@@ -13,20 +13,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
@@ -35,7 +32,6 @@ import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.ImageLoader;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.module.celebrity.Celebrity;
 import com.scottsu.smovie.module.celebrity.CelebrityListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
@@ -156,7 +152,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mCastListAdapter.setCallback(new CelebrityListAdapter.Callback() {
             @Override
             public void onMoreClick(View view, Celebrity entity, int position) {
-                popCastMenu(view);
+                popCastMenu(view, entity);
             }
         });
         mCastsRecyclerView.setAdapter(mCastListAdapter);
@@ -173,7 +169,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         ActivityLauncher.launchWithTransition(MovieDetailActivity.this, intent);
     }
 
-    private void popCastMenu(View anchor) {
+    private void popCastMenu(View anchor, final Celebrity entity) {
         PopupMenu popupMenu = new PopupMenu(MovieDetailActivity.this, anchor);
 
         Menu menu = popupMenu.getMenu();
@@ -182,7 +178,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (1 == item.getItemId()) {
-                    favoriteCelebrity();
+                    favoriteCelebrity(entity);
                 }
                 return true;
             }
@@ -400,9 +396,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         getPresenter().favoriteMovie(mMovieSubject);
     }
 
-    private void favoriteCelebrity() {
-//        getPresenter().favoriteCelebrity( );
-        Toast.makeText(MovieDetailActivity.this, "加入收藏夹", Toast.LENGTH_SHORT).show();
+    private void favoriteCelebrity(Celebrity entity) {
+        getPresenter().favoriteCelebrity(entity);
     }
 
     @Override

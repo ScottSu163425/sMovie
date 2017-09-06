@@ -3,6 +3,7 @@ package com.scottsu.smovie.module.moviedetail;
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 import com.scottsu.smovie.data.enity.MovieSubject;
+import com.scottsu.smovie.data.source.local.FavoriteCelebrityRepository;
 import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.data.source.remote.Api;
 import com.scottsu.smovie.module.celebrity.Celebrity;
@@ -21,10 +22,12 @@ import io.reactivex.disposables.Disposable;
 public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.View>
         implements MovieDetailContract.Presenter {
     private FavoriteMovieRepository mFavoriteMovieRepository;
+    private FavoriteCelebrityRepository mFavoriteCelebrityRepository;
 
     @Override
     public void onViewSubscribed() {
         mFavoriteMovieRepository = new FavoriteMovieRepository();
+        mFavoriteCelebrityRepository = new FavoriteCelebrityRepository();
     }
 
     @Override
@@ -73,7 +76,11 @@ public class MovieDetailPresenter extends BaseMvpPresenter<MovieDetailContract.V
 
     @Override
     public void favoriteCelebrity(Celebrity celebrity) {
-
+        if (mFavoriteCelebrityRepository.save(celebrity)) {
+            getView().onFavoriteMovieSuccess();
+        } else {
+            getView().onFavoriteMovieExists();
+        }
     }
 
 }

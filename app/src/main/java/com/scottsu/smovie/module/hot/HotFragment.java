@@ -57,6 +57,7 @@ public class HotFragment extends BaseListFragment<MovieSubject, HotContract.View
 
                 @Override
                 public void onListItemLongClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+
                 }
             });
         }

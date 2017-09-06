@@ -24,35 +24,57 @@ public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubje
             return false;
         }
 
-        MovieSubjectDbHelper.getsInstance()
+        DbHelper.getsInstance()
                 .getsDaoSession()
                 .getMovieSubjectInDbDao()
-                .save(convertToDb(entity));
+                .insert(convertToDb(entity));
 
         return true;
     }
 
     @Override
     public boolean save(List<MovieSubject> entities) {
+        for (int i = 0, n = entities.size(); i < n; i++) {
+            save(entities.get(i));
+        }
         return true;
     }
 
     @Override
     public boolean remove(MovieSubject entity) {
         if (isExist(entity)) {
-        }
+            List<MovieSubjectInDb> dbList = queryAllRaw();
+            MovieSubjectInDb target = null;
 
+            for (MovieSubjectInDb subjectInDb : dbList) {
+                if (convert(subjectInDb).getId().equals(entity.getId())) {
+                    target = subjectInDb;
+                }
+            }
+
+            if (target != null) {
+                DbHelper.getsInstance()
+                        .getsDaoSession()
+                        .getMovieSubjectInDbDao()
+                        .delete(target);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean remove(Judgment<MovieSubject> judgment) {
-        return false;
+        return remove(query(judgment));
     }
 
     @Override
     public boolean remove(List<MovieSubject> entities) {
-        return false;
+        for (int i = 0, n = entities.size(); i < n; i++) {
+            remove(entities.get(i));
+        }
+
+        return true;
     }
 
     @Override
@@ -74,7 +96,7 @@ public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubje
     public List<MovieSubject> queryAll() {
         List<MovieSubject> all = new ArrayList<>();
 
-        List<MovieSubjectInDb> dbList = MovieSubjectDbHelper.getsInstance()
+        List<MovieSubjectInDb> dbList = DbHelper.getsInstance()
                 .getsDaoSession()
                 .getMovieSubjectInDbDao()
                 .loadAll();
@@ -84,6 +106,18 @@ public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubje
         }
 
         return all;
+    }
+
+    private List<MovieSubjectInDb> queryAllRaw() {
+        List<MovieSubjectInDb> dbList = DbHelper.getsInstance()
+                .getsDaoSession()
+                .getMovieSubjectInDbDao()
+                .loadAll();
+
+        if (dbList == null) {
+            dbList = new ArrayList<>();
+        }
+        return dbList;
     }
 
     private MovieSubject convert(MovieSubjectInDb subjectInDb) {
@@ -115,7 +149,10 @@ public class FavoriteMovieRepository implements IFavoritestDataSource<MovieSubje
 
     @Override
     public boolean clear() {
-
+        DbHelper.getsInstance()
+                .getsDaoSession()
+                .getMovieSubjectInDbDao()
+                .deleteAll();
 
         return true;
     }

@@ -2,7 +2,7 @@ package com.scottsu.smovie;
 
 import android.app.Application;
 
-import com.scottsu.smovie.data.source.local.MovieSubjectDbHelper;
+import com.scottsu.smovie.data.source.local.DbHelper;
 
 /**
  * project: sMovie
@@ -19,7 +19,7 @@ public class App extends Application {
         super.onCreate();
 
 
-        MovieSubjectDbHelper.init(this);
+        DbHelper.init(this);
     }
 
 }

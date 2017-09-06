@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.common;
+package com.scottsu.smovie.module.search;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -21,18 +21,18 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/28 8:48
  **/
-public class CommonMovieSubjectItemViewHolder extends SListViewHolder<MovieSubject> {
+public class SearchListItemViewHolder extends SListViewHolder<MovieSubject> {
     private ImageView mCoverImageView;
     private TextView mTitleTextView, mGenresTextView, mYearTextView, mRatingTextView;
 
 
-    public CommonMovieSubjectItemViewHolder(View itemView) {
+    public SearchListItemViewHolder(View itemView) {
         super(itemView);
 
         init();
     }
 
-    public CommonMovieSubjectItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
+    public SearchListItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
         init();

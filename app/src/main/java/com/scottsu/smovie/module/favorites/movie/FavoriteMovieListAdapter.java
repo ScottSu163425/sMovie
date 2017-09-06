@@ -11,7 +11,6 @@ import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.module.common.CommonMovieSubjectItemViewHolder;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.List;
@@ -42,14 +41,14 @@ public class FavoriteMovieListAdapter extends SListAdapter<MovieSubject>
 
     @Override
     protected SListViewHolder<MovieSubject> onCreateVH(ViewGroup parent, int viewType) {
-        return new CommonMovieSubjectItemViewHolder(parent, R.layout.item_movie_subject_commom);
+        return new FavoriteMovieListViewHolder(parent, R.layout.item_movie_subject_commom);
     }
 
     @Override
     protected void onBindVH(final SListViewHolder<MovieSubject> holder, final MovieSubject entity, final int position) {
         holder.bindData(getContext(), entity, position);
 
-        final CommonMovieSubjectItemViewHolder viewHolder = (CommonMovieSubjectItemViewHolder) holder;
+        final FavoriteMovieListViewHolder viewHolder = (FavoriteMovieListViewHolder) holder;
         final ImageView sharedElement = viewHolder.getCoverImageView();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

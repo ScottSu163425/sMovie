@@ -14,12 +14,12 @@ import android.database.sqlite.SQLiteDatabase;
  * date: 2017/9/1 14:35
  */
 
-public class MovieSubjectDbHelper {
+public class DbHelper {
     private static final String DB_NAME = "FavoriteMovies.db";
     private static DaoMaster.DevOpenHelper sOpenHelper;
     private static SQLiteDatabase sDb;
     private static DaoMaster sDaoMaster;
-    private static MovieSubjectDbHelper sInstance;
+    private static DbHelper sInstance;
     private DaoSession mDaoSession;
 
 
@@ -31,19 +31,19 @@ public class MovieSubjectDbHelper {
         }
     }
 
-    public static MovieSubjectDbHelper getsInstance() {
+    public static DbHelper getsInstance() {
         if (sInstance == null) {
 
-            synchronized (MovieSubjectDbHelper.class) {
+            synchronized (DbHelper.class) {
                 if (sInstance == null) {
-                    sInstance = new MovieSubjectDbHelper();
+                    sInstance = new DbHelper();
                 }
             }
         }
         return sInstance;
     }
 
-    private MovieSubjectDbHelper() {
+    private DbHelper() {
     }
 
     public DaoSession getsDaoSession() {

@@ -93,7 +93,6 @@ public class FavoriteMovieFragment
 
     @Override
     protected void onListFragmentCreated() {
-
         getPresenter().subscribe(this);
         getPresenter().requestListData(0, 0, true, false);
     }

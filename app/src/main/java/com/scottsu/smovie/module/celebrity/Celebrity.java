@@ -1,5 +1,10 @@
 package com.scottsu.smovie.module.celebrity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * project: sMovie
  * package: com.scottsu.smovie.module.Celebrity
@@ -8,15 +13,30 @@ package com.scottsu.smovie.module.celebrity;
  * date: 2017/9/2 10:52
  */
 
+@Entity(nameInDb = "")
 public class Celebrity {
+    @Id
     private String id;
+
+    @Property(nameInDb = "name")
     private String name;
+
+    @Property(nameInDb = "avatar")
     private String avatar;
+
+    @Property(nameInDb = "url")
     private String url;
 
     public Celebrity() {
     }
 
+    public Celebrity(String name, String avatar, String url) {
+        this.name = name;
+        this.avatar = avatar;
+        this.url = url;
+    }
+
+    @Generated(hash = 1200019402)
     public Celebrity(String id, String name, String avatar, String url) {
         this.id = id;
         this.name = name;
@@ -25,7 +45,7 @@ public class Celebrity {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -33,7 +53,7 @@ public class Celebrity {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -41,7 +61,7 @@ public class Celebrity {
     }
 
     public String getAvatar() {
-        return avatar;
+        return this.avatar;
     }
 
     public void setAvatar(String avatar) {
@@ -49,10 +69,12 @@ public class Celebrity {
     }
 
     public String getUrl() {
-        return url;
+        return this.url;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
+
+
 }

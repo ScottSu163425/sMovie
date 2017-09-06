@@ -10,8 +10,6 @@ import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.module.common.CommonMovieSubjectItemViewHolder;
-import com.scottsu.smovie.module.hot.HotItemViewHolder;
 
 import java.util.List;
 
@@ -39,14 +37,14 @@ public class SearchListAdapter extends SListAdapter<MovieSubject> {
 
     @Override
     protected SListViewHolder<MovieSubject> onCreateVH(ViewGroup parent, int viewType) {
-        return new CommonMovieSubjectItemViewHolder(parent, R.layout.item_movie_subject_commom);
+        return new SearchListItemViewHolder(parent, R.layout.item_search);
     }
 
     @Override
     protected void onBindVH(SListViewHolder<MovieSubject> holder, final MovieSubject entity, final int position) {
         holder.bindData(getContext(), entity, position);
 
-        final CommonMovieSubjectItemViewHolder viewHolder = (CommonMovieSubjectItemViewHolder) holder;
+        final SearchListItemViewHolder viewHolder = (SearchListItemViewHolder) holder;
         final ImageView sharedElement = viewHolder.getCoverImageView();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
