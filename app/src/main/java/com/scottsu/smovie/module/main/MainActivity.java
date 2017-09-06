@@ -254,7 +254,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     private void launchFavorite() {
-        startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+        Intent intent = new Intent(MainActivity.this, FavoritesActivity.class);
+        intent.putExtra(FavoritesActivity.KEY_EXTRA_NEED_TRANSITION, true);
+
+        startActivity(intent);
     }
 
     private void launchFavoriteWithReveal(@NonNull View starter) {
