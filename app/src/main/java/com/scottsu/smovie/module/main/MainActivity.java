@@ -262,7 +262,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         CircularRevealUtil.startActivity(MainActivity.this, intent, null, starter,
                 ContextCompat.getColor(MainActivity.this, R.color.colorAccent)
-                , true, 700, 800, null, null);
+                , true, 800, 800, null, null);
     }
 
 

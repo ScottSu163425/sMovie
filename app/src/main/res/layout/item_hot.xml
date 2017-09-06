@@ -27,11 +27,11 @@
 
         <com.haozhang.lib.SlantedTextView
             android:id="@+id/slanted_view_ranking"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:gravity="center"
-            app:slantedBackgroundColor="@color/md_red_500"
-            app:slantedLength="45dp"
+            app:slantedBackgroundColor="@color/colorAccent"
+            app:slantedLength="35dp"
             app:slantedMode="left"
             app:slantedText="@string/hot"
             app:slantedTextColor="@color/white"
