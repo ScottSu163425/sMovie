@@ -42,6 +42,10 @@
             android:name=".module.web.CommonWebActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".module.about.AboutActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

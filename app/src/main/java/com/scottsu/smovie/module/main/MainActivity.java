@@ -26,6 +26,7 @@ import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.events.ListDraggingEvent;
 import com.scottsu.smovie.common.events.ListReleasedEvent;
+import com.scottsu.smovie.module.about.AboutActivity;
 import com.scottsu.smovie.module.comingsoon.ComingSoonFragment;
 import com.scottsu.smovie.module.favorites.FavoritesActivity;
 import com.scottsu.smovie.module.hot.HotFragment;
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         int id = item.getItemId();
 
         if (R.id.action_about == id) {
-
+            launchAbout();
         } else if (R.id.action_hot == id) {
             selectNavigationItem(NAVIGATION_ITEM_HOT);
             showContentFragment(mHotFragment);
@@ -204,6 +205,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         closeDrawer();
         return true;
+    }
+
+    private void launchAbout() {
+        ActivityLauncher.launchWithTransition(MainActivity.this, AboutActivity.class);
     }
 
     @Override

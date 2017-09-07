@@ -1,5 +1,8 @@
 <resources>
     <!--Common-->
+    <string name="url_author">https://github.com/ScottSu163425</string>
+    <string name="url_project">https://github.com/ScottSu163425/sMovie</string>
+
     <string name="app_name">SMovie</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
@@ -51,6 +54,13 @@
     <!--Favoretes-->
     <string name="favorite_movie">影片</string>
     <string name="favorite_celebrity">电影人</string>
+
+    <!--about-->
+    <string name="author">su</string>
+    <string name="author_location">Fuzhou, China</string>
+    <string name="version">版本</string>
+    <string name="project_page">项目地址</string>
+    <string name="choose_browser">请选择浏览器</string>
 
 
 </resources>
