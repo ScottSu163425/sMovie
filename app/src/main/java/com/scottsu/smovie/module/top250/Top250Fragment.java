@@ -122,11 +122,6 @@ public class Top250Fragment extends BaseListFragment<MovieSubject, Top250Contrac
         EventBus.getDefault().post(new ListReleasedEvent());
     }
 
-    @Override
-    protected boolean subscribeEvents() {
-        return false;
-    }
-
     private void requestListData(boolean showLoading, boolean loadMore) {
         getPresenter().requestListData(loadMore ? getPagingRequestManager().getCurrentIndex()
                         : getPagingRequestManager().getFirstIndex(),

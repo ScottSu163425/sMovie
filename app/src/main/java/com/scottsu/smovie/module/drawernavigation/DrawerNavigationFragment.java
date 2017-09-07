@@ -24,12 +24,6 @@ public class DrawerNavigationFragment extends BaseFragment
     }
 
     @Override
-    protected boolean subscribeEvents()
-    {
-        return false;
-    }
-
-    @Override
     protected int provideContentLayoutRes()
     {
         return R.layout.header_drawer_navigation;

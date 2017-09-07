@@ -26,12 +26,6 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchCont
     private View mSearchButton;
     private SearchListFragment mSearchListFragment;
 
-
-    @Override
-    protected boolean subscribeEvents() {
-        return false;
-    }
-
     @Override
     protected int provideContentLayoutRes() {
         return R.layout.activity_search;

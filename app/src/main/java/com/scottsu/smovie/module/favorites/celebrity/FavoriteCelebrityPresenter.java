@@ -1,9 +1,8 @@
-package com.scottsu.smovie.module.favorites.movie;
-
+package com.scottsu.smovie.module.favorites.celebrity;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
-import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
+import com.scottsu.smovie.data.source.local.FavoriteCelebrityRepository;
+import com.scottsu.smovie.module.celebrity.Celebrity;
 
 import java.util.List;
 
@@ -18,27 +17,27 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * project: sMovie
- * package: com.scottsu.smovie.module.favorites.movie
+ * package: com.scottsu.smovie.module.favorites.celebrity
  * description:
  * author: Su
- * date: 2017/9/5 21:00
+ * date: 2017/9/7 10:00
  */
 
-public class FavoriteMoviePresenter extends BaseMvpPresenter<FavoriteMovieContract.View>
-        implements FavoriteMovieContract.Presenter {
-    private FavoriteMovieRepository mFavoriteMovieRepository;
+public class FavoriteCelebrityPresenter extends BaseMvpPresenter<FavoriteCelebrityContract.View>
+        implements FavoriteCelebrityContract.Presenter {
 
+    private FavoriteCelebrityRepository mFavoriteCelebrityRepository;
 
-    public FavoriteMoviePresenter() {
-        mFavoriteMovieRepository = new FavoriteMovieRepository();
+    public FavoriteCelebrityPresenter() {
+        mFavoriteCelebrityRepository = new FavoriteCelebrityRepository();
     }
 
     @Override
     public void requestListData(int start, int count, final boolean showLoading, boolean loadMore) {
-        Observable.create(new ObservableOnSubscribe<List<MovieSubject>>() {
+        Observable.create(new ObservableOnSubscribe<List<Celebrity>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<MovieSubject>> e) throws Exception {
-                e.onNext(mFavoriteMovieRepository.queryAll());
+            public void subscribe(ObservableEmitter<List<Celebrity>> e) throws Exception {
+                e.onNext(mFavoriteCelebrityRepository.queryAll());
             }
         })
                 .subscribeOn(Schedulers.io())
@@ -51,14 +50,14 @@ public class FavoriteMoviePresenter extends BaseMvpPresenter<FavoriteMovieContra
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<MovieSubject>>() {
+                .subscribe(new Observer<List<Celebrity>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<MovieSubject> value) {
+                    public void onNext(List<Celebrity> value) {
                         getView().showListData(value, false, false);
                     }
 
@@ -80,9 +79,10 @@ public class FavoriteMoviePresenter extends BaseMvpPresenter<FavoriteMovieContra
     }
 
     @Override
-    public void removeMovie(final MovieSubject movieSubject, int position) {
-        if (mFavoriteMovieRepository.remove(movieSubject)) {
-            getView().onMovieRemoved(movieSubject, position);
+    public void removeMovie(Celebrity celebrity, int position) {
+        if (mFavoriteCelebrityRepository.remove(celebrity)) {
+            getView().onMovieRemoved(celebrity, position);
         }
     }
+
 }

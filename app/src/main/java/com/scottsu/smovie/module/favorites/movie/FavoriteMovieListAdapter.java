@@ -41,7 +41,7 @@ public class FavoriteMovieListAdapter extends SListAdapter<MovieSubject>
 
     @Override
     protected SListViewHolder<MovieSubject> onCreateVH(ViewGroup parent, int viewType) {
-        return new FavoriteMovieListViewHolder(parent, R.layout.item_movie_subject_commom);
+        return new FavoriteMovieListViewHolder(parent, R.layout.item_favorite_movie);
     }
 
     @Override
@@ -58,6 +58,13 @@ public class FavoriteMovieListAdapter extends SListAdapter<MovieSubject>
                         new String[]{ViewCompat.getTransitionName(sharedElement)});
             }
         });
+
+        viewHolder.getMoreView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getCallback().onMoreClick(view, entity, position);
+            }
+        });
     }
 
     @NonNull
@@ -67,6 +74,28 @@ public class FavoriteMovieListAdapter extends SListAdapter<MovieSubject>
             return "";
         }
         return getData(position).getTitle().substring(0, 1);
+    }
+
+    private Callback mCallback;
+
+    public void setCallback(Callback callback) {
+        this.mCallback = callback;
+    }
+
+    private Callback getCallback() {
+        if (mCallback == null) {
+            mCallback = new Callback() {
+                @Override
+                public void onMoreClick(View view, MovieSubject entity, int position) {
+
+                }
+            };
+        }
+        return mCallback;
+    }
+
+    public interface Callback {
+        void onMoreClick(View view, MovieSubject entity, int position);
     }
 
 }

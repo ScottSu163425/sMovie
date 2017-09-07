@@ -2,14 +2,21 @@ package com.scottsu.smovie.module.favorites;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Transition;
-import android.widget.Toast;
+import android.view.View;
 
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseActivity;
-import com.scottsu.smovie.data.source.local.FavoriteCelebrityRepository;
+import com.scottsu.smovie.module.favorites.celebrity.FavoriteCelebrityFragment;
 import com.scottsu.smovie.module.favorites.movie.FavoriteMovieFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * project: sMovie
@@ -24,7 +31,9 @@ public class FavoritesActivity extends BaseActivity<FavoritesContract.View, Favo
     public static final String KEY_EXTRA_NEED_TRANSITION = "KEY_EXTRA_NEED_TRANSITION";
 
     private boolean mNeedTransition;
+    private ViewPager mViewPager;
     private FavoriteMovieFragment mFavoriteMovieFragment;
+    private FavoriteCelebrityFragment mFavoriteCelebrityFragment;
 
 
     @Override
@@ -48,50 +57,72 @@ public class FavoritesActivity extends BaseActivity<FavoritesContract.View, Favo
         if (mNeedTransition) {
             if (isLollipop()) {
                 getWindow().setEnterTransition(new Explode());
+                getWindow().getEnterTransition().addListener(new Transition.TransitionListener() {
+                    @Override
+                    public void onTransitionStart(Transition transition) {
+
+                    }
+
+                    @Override
+                    public void onTransitionEnd(Transition transition) {
+                        init();
+                    }
+
+                    @Override
+                    public void onTransitionCancel(Transition transition) {
+
+                    }
+
+                    @Override
+                    public void onTransitionPause(Transition transition) {
+
+                    }
+
+                    @Override
+                    public void onTransitionResume(Transition transition) {
+
+                    }
+                });
+            } else {
+                init();
             }
         } else {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
 
-        if (isLollipop()) {
-            getWindow().getEnterTransition().addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    init();
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
+            init();
         }
 
     }
 
     private void init() {
+        //Setup toolbar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.action_favorite));
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         mFavoriteMovieFragment = FavoriteMovieFragment.newInstance();
+        mFavoriteCelebrityFragment = FavoriteCelebrityFragment.newInstance();
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fl_container, mFavoriteMovieFragment)
-                .commit();
+        mViewPager = (ViewPager) findViewById(R.id.vp);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
-        Toast.makeText(FavoritesActivity.this, new FavoriteCelebrityRepository().queryAll().size() + "", Toast.LENGTH_SHORT).show();
+        List<Fragment> fragments = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        fragments.add(mFavoriteMovieFragment);
+        fragments.add(mFavoriteCelebrityFragment);
+        titles.add(getString(R.string.favorite_movie));
+        titles.add(getString(R.string.favorite_celebrity));
+        FavoritesPagerAdapter pagerAdapter = new FavoritesPagerAdapter(getSupportFragmentManager(),
+                fragments, titles);
+
+        mViewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package com.scottsu.smovie.module.favorites.movie;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.PopupMenu;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
@@ -35,11 +36,6 @@ public class FavoriteMovieFragment
         return fragment;
     }
 
-    @Override
-    protected boolean subscribeEvents() {
-        return false;
-    }
-
     @NonNull
     @Override
     protected SListAdapter<MovieSubject> provideListAdapter() {
@@ -53,11 +49,34 @@ public class FavoriteMovieFragment
 
                 @Override
                 public void onListItemLongClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+                }
+            });
 
+            mListAdapter.setCallback(new FavoriteMovieListAdapter.Callback() {
+                @Override
+                public void onMoreClick(View view, MovieSubject entity, int position) {
+                    popMenu(view, entity, position);
                 }
             });
         }
         return mListAdapter;
+    }
+
+    private void popMenu(View view, final MovieSubject entity, final int position) {
+        PopupMenu popupMenu = new android.widget.PopupMenu(getActivity(), view);
+
+        Menu menu = popupMenu.getMenu();
+        menu.add(1, 1, 1, getString(R.string.remove));
+        popupMenu.setOnMenuItemClickListener(new android.widget.PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == 1) {
+                    getPresenter().removeMovie(entity, position);
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
     }
 
     @Nullable
@@ -112,11 +131,25 @@ public class FavoriteMovieFragment
         return false;
     }
 
+    @Override
+    protected int getEmptyLayout() {
+        return R.layout.layout_empty_favorites;
+    }
+
     private void launchMovieDetail(MovieSubject entity, View[] sharedElements, String[] transitionNames) {
         Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
         intent.putExtra(MovieDetailActivity.KEY_EXTRA_MOVIE_SUBJECT, entity);
 
         ActivityLauncher.launchWithSharedElement(getActivity(), intent, sharedElements[0], transitionNames[0]);
+    }
+
+    @Override
+    public void onMovieRemoved(MovieSubject movieSubject, int position) {
+        mListAdapter.removeData(position);
+
+        if (mListAdapter.isEmpty()) {
+            showEmpty();
+        }
     }
 
 }

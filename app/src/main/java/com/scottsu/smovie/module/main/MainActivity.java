@@ -34,6 +34,7 @@ import com.scottsu.smovie.module.top250.Top250Fragment;
 import com.scottsu.utils.ActivityLauncher;
 import com.scottsu.utils.CircularRevealUtil;
 import com.scottsu.utils.FragmentUtil;
+import com.scottsu.utils.ViewUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -148,6 +149,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     public void onClick(View view) {
+        if (ViewUtil.isFastClick()) {
+            return;
+        }
+
         if (mFab == view) {
             launchFavoriteWithReveal(mFab);
         } else if (mSearchCardView == view) {

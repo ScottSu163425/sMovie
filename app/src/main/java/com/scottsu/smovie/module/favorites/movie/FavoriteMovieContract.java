@@ -2,6 +2,7 @@ package com.scottsu.smovie.module.favorites.movie;
 
 import com.scottsu.library.mvp.presenter.IListPresenter;
 import com.scottsu.library.mvp.view.IListView;
+import com.scottsu.smovie.base.BaseListView;
 import com.scottsu.smovie.data.enity.MovieSubject;
 
 /**
@@ -13,12 +14,12 @@ import com.scottsu.smovie.data.enity.MovieSubject;
  */
 
 public interface FavoriteMovieContract {
-    interface View extends IListView<MovieSubject> {
-
+    interface View extends BaseListView<MovieSubject> {
+        void onMovieRemoved(MovieSubject movieSubject, int position);
     }
 
     interface Presenter extends IListPresenter<MovieSubject, FavoriteMovieContract.View> {
-
+        void removeMovie(MovieSubject movieSubject, int position);
     }
 
 }
