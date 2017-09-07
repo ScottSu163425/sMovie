@@ -37,7 +37,7 @@
             android:paddingRight="@dimen/padding_s"
             android:paddingTop="@dimen/padding_s"
             android:textColor="@color/textPrimary"
-            android:textSize="@dimen/text_size_title"
+            android:textSize="@dimen/text_size_headline"
             tools:text="官方代表vcfds反倒是反倒是代表vcfds反倒是反倒是"/>
 
         <TextView

@@ -51,7 +51,7 @@
             android:paddingRight="@dimen/padding_s"
             android:paddingTop="@dimen/padding_s"
             android:textColor="@color/textPrimary"
-            android:textSize="@dimen/text_size_title"
+            android:textSize="@dimen/text_size_headline"
             tools:text="官方代表vcfds反倒是反倒是代表vcfds反倒是反倒是"/>
 
         <TextView
@@ -73,7 +73,7 @@
             android:layout_below="@+id/tv_genres"
             android:paddingLeft="@dimen/padding_s"
             android:paddingRight="@dimen/padding_s"
-            android:paddingTop="@dimen/padding_xs"
+            android:paddingTop="@dimen/padding_xxs"
             android:textColor="@color/textSecondary"
             android:textSize="@dimen/text_size_caption"
             tools:text="1997"/>

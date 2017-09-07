@@ -25,7 +25,7 @@ import java.util.List;
 
 public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
     private ImageView mCoverImageView;
-    private TextView mTitleTextView, mGenresTextView, mYearTextView, mRatingTextView;
+    private TextView mTitleTextView, mGenresTextView, mDurationTextView, mRatingTextView;
     private RatingBar mRatingBar;
 
     public HotItemViewHolder(View itemView) {
@@ -44,7 +44,7 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
         mTitleTextView = (TextView) findViewById(R.id.tv_title);
         mGenresTextView = (TextView) findViewById(R.id.tv_genres);
-        mYearTextView = (TextView) findViewById(R.id.tv_year);
+        mDurationTextView = (TextView) findViewById(R.id.tv_duration);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating);
         mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
     }
@@ -55,7 +55,7 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
 
         ImageLoader.load(context, entity.getImages().getLarge(), mCoverImageView);
         mTitleTextView.setText(entity.getTitle());
-        mYearTextView.setText(entity.getYear());
+        mDurationTextView.setText(entity.getDirectors().isEmpty() ? "-" : entity.getDurations().get(0));
         mRatingTextView.setText(String.valueOf(rating));
 
         mRatingBar.setProgress((int) entity.getRating().getAverage());
