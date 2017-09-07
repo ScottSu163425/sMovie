@@ -49,6 +49,11 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchCont
     }
 
     @Override
+    protected View provideSnackBarParent() {
+        return mSearchEditText;
+    }
+
+    @Override
     public void onClick(View v) {
         super.onClick(v);
 

@@ -148,6 +148,11 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     @Override
+    protected View provideSnackBarParent() {
+        return mFab;
+    }
+
+    @Override
     public void onClick(View view) {
         if (ViewUtil.isFastClick()) {
             return;
@@ -208,7 +213,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
             return;
         }
 
-        Snackbar.make(getContentView(), R.string.exit_app_confirm, Snackbar.LENGTH_LONG)
+        Snackbar.make(mFab, R.string.exit_app_confirm, Snackbar.LENGTH_LONG)
                 .setAction(R.string.confirm, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

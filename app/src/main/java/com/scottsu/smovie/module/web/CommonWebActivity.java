@@ -110,4 +110,8 @@ public class CommonWebActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected View provideSnackBarParent() {
+        return mProgressBar;
+    }
 }

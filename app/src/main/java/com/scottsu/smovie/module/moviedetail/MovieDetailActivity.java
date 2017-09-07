@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
@@ -381,6 +382,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     @Override
     public void onFavoriteMovieExists() {
         showSnackbar(getString(R.string.favorite_exist));
+    }
+
+    @Override
+    protected View provideSnackBarParent() {
+        return mFavoriteFAB;
     }
 
     @Override

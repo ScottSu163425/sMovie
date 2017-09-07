@@ -37,6 +37,11 @@ public class FavoritesActivity extends BaseActivity<FavoritesContract.View, Favo
 
 
     @Override
+    protected View provideSnackBarParent() {
+        return mViewPager;
+    }
+
+    @Override
     protected boolean subscribeEvents() {
         return false;
     }

@@ -331,6 +331,7 @@
         android:layout_margin="@dimen/padding_s"
         android:src="@drawable/ic_favorite_white_24dp"
         app:elevation="@dimen/padding_xs"
+        app:borderWidth="0dp"
         app:fabSize="normal"
         app:pressedTranslationZ="@dimen/padding_s"/>
 </android.support.design.widget.CoordinatorLayout>
