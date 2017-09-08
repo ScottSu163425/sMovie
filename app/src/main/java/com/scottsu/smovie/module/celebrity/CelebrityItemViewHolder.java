@@ -45,7 +45,7 @@ public class CelebrityItemViewHolder extends SListViewHolder<Celebrity> {
 
     @Override
     public void bindData(Context context, Celebrity entity, int position) {
-        ImageLoader.load(context, entity.getAvatar(), mAvatarImageView);
+        ImageLoader.load(context, entity.getAvatar(), mAvatarImageView, true, false);
         mNameTextView.setText(entity.getName());
     }
 

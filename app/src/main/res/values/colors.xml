@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="white">#FFFFFF</color>
+    <color name="backgroundContent">#FFFFFF</color>
+
+    <color name="white">#FBFBFB</color>
 
     <color name="ranking_1st">#FF4081</color>
     <color name="ranking_2nd">#4db6ac</color>
     <color name="ranking_3rd">#259b24</color>
-
 
 
 </resources>

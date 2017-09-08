@@ -2,22 +2,18 @@ package com.scottsu.smovie.module.moviedetail;
 
 import android.animation.TimeInterpolator;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
 import com.scottsu.smovie.R;
@@ -37,7 +34,6 @@ import com.scottsu.smovie.module.celebrity.Celebrity;
 import com.scottsu.smovie.module.celebrity.CelebrityListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
 import com.scottsu.utils.ActivityLauncher;
-import com.scottsu.utils.CircularRevealUtil;
 import com.scottsu.utils.ViewUtil;
 
 import java.util.ArrayList;
@@ -59,18 +55,14 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     private MovieSubject mMovieSubject;
     private MovieDetailResponseEntity mMovieDetailResponseEntity;
 
+    private AppBarLayout mAppBarLayout;
     private LinearLayout mScrollContentParent;
     private Toolbar mToolbar;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
-    private View mHeaderBackground;
-    private ImageView mCoverImageView;
-    private TextView mAKASubheadTextView, mDirectorSubheadTextView, mYearSubheadTextView, mRegionSubheadTextView,
-            mGenreSubheadTextView, mCastSubheadTextView;
-    private TextView mAKATextView, mDirectorTextView, mYearTextView, mRegionTextView, mGenresTextView,
-            mCastsTextView;
+    private ImageView mCoverImageView, mDirectorImageView;
+    private TextView mTitleTextView, mYearTextView, mGenresTextView, mSummaryTextView,
+            mDurationTextView, mDirectorTextView;
+
     private View mSummaryContentView;
-    private TextView mSummaryTextView;
-    private View mSummaryArrow;
     private View mCastsContentView;
     private RecyclerView mCastsRecyclerView;
     private CelebrityListAdapter mCastListAdapter;
@@ -89,34 +81,29 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
     @Override
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setTranslucentForImageView(MovieDetailActivity.this, 30, null);
+
         mMovieSubject = (MovieSubject) getIntent().getSerializableExtra(KEY_EXTRA_MOVIE_SUBJECT);
 
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         mScrollContentParent = (LinearLayout) findViewById(R.id.ll_content);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
-        mHeaderBackground = findViewById(R.id.bg_header);
         mCoverImageView = (ImageView) findViewById(R.id.iv_cover);
-        mFavoriteFAB = (FloatingActionButton) findViewById(R.id.fab_favorite);
-        mSummaryContentView = findViewById(R.id.card_summary);
-        mSummaryTextView = (TextView) findViewById(R.id.tv_summary);
-        mSummaryArrow = findViewById(R.id.iv_arrow_summary);
-        mCastsRecyclerView = (RecyclerView) findViewById(R.id.rv_casts);
-        mCastsContentView = findViewById(R.id.card_casts);
-
-
-        mAKATextView = (TextView) findViewById(R.id.tv_aka);
-        mDirectorTextView = (TextView) findViewById(R.id.tv_director);
+        mTitleTextView = (TextView) findViewById(R.id.tv_title);
         mYearTextView = (TextView) findViewById(R.id.tv_year);
-        mRegionTextView = (TextView) findViewById(R.id.tv_region);
         mGenresTextView = (TextView) findViewById(R.id.tv_genres);
-        mCastsTextView = (TextView) findViewById(R.id.tv_casts);
+        mDurationTextView = (TextView) findViewById(R.id.tv_duration);
+        mDirectorTextView = (TextView) findViewById(R.id.tv_director);
 
-        mAKASubheadTextView = (TextView) findViewById(R.id.anchor_aka);
-        mDirectorSubheadTextView = (TextView) findViewById(R.id.anchor_director);
-        mYearSubheadTextView = (TextView) findViewById(R.id.anchor_year);
-        mRegionSubheadTextView = (TextView) findViewById(R.id.anchor_region);
-        mGenreSubheadTextView = (TextView) findViewById(R.id.anchor_genres);
-        mCastSubheadTextView = (TextView) findViewById(R.id.anchor_casts);
+        mDirectorImageView = (ImageView) findViewById(R.id.iv_director);
+        mFavoriteFAB = (FloatingActionButton) findViewById(R.id.fab_favorite);
+        mSummaryContentView = findViewById(R.id.fl_summary);
+        mSummaryTextView = (TextView) findViewById(R.id.tv_summary);
+        mCastsRecyclerView = (RecyclerView) findViewById(R.id.rv_casts);
+        mCastsContentView = findViewById(R.id.fl_casts);
+
+        mTitleTextView.setText(mMovieSubject.getTitle());
+        mYearTextView.setText(mMovieSubject.getYear());
 
         mFavoriteFAB.setOnClickListener(this);
 
@@ -131,10 +118,24 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             }
         });
 
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                int totalHeight = mAppBarLayout.getTotalScrollRange();
+                float factor = Math.abs((verticalOffset / totalHeight));
+
+                if (factor > 0.8) {
+                    mToolbar.setTitleTextColor(Color.WHITE);
+                } else {
+                    mToolbar.setTitleTextColor(Color.TRANSPARENT);
+                }
+            }
+        });
+
         mSummaryContentView.setOnClickListener(mSummaryCardClickListener);
 
         //Setup casts list.
-        mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mCastsRecyclerView.setHasFixedSize(true);
         mCastsRecyclerView.setNestedScrollingEnabled(false);
 
@@ -211,79 +212,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             } else {
                 mSummaryTextView.setMaxLines(maxLineCollapsed);
             }
-
-            mSummaryArrow.animate()
-                    .setDuration(duration)
-                    .rotation(mSummaryArrow.getRotation() + (mSummaryContentView.isSelected() ? 180 : -180))
-                    .setInterpolator(interpolator)
-                    .start();
         }
     };
 
     private void loadCover() {
-        ImageLoader.load(this, mMovieSubject.getImages().getLarge(), mCoverImageView, new ImageLoader.Callback() {
-            @Override
-            public void onResourceReady(Drawable resource) {
-                Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
-
-                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        Palette.Swatch primarySwatch = palette.getDominantSwatch();
-                        Palette.Swatch secondarySwatch = palette.getMutedSwatch();
-
-                        mHeaderBackground.setBackgroundColor(primarySwatch.getRgb());
-
-                        setUpTextColor(primarySwatch.getTitleTextColor(), primarySwatch.getBodyTextColor());
-
-                        final int duration = 1200;
-                        mHeaderBackground.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                CircularRevealUtil.revealIn(mHeaderBackground, CircularRevealUtil.CENTER, duration);
-                            }
-                        });
-
-                        mFavoriteFAB.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mFavoriteFAB.setScaleX(0);
-                                mFavoriteFAB.setScaleY(0);
-
-                                mFavoriteFAB.animate()
-                                        .setDuration(duration / 2)
-                                        .setInterpolator(new FastOutSlowInInterpolator())
-                                        .rotation(360)
-                                        .scaleX(1)
-                                        .scaleY(1)
-                                        .start();
-                            }
-                        });
-
-                        mFavoriteFAB.setBackgroundTintList(ColorStateList.valueOf(secondarySwatch.getRgb()));
-
-                        mCollapsingToolbarLayout.setContentScrimColor(primarySwatch.getRgb());
-                        StatusBarUtil.setColor(MovieDetailActivity.this, primarySwatch.getRgb(), 30);
-                    }
-                });
-            }
-        });
-    }
-
-    private void setUpTextColor(int titleTextColor, int bodyTextColor) {
-        mAKASubheadTextView.setTextColor(titleTextColor);
-        mDirectorSubheadTextView.setTextColor(titleTextColor);
-        mYearSubheadTextView.setTextColor(titleTextColor);
-        mRegionSubheadTextView.setTextColor(titleTextColor);
-        mGenreSubheadTextView.setTextColor(titleTextColor);
-        mCastSubheadTextView.setTextColor(titleTextColor);
-
-        mAKATextView.setTextColor(bodyTextColor);
-        mDirectorTextView.setTextColor(bodyTextColor);
-        mYearTextView.setTextColor(bodyTextColor);
-        mRegionTextView.setTextColor(bodyTextColor);
-        mGenresTextView.setTextColor(bodyTextColor);
-        mCastsTextView.setTextColor(bodyTextColor);
+        ImageLoader.load(MovieDetailActivity.this, mMovieSubject.getImages().getLarge(), mCoverImageView, false);
     }
 
     @Override
@@ -291,12 +224,21 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mMovieDetailResponseEntity = responseEntity;
 
         if (mMovieDetailResponseEntity != null) {
-            mAKATextView.setText(responseEntity.getAka().isEmpty() ? "-" : responseEntity.getAka().get(0));
-            mDirectorTextView.setText(responseEntity.getDirectors().isEmpty() ? "-"
-                    : responseEntity.getDirectors().get(0).getName());
-            mYearTextView.setText(responseEntity.getYear());
-            mRegionTextView.setText(responseEntity.getCountries().isEmpty() ? "-" : responseEntity.getCountries().get(0));
+            mDurationTextView.setText(responseEntity.getDurations().isEmpty() ? "-" : responseEntity.getDurations().get(0));
+//            mRegionTextView.setText(responseEntity.getCountries().isEmpty() ? "-" : responseEntity.getCountries().get(0));
             mSummaryTextView.setText("    " + responseEntity.getSummary());
+
+            //Show director.
+            MovieDetailResponseEntity.DirectorsBean directorsBean =
+                    responseEntity.getDirectors().isEmpty() ? null : responseEntity.getDirectors().get(0);
+            if (directorsBean != null) {
+                mDirectorTextView.setText(directorsBean.getName());
+                MovieDetailResponseEntity.DirectorsBean.AvatarsBeanXX avatar = directorsBean.getAvatars();
+
+                if (avatar != null) {
+                    ImageLoader.load(MovieDetailActivity.this, avatar.getLarge(), mDirectorImageView, true, false);
+                }
+            }
 
             //Show genres text.
             StringBuilder genresBuilder = new StringBuilder();
@@ -306,35 +248,35 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                 if (0 == i) {
                     genresBuilder.append(genres.get(0));
                 } else {
-                    genresBuilder.append("/");
+                    genresBuilder.append(" / ");
                     genresBuilder.append(genres.get(i));
                 }
             }
             mGenresTextView.setText(genresBuilder.toString().isEmpty() ? "-" : genresBuilder.toString());
-
-            //Snow casts text.
-            StringBuilder castBuilder = new StringBuilder();
+//
+//            //Snow casts text.
+//            StringBuilder castBuilder = new StringBuilder();
             List<MovieDetailResponseEntity.CastsBean> casts = responseEntity.getCasts();
-
-            for (int i = 0, n = casts.size(); i < n; i++) {
-                if (0 == i) {
-                    castBuilder.append(casts.get(0).getName());
-                } else {
-                    castBuilder.append("/");
-                    castBuilder.append(casts.get(i).getName());
-                }
-            }
-            mCastsTextView.setText(castBuilder.toString().isEmpty() ? "-" : castBuilder.toString());
+//
+//            for (int i = 0, n = casts.size(); i < n; i++) {
+//                if (0 == i) {
+//                    castBuilder.append(casts.get(0).getName());
+//                } else {
+//                    castBuilder.append("/");
+//                    castBuilder.append(casts.get(i).getName());
+//                }
+//            }
+//            mCastsTextView.setText(castBuilder.toString().isEmpty() ? "-" : castBuilder.toString());
 
             //Show summary card with animation if necessary.
             if (mSummaryContentView.getVisibility() != View.VISIBLE) {
-                scaleIn(mSummaryContentView, 300, 200);
+                mSummaryContentView.setVisibility(View.VISIBLE);
             }
 
             //Show casts card with animation if necessary.
 
             if (!casts.isEmpty() && mCastsContentView.getVisibility() != View.VISIBLE) {
-                scaleIn(mCastsContentView, 300, 300);
+                mCastsContentView.setVisibility(View.VISIBLE);
             }
 
             //Set up casts list data;
@@ -353,20 +295,6 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
         }
 
-    }
-
-    private void scaleIn(View view, int duration, int delay) {
-        view.setScaleX(0);
-        view.setScaleY(0);
-        view.setVisibility(View.VISIBLE);
-
-        view.animate()
-                .setDuration(duration)
-                .setInterpolator(new FastOutSlowInInterpolator())
-                .scaleX(1)
-                .scaleY(1)
-                .setStartDelay(delay)
-                .start();
     }
 
     @Override

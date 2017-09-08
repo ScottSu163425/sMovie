@@ -39,7 +39,7 @@
     <string name="hint_search_movie">搜索影片...</string>
 
     <!--Movie detail-->
-    <string name="subhead_aka">又名:</string>
+    <string name="subhead_duration">时长:</string>
     <string name="subhead_director">导演:</string>
     <string name="subhead_year">年代:</string>
     <string name="subhead_region">地区:</string>

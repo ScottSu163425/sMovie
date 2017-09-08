@@ -2,7 +2,6 @@ package com.scottsu.smovie.common;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
@@ -29,23 +28,42 @@ public class ImageLoader {
     }
 
     public static void load(Context context, String url, ImageView target) {
-        load(context, url, target, PLACE_HOLDER_DEFAULT, PLACE_HOLDER_DEFAULT, null);
+        load(context, url, target, PLACE_HOLDER_DEFAULT, PLACE_HOLDER_DEFAULT, true, true, null);
+    }
+
+    public static void load(Context context, String url, ImageView target, boolean centerCrop) {
+        load(context, url, target, PLACE_HOLDER_DEFAULT, PLACE_HOLDER_DEFAULT, centerCrop, true, null);
+    }
+
+
+    public static void load(Context context, String url, ImageView target, boolean centerCrop, boolean animation) {
+        load(context, url, target, PLACE_HOLDER_DEFAULT, PLACE_HOLDER_DEFAULT, centerCrop, animation, null);
     }
 
     public static void load(Context context, String url, ImageView target, Callback callback) {
-        load(context, url, target, PLACE_HOLDER_DEFAULT, PLACE_HOLDER_DEFAULT, callback);
+        load(context, url, target, PLACE_HOLDER_DEFAULT, PLACE_HOLDER_DEFAULT, true, true, callback);
     }
 
-    public static void load(Context context, String url, final ImageView target, int placeHolder, int errorHolder, @Nullable final Callback callback) {
+    public static void load(Context context, String url, final ImageView target, int placeHolder, int errorHolder, boolean centerCrop, boolean animation, @Nullable final Callback callback) {
         RequestOptions options = new RequestOptions()
-                .centerCrop()
                 .placeholder(placeHolder)
                 .error(errorHolder);
 
+        if (!animation) {
+            options.dontAnimate();
+        }
+
+        if (centerCrop) {
+            options.centerCrop();
+        }
+
         RequestBuilder<Drawable> requestBuilder = Glide.with(context)
                 .load(url)
-                .apply(options)
-                .transition(new DrawableTransitionOptions().crossFade());
+                .apply(options);
+
+        if (animation) {
+            requestBuilder.transition(new DrawableTransitionOptions().crossFade());
+        }
 
         if (callback != null) {
             requestBuilder.into(new SimpleTarget<Drawable>() {
