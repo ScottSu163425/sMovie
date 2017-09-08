@@ -1,7 +1,7 @@
 package com.scottsu.smovie.data.source.local;
 
 import com.scottsu.slist.library.interfaces.Judgment;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 
 import java.util.ArrayList;
 import java.util.List;

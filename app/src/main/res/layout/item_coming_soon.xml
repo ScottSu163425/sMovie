@@ -60,7 +60,7 @@
                 android:layout_alignBottom="@+id/tv_year"
                 android:layout_alignParentRight="true"
                 android:paddingRight="@dimen/padding_xs"
-                android:textColor="@color/md_red_400"
+                android:textColor="@color/rating"
                 android:textSize="@dimen/text_size_subhead"
                 android:textStyle="bold"
                 tools:text="9.6" />

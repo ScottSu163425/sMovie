@@ -4,7 +4,7 @@ import com.scottsu.library.mvp.presenter.IMvpPresenter;
 import com.scottsu.library.mvp.view.IMvpView;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 
 /**
  * project: sMovie

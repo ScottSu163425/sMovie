@@ -2,7 +2,7 @@ package com.scottsu.smovie.module.favorites.celebrity;
 
 import com.scottsu.library.mvp.presenter.BaseMvpPresenter;
 import com.scottsu.smovie.data.source.local.FavoriteCelebrityRepository;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 
 import java.util.List;
 

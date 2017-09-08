@@ -118,13 +118,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <FrameLayout
+                android:id="@+id/fl_photos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundContent"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/padding_xs"/>
+
+            </FrameLayout>
+            />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="@dimen/padding_s">
+                android:paddingBottom="@dimen/padding_xs"
+                android:paddingLeft="@dimen/padding_s"
+                android:paddingRight="@dimen/padding_s"
+                android:paddingTop="@dimen/padding_xs"
+
+                >
 
                 <ImageView
                     android:layout_width="26dp"
@@ -170,7 +194,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundContent"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="@dimen/padding_s">
+                android:paddingBottom="@dimen/padding_xs"
+                android:paddingLeft="@dimen/padding_s"
+                android:paddingRight="@dimen/padding_s"
+                android:paddingTop="@dimen/padding_xs">
 
                 <ImageView
                     android:layout_width="26dp"
@@ -217,7 +244,10 @@
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="@dimen/padding_s">
+                android:paddingBottom="@dimen/padding_xs"
+                android:paddingLeft="@dimen/padding_s"
+                android:paddingRight="@dimen/padding_s"
+                android:paddingTop="@dimen/padding_xs">
 
                 <ImageView
                     android:layout_width="26dp"
@@ -264,7 +294,10 @@
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="@dimen/padding_s">
+                android:paddingBottom="@dimen/padding_xs"
+                android:paddingLeft="@dimen/padding_s"
+                android:paddingRight="@dimen/padding_s"
+                android:paddingTop="@dimen/padding_xs">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_director"
@@ -308,8 +341,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundContent"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -334,6 +367,77 @@
 
 
             </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_divider_line"
+                android:background="@color/dividerLine"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundContent"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingBottom="@dimen/padding_xs"
+                android:paddingLeft="@dimen/padding_s"
+                android:paddingRight="@dimen/padding_s"
+                android:paddingTop="@dimen/padding_xs">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_star_half_grey_600_24dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/padding_xxxl"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="评分"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/padding_xxs">
+
+                        <android.support.v7.widget.AppCompatRatingBar
+                            android:id="@+id/rating_bar_rating"
+                            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:max="10"
+                            android:stepSize="0.5"
+                            tools:progress="8"/>
+
+                        <TextView
+                            android:id="@+id/tv_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/rating"
+                            android:textSize="@dimen/text_size_title"
+                            tools:text="9.6"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_divider_line"
+                android:background="@color/dividerLine"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"

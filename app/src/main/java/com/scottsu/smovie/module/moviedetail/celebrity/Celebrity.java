@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.celebrity;
+package com.scottsu.smovie.module.moviedetail.celebrity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

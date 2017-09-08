@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
 import com.scottsu.smovie.R;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 
 import java.util.List;
 

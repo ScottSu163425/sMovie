@@ -12,5 +12,7 @@
     <color name="ranking_2nd">#4db6ac</color>
     <color name="ranking_3rd">#259b24</color>
 
+    <color name="rating">@color/md_red_400</color>
+
 
 </resources>

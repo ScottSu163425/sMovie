@@ -2,7 +2,7 @@ package com.scottsu.smovie.module.favorites.celebrity;
 
 import com.scottsu.library.mvp.presenter.IListPresenter;
 import com.scottsu.smovie.base.BaseListView;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 
 /**
  * project: sMovie

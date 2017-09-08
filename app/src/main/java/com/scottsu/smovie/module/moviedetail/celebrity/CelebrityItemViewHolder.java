@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.celebrity;
+package com.scottsu.smovie.module.moviedetail.celebrity;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

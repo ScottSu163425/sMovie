@@ -105,7 +105,7 @@
             android:layout_alignBottom="@+id/rating_bar_rating"
             android:layout_toRightOf="@+id/rating_bar_rating"
             android:paddingLeft="@dimen/padding_xxs"
-            android:textColor="@color/md_red_400"
+            android:textColor="@color/rating"
             android:textSize="@dimen/text_size_headline"
             android:textStyle="bold"
             tools:text="9.6"/>

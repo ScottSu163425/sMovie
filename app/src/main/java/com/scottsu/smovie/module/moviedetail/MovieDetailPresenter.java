@@ -6,7 +6,7 @@ import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.data.source.local.FavoriteCelebrityRepository;
 import com.scottsu.smovie.data.source.local.FavoriteMovieRepository;
 import com.scottsu.smovie.data.source.remote.Api;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;

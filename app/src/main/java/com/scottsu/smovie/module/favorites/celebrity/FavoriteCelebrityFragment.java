@@ -13,7 +13,7 @@ import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
 import com.scottsu.smovie.R;
 import com.scottsu.smovie.base.BaseListFragment;
-import com.scottsu.smovie.module.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 import com.scottsu.smovie.module.web.CommonWebActivity;
 import com.scottsu.utils.ActivityLauncher;
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="height_divider_line">1px</dimen>
 
     <dimen name="height_avatar_list">52dp</dimen>
     <dimen name="height_avatar_list_s">46dp</dimen>

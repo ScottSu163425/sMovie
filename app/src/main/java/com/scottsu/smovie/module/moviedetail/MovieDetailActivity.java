@@ -11,18 +11,19 @@ import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.scottsu.slist.library.interfaces.ListItemCallback;
 import com.scottsu.smovie.R;
@@ -30,8 +31,10 @@ import com.scottsu.smovie.base.BaseActivity;
 import com.scottsu.smovie.common.ImageLoader;
 import com.scottsu.smovie.data.enity.MovieDetailResponseEntity;
 import com.scottsu.smovie.data.enity.MovieSubject;
-import com.scottsu.smovie.module.celebrity.Celebrity;
-import com.scottsu.smovie.module.celebrity.CelebrityListAdapter;
+import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
+import com.scottsu.smovie.module.moviedetail.celebrity.CelebrityListAdapter;
+import com.scottsu.smovie.module.moviedetail.photos.MoviePhoto;
+import com.scottsu.smovie.module.moviedetail.photos.MoviePhotoListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
 import com.scottsu.utils.ActivityLauncher;
 import com.scottsu.utils.ViewUtil;
@@ -60,11 +63,12 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     private Toolbar mToolbar;
     private ImageView mCoverImageView, mDirectorImageView;
     private TextView mTitleTextView, mYearTextView, mGenresTextView, mSummaryTextView,
-            mDurationTextView, mDirectorTextView;
+            mDurationTextView, mDirectorTextView, mRatingTextView;
+    private RatingBar mRatingBar;
 
-    private View mSummaryContentView;
-    private View mCastsContentView;
-    private RecyclerView mCastsRecyclerView;
+    private View mPhotosContentView, mSummaryContentView, mCastsContentView;
+    private RecyclerView mPhotosRecyclerView, mCastsRecyclerView;
+    private MoviePhotoListAdapter mPhotoListAdapter;
     private CelebrityListAdapter mCastListAdapter;
     private FloatingActionButton mFavoriteFAB;
 
@@ -94,11 +98,16 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mGenresTextView = (TextView) findViewById(R.id.tv_genres);
         mDurationTextView = (TextView) findViewById(R.id.tv_duration);
         mDirectorTextView = (TextView) findViewById(R.id.tv_director);
+        mRatingTextView = (TextView) findViewById(R.id.tv_rating);
+
+        mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
 
         mDirectorImageView = (ImageView) findViewById(R.id.iv_director);
         mFavoriteFAB = (FloatingActionButton) findViewById(R.id.fab_favorite);
+        mPhotosContentView = findViewById(R.id.fl_photos);
         mSummaryContentView = findViewById(R.id.fl_summary);
         mSummaryTextView = (TextView) findViewById(R.id.tv_summary);
+        mPhotosRecyclerView = (RecyclerView) findViewById(R.id.rv_photos);
         mCastsRecyclerView = (RecyclerView) findViewById(R.id.rv_casts);
         mCastsContentView = findViewById(R.id.fl_casts);
 
@@ -134,12 +143,30 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
         mSummaryContentView.setOnClickListener(mSummaryCardClickListener);
 
+        //Setup photos list.
+        mPhotosRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        mPhotosRecyclerView.setHasFixedSize(true);
+        mPhotosRecyclerView.setNestedScrollingEnabled(false);
+        new LinearSnapHelper().attachToRecyclerView(mPhotosRecyclerView);
+        mPhotoListAdapter = new MoviePhotoListAdapter(MovieDetailActivity.this);
+        mPhotoListAdapter.setItemCallback(new ListItemCallback<MoviePhoto>() {
+            @Override
+            public void onListItemClick(View itemView, MoviePhoto entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+                showMoviePhotos(mPhotoListAdapter.getData(), position);
+            }
+
+            @Override
+            public void onListItemLongClick(View itemView, MoviePhoto entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+
+            }
+        });
+        mPhotosRecyclerView.setAdapter(mPhotoListAdapter);
+
         //Setup casts list.
-        mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         mCastsRecyclerView.setHasFixedSize(true);
         mCastsRecyclerView.setNestedScrollingEnabled(false);
-
-        mCastListAdapter = new CelebrityListAdapter(this);
+        mCastListAdapter = new CelebrityListAdapter(MovieDetailActivity.this);
         mCastListAdapter.setItemCallback(new ListItemCallback<Celebrity>() {
             @Override
             public void onListItemClick(View itemView, Celebrity entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
@@ -163,6 +190,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
         getPresenter().subscribe(this);
         getPresenter().requestMovieDetail(mMovieSubject.getId());
+    }
+
+    private void showMoviePhotos(List<MoviePhoto> photos, int position) {
+
     }
 
     private void launchCastDetail(Celebrity entity) {
@@ -224,9 +255,26 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mMovieDetailResponseEntity = responseEntity;
 
         if (mMovieDetailResponseEntity != null) {
+            List<MovieDetailResponseEntity.CastsBean> casts = responseEntity.getCasts();
+            List<MovieDetailResponseEntity.PhotosBean> photos = responseEntity.getPhotos();
+
             mDurationTextView.setText(responseEntity.getDurations().isEmpty() ? "-" : responseEntity.getDurations().get(0));
-//            mRegionTextView.setText(responseEntity.getCountries().isEmpty() ? "-" : responseEntity.getCountries().get(0));
-            mSummaryTextView.setText("    " + responseEntity.getSummary());
+            mSummaryTextView.setText(responseEntity.getSummary());
+
+            //Show photos if necessary.
+            if (!photos.isEmpty() && mPhotosContentView.getVisibility() != View.VISIBLE) {
+                mPhotosContentView.setVisibility(View.VISIBLE);
+            }
+
+            //Show casts if necessary.
+            if (!casts.isEmpty() && mCastsContentView.getVisibility() != View.VISIBLE) {
+                mCastsContentView.setVisibility(View.VISIBLE);
+            }
+
+            //Show Rating.
+            float rating = (float) responseEntity.getRating().getAverage();
+            mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : getString(R.string.no_rating));
+            mRatingBar.setProgress((int) rating);
 
             //Show director.
             MovieDetailResponseEntity.DirectorsBean directorsBean =
@@ -253,30 +301,17 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                 }
             }
             mGenresTextView.setText(genresBuilder.toString().isEmpty() ? "-" : genresBuilder.toString());
-//
-//            //Snow casts text.
-//            StringBuilder castBuilder = new StringBuilder();
-            List<MovieDetailResponseEntity.CastsBean> casts = responseEntity.getCasts();
-//
-//            for (int i = 0, n = casts.size(); i < n; i++) {
-//                if (0 == i) {
-//                    castBuilder.append(casts.get(0).getName());
-//                } else {
-//                    castBuilder.append("/");
-//                    castBuilder.append(casts.get(i).getName());
-//                }
-//            }
-//            mCastsTextView.setText(castBuilder.toString().isEmpty() ? "-" : castBuilder.toString());
 
-            //Show summary card with animation if necessary.
-            if (mSummaryContentView.getVisibility() != View.VISIBLE) {
-                mSummaryContentView.setVisibility(View.VISIBLE);
-            }
+            //Set up photos list data;
+            if (!photos.isEmpty()) {
+                mPhotoListAdapter.clear();
+                List<MoviePhoto> list = new ArrayList<>();
 
-            //Show casts card with animation if necessary.
-
-            if (!casts.isEmpty() && mCastsContentView.getVisibility() != View.VISIBLE) {
-                mCastsContentView.setVisibility(View.VISIBLE);
+                for (int i = 0, n = photos.size(); i < n; i++) {
+                    MovieDetailResponseEntity.PhotosBean photo = photos.get(i);
+                    list.add(new MoviePhoto(photo.getCover(), photo.getImage()));
+                }
+                mPhotoListAdapter.setData(list);
             }
 
             //Set up casts list data;

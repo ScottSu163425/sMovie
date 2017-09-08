@@ -1,4 +1,4 @@
-package com.scottsu.smovie.module.celebrity;
+package com.scottsu.smovie.module.moviedetail.celebrity;
 
 import android.content.Context;
 import android.view.View;
@@ -6,14 +6,13 @@ import android.view.ViewGroup;
 
 import com.scottsu.slist.library.adapter.SListAdapter;
 import com.scottsu.slist.library.adapter.viewholder.SListViewHolder;
-import com.scottsu.slist.library.interfaces.ListItemCallback;
 import com.scottsu.smovie.R;
 
 import java.util.List;
 
 /**
  * project: sMovie
- * package: com.scottsu.smovie.module.celebrity
+ * package: com.scottsu.smovie.module.moviedetail.celebrity
  * description:
  * author: Su
  * date: 2017/9/2 21:10

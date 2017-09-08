@@ -90,7 +90,7 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="@dimen/padding_s"
             android:paddingRight="@dimen/padding_s"
-            android:textColor="@color/md_red_400"
+            android:textColor="@color/rating"
             android:textSize="@dimen/text_size_headline"
             android:textStyle="bold"
             tools:text="9.6"/>
