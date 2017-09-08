@@ -40,7 +40,7 @@ public class MoviePhotoGalleryItemViewHolder extends SListViewHolder<MoviePhoto>
 
     @Override
     public void bindData(Context context, MoviePhoto entity, int position) {
-        ImageLoader.load(context, entity.getCover(), mImageView,
+        ImageLoader.load(context, entity.getBigImage(), mImageView,
                 R.color.transparent, R.color.transparent, false, false, null);
     }
 

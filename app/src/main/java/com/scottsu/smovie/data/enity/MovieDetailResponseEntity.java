@@ -11,8 +11,7 @@ import java.util.List;
  * 作者: Su
  * 日期: 2017/8/24 16:45
  **/
-public class MovieDetailResponseEntity
-{
+public class MovieDetailResponseEntity {
 
     /**
      * rating : {"max":10,"average":9.6,"details":{"1":526,"2":648,"3":11662,"4":92032,"5":479921},"stars":"50","min":0}
@@ -58,7 +57,7 @@ public class MovieDetailResponseEntity
      * mainland_pubdate :
      * photos : [{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p712907932.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p712907932.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p712907932.webp","alt":"https://movie.douban.com/photos/photo/712907932/","id":"712907932","icon":"http://img7.doubanio.com/view/photo/icon/public/p712907932.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p490571815.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p490571815.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p490571815.webp","alt":"https://movie.douban.com/photos/photo/490571815/","id":"490571815","icon":"http://img7.doubanio.com/view/photo/icon/public/p490571815.webp"},{"thumb":"http://img3.doubanio.com/view/photo/thumb/public/p450994579.webp","image":"http://img3.doubanio.com/view/photo/photo/public/p450994579.webp","cover":"http://img3.doubanio.com/view/photo/albumcover/public/p450994579.webp","alt":"https://movie.douban.com/photos/photo/450994579/","id":"450994579","icon":"http://img3.doubanio.com/view/photo/icon/public/p450994579.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p617951690.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p617951690.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p617951690.webp","alt":"https://movie.douban.com/photos/photo/617951690/","id":"617951690","icon":"http://img7.doubanio.com/view/photo/icon/public/p617951690.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p617951743.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p617951743.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p617951743.webp","alt":"https://movie.douban.com/photos/photo/617951743/","id":"617951743","icon":"http://img7.doubanio.com/view/photo/icon/public/p617951743.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p1004031025.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p1004031025.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p1004031025.webp","alt":"https://movie.douban.com/photos/photo/1004031025/","id":"1004031025","icon":"http://img7.doubanio.com/view/photo/icon/public/p1004031025.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p490576110.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p490576110.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p490576110.webp","alt":"https://movie.douban.com/photos/photo/490576110/","id":"490576110","icon":"http://img7.doubanio.com/view/photo/icon/public/p490576110.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p1225215490.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p1225215490.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p1225215490.webp","alt":"https://movie.douban.com/photos/photo/1225215490/","id":"1225215490","icon":"http://img7.doubanio.com/view/photo/icon/public/p1225215490.webp"},{"thumb":"http://img3.doubanio.com/view/photo/thumb/public/p825402537.webp","image":"http://img3.doubanio.com/view/photo/photo/public/p825402537.webp","cover":"http://img3.doubanio.com/view/photo/albumcover/public/p825402537.webp","alt":"https://movie.douban.com/photos/photo/825402537/","id":"825402537","icon":"http://img3.doubanio.com/view/photo/icon/public/p825402537.webp"},{"thumb":"http://img7.doubanio.com/view/photo/thumb/public/p456482220.webp","image":"http://img7.doubanio.com/view/photo/photo/public/p456482220.webp","cover":"http://img7.doubanio.com/view/photo/albumcover/public/p456482220.webp","alt":"https://movie.douban.com/photos/photo/456482220/","id":"456482220","icon":"http://img7.doubanio.com/view/photo/icon/public/p456482220.webp"}]
      * summary : 20世纪40年代末，小有成就的青年银行家安迪（蒂姆·罗宾斯 Tim Robbins 饰）因涉嫌杀害妻子及她的情人而锒铛入狱。在这座名为肖申克的监狱内，希望似乎虚无缥缈，终身监禁的惩罚无疑注定了安迪接下来灰暗绝望的人生。未过多久，安迪尝试接近囚犯中颇有声望的瑞德（摩根·弗里曼 Morgan Freeman 饰），请求对方帮自己搞来小锤子。以此为契机，二人逐渐熟稔，安迪也仿佛在鱼龙混杂、罪恶横生、黑白混淆的牢狱中找到属于自己的求生之道。他利用自身的专业知识，帮助监狱管理层逃税、洗黑钱，同时凭借与瑞德的交往在犯人中间也渐渐受到礼遇。表面看来，他已如瑞德那样对那堵高墙从憎恨转变为处之泰然，但是对自由的渴望仍促使他朝着心中的希望和目标前进。而关于其罪行的真相，似乎更使这一切朝前推进了一步……
-     本片根据著名作家斯蒂芬·金（Stephen Edwin King）的原著改编。©豆瓣
+     * 本片根据著名作家斯蒂芬·金（Stephen Edwin King）的原著改编。©豆瓣
      * clips : []
      * subtype : movie
      * directors : [{"avatars":{"small":"http://img7.doubanio.com/img/celebrity/small/230.jpg","large":"http://img7.doubanio.com/img/celebrity/large/230.jpg","medium":"http://img7.doubanio.com/img/celebrity/medium/230.jpg"},"name_en":"Frank Darabont","name":"弗兰克·德拉邦特","alt":"https://movie.douban.com/celebrity/1047973/","id":"1047973"}]
@@ -836,31 +835,31 @@ public class MovieDetailResponseEntity
              * min : 0
              */
 
-            private int max;
-            private int value;
-            private int min;
+            private float max;
+            private float value;
+            private float min;
 
-            public int getMax() {
+            public float getMax() {
                 return max;
             }
 
-            public void setMax(int max) {
+            public void setMax(float max) {
                 this.max = max;
             }
 
-            public int getValue() {
+            public float getValue() {
                 return value;
             }
 
-            public void setValue(int value) {
+            public void setValue(float value) {
                 this.value = value;
             }
 
-            public int getMin() {
+            public float getMin() {
                 return min;
             }
 
-            public void setMin(int min) {
+            public void setMin(float min) {
                 this.min = min;
             }
         }

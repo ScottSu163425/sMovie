@@ -6,10 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/backgroundContent"
     android:foreground="?attr/selectableItemBackground"
-    android:padding="@dimen/padding_xs"
-    android:paddingLeft="@dimen/padding_s"
-    android:paddingRight="@dimen/padding_xs"
-    android:paddingTop="@dimen/padding_xs"
+    android:padding="@dimen/padding_s"
     >
 
     <LinearLayout
@@ -21,8 +18,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="@dimen/height_avatar_list_s"
-            android:layout_height="@dimen/height_avatar_list_s"
+            android:layout_width="@dimen/height_avatar_list"
+            android:layout_height="@dimen/height_avatar_list"
             android:scaleType="centerCrop"
             tools:src="@drawable/bg_header_navigation"/>
 
@@ -41,8 +38,8 @@
 
         <FrameLayout
             android:id="@+id/fl_more"
-            android:layout_width="@dimen/height_avatar_list_s"
-            android:layout_height="@dimen/height_avatar_list_s"
+            android:layout_width="@dimen/height_avatar_list"
+            android:layout_height="@dimen/height_avatar_list"
             android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <ImageView

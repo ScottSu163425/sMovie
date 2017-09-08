@@ -118,37 +118,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <FrameLayout
-                android:id="@+id/fl_photos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/backgroundContent"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_photos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:padding="@dimen/padding_xs"/>
-
-            </FrameLayout>
-            />
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:paddingBottom="@dimen/padding_xs"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingRight="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_xs"
-
-                >
+                android:padding="@dimen/padding_s">
 
                 <ImageView
                     android:layout_width="26dp"
@@ -166,7 +142,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="标签"
+                        android:text="@string/subhead_genres"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_subhead"/>
 
@@ -194,10 +170,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundContent"
                 android:foreground="?attr/selectableItemBackground"
-                android:paddingBottom="@dimen/padding_xs"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingRight="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_xs">
+                android:padding="@dimen/padding_s">
 
                 <ImageView
                     android:layout_width="26dp"
@@ -211,12 +184,27 @@
                     android:layout_marginLeft="@dimen/padding_xxxl"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="简介"
-                        android:textColor="@color/textSecondary"
-                        android:textSize="@dimen/text_size_subhead"/>
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/subhead_summary"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_subhead"/>
+
+                        <ImageView
+                            android:id="@+id/iv_arrow_summary"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_keyboard_arrow_up_grey_400_24dp"/>
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_summary"
@@ -224,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="3"
-                        android:paddingTop="@dimen/padding_xxs"
+                        android:paddingTop="@dimen/padding_xs"
                         android:textColor="@color/textPrimary"
                         android:textSize="@dimen/text_size_body"
                         tools:text="范德萨解放路当升科技发的杀戮空间法律框架法律框架法律框架法律框架费德勒科技范德萨解放路当升科技发的杀戮空间法律框架法律框架法律框架法律框架费德勒科技"/>
@@ -244,10 +232,7 @@
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:paddingBottom="@dimen/padding_xs"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingRight="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_xs">
+                android:padding="@dimen/padding_s">
 
                 <ImageView
                     android:layout_width="26dp"
@@ -265,7 +250,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="时长"
+                        android:text="@string/subhead_duration"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_subhead"/>
 
@@ -294,14 +279,11 @@
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:paddingBottom="@dimen/padding_xs"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingRight="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_xs">
+                android:padding="@dimen/padding_s">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_director"
-                    android:layout_width="@dimen/height_avatar_list_s"
+                    android:layout_width="@dimen/height_avatar_list"
                     android:layout_height="52dp"
                     android:layout_gravity="center_vertical"/>
 
@@ -315,7 +297,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="导演"
+                        android:text="@string/subhead_director"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_subhead"/>
 
@@ -355,7 +337,7 @@
                         android:layout_marginLeft="@dimen/padding_xxxl"
                         android:paddingLeft="@dimen/padding_s"
                         android:paddingTop="@dimen/padding_s"
-                        android:text="主演"
+                        android:text="@string/subhead_casts"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_subhead"/>
 
@@ -379,16 +361,13 @@
                 android:background="@color/backgroundContent"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:paddingBottom="@dimen/padding_xs"
-                android:paddingLeft="@dimen/padding_s"
-                android:paddingRight="@dimen/padding_s"
-                android:paddingTop="@dimen/padding_xs">
+                android:padding="@dimen/padding_s">
 
                 <ImageView
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_star_half_grey_600_24dp"/>
+                    android:src="@drawable/ic_thumb_up_grey_600_24dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -400,7 +379,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="评分"
+                        android:text="@string/subhead_rating"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_subhead"/>
 
@@ -425,9 +404,19 @@
                             android:id="@+id/tv_rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/padding_s"
                             android:textColor="@color/rating"
-                            android:textSize="@dimen/text_size_title"
+                            android:textSize="@dimen/text_size_headline"
                             tools:text="9.6"/>
+
+                        <TextView
+                            android:id="@+id/tv_rating_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:paddingTop="@dimen/padding_xxs"
+                            android:textSize="@dimen/text_size_body"
+                            tools:text="(32323)"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -439,7 +428,54 @@
                 android:layout_height="@dimen/height_divider_line"
                 android:background="@color/dividerLine"/>
 
-            <android.support.v4.widget.Space
+            <FrameLayout
+                android:id="@+id/fl_short_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundContent"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_short_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_photos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundContent"
+                android:padding="@dimen/padding_s"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_s"
+                        android:text="@string/subhead_photos"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_subhead"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_photos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:padding="@dimen/padding_xs"/>
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/backgroundContent"/>

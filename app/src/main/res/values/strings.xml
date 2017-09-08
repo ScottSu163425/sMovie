@@ -7,6 +7,7 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string name="transition_name_cover">cover</string>
+    <string name="transition_name_fab">fab</string>
     <string name="remove">移除</string>
 
 
@@ -39,13 +40,18 @@
     <string name="hint_search_movie">搜索影片...</string>
 
     <!--Movie detail-->
-    <string name="subhead_duration">时长:</string>
-    <string name="subhead_director">导演:</string>
-    <string name="subhead_year">年代:</string>
-    <string name="subhead_region">地区:</string>
-    <string name="subhead_genres">类型:</string>
-    <string name="subhead_casts">主演:</string>
-
+    <string name="subhead_duration">时长</string>
+    <string name="subhead_summary">简介</string>
+    <string name="subhead_director">导演</string>
+    <string name="subhead_year">年代</string>
+    <string name="subhead_region">地区</string>
+    <string name="subhead_genres">类型</string>
+    <string name="subhead_casts">主演</string>
+    <string name="subhead_rating">评分</string>
+    <string name="subhead_short_comment">短评</string>
+    <string name="subhead_photos">剧照</string>
+    <string name="subhead_labels">标签</string>
+    <string name="add_to_favorites">加入收藏夹</string>
     <string name="favorite_success">收藏成功</string>
     <string name="favorite_exist">收藏夹中已存在</string>
 

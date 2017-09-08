@@ -1,6 +1,5 @@
 package com.scottsu.smovie.module.moviedetail;
 
-import android.animation.TimeInterpolator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,9 +34,10 @@ import com.scottsu.smovie.module.moviedetail.celebrity.CelebrityListAdapter;
 import com.scottsu.smovie.module.moviedetail.photos.MoviePhoto;
 import com.scottsu.smovie.module.moviedetail.photos.MoviePhotoGalleryActivity;
 import com.scottsu.smovie.module.moviedetail.photos.MoviePhotoListAdapter;
+import com.scottsu.smovie.module.moviedetail.shortcomment.ShortComment;
+import com.scottsu.smovie.module.moviedetail.shortcomment.ShortCommentListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
 import com.scottsu.utils.ActivityLauncher;
-import com.scottsu.utils.ViewUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,13 +64,17 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     private Toolbar mToolbar;
     private ImageView mCoverImageView, mDirectorImageView;
     private TextView mTitleTextView, mYearTextView, mGenresTextView, mSummaryTextView,
-            mDurationTextView, mDirectorTextView, mRatingTextView;
+            mDurationTextView, mDirectorTextView, mRatingTextView, mRatingCountTextView;
     private RatingBar mRatingBar;
 
-    private View mPhotosContentView, mSummaryContentView, mCastsContentView;
-    private RecyclerView mPhotosRecyclerView, mCastsRecyclerView;
+    private ImageView mSummaryArrowImageView;
+
+    private View mDirectorContentView, mPhotosContentView, mSummaryContentView, mCastsContentView,
+            mShortCommentContentVIew;
+    private RecyclerView mPhotosRecyclerView, mCastsRecyclerView, mShortCommentRecyclerView;
     private MoviePhotoListAdapter mPhotoListAdapter;
     private CelebrityListAdapter mCastListAdapter;
+    private ShortCommentListAdapter mShortCommentListAdapter;
     private FloatingActionButton mFavoriteFAB;
 
 
@@ -86,6 +90,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
     @Override
     protected void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        init();
+    }
+
+    private void init() {
         StatusBarUtil.setTranslucentForImageView(MovieDetailActivity.this, 30, null);
 
         mMovieSubject = (MovieSubject) getIntent().getSerializableExtra(KEY_EXTRA_MOVIE_SUBJECT);
@@ -100,7 +108,9 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mDurationTextView = (TextView) findViewById(R.id.tv_duration);
         mDirectorTextView = (TextView) findViewById(R.id.tv_director);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating);
+        mRatingCountTextView = (TextView) findViewById(R.id.tv_rating_count);
 
+        mSummaryArrowImageView = (ImageView) findViewById(R.id.iv_arrow_summary);
         mRatingBar = (RatingBar) findViewById(R.id.rating_bar_rating);
 
         mDirectorImageView = (ImageView) findViewById(R.id.iv_director);
@@ -110,12 +120,19 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mSummaryTextView = (TextView) findViewById(R.id.tv_summary);
         mPhotosRecyclerView = (RecyclerView) findViewById(R.id.rv_photos);
         mCastsRecyclerView = (RecyclerView) findViewById(R.id.rv_casts);
+        mShortCommentRecyclerView = (RecyclerView) findViewById(R.id.rv_short_comments);
         mCastsContentView = findViewById(R.id.fl_casts);
+        mShortCommentContentVIew = findViewById(R.id.fl_short_comments);
+        mDirectorContentView = findViewById(R.id.fl_director);
 
         mTitleTextView.setText(mMovieSubject.getTitle());
         mYearTextView.setText(mMovieSubject.getYear());
 
+        mSummaryArrowImageView.setSelected(false);
+
         mFavoriteFAB.setOnClickListener(this);
+        mSummaryContentView.setOnClickListener(this);
+        mDirectorContentView.setOnClickListener(this);
 
         //Setup toolbar.
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -142,10 +159,9 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             }
         });
 
-        mSummaryContentView.setOnClickListener(mSummaryCardClickListener);
-
         //Setup photos list.
-        mPhotosRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        mPhotosRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,
+                LinearLayoutManager.HORIZONTAL, false));
         mPhotosRecyclerView.setHasFixedSize(true);
         mPhotosRecyclerView.setNestedScrollingEnabled(false);
         new LinearSnapHelper().attachToRecyclerView(mPhotosRecyclerView);
@@ -164,7 +180,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mPhotosRecyclerView.setAdapter(mPhotoListAdapter);
 
         //Setup casts list.
-        mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
+        mCastsRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,
+                LinearLayoutManager.VERTICAL, false));
         mCastsRecyclerView.setHasFixedSize(true);
         mCastsRecyclerView.setNestedScrollingEnabled(false);
         mCastListAdapter = new CelebrityListAdapter(MovieDetailActivity.this);
@@ -186,6 +203,24 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             }
         });
         mCastsRecyclerView.setAdapter(mCastListAdapter);
+
+        //Setup short comment list.
+        mShortCommentRecyclerView.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this,
+                LinearLayoutManager.VERTICAL, false));
+        mShortCommentRecyclerView.setHasFixedSize(true);
+        mShortCommentRecyclerView.setNestedScrollingEnabled(false);
+        mShortCommentListAdapter = new ShortCommentListAdapter(MovieDetailActivity.this);
+        mShortCommentListAdapter.setItemCallback(new ListItemCallback<ShortComment>() {
+            @Override
+            public void onListItemClick(View itemView, ShortComment entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+            }
+
+            @Override
+            public void onListItemLongClick(View itemView, ShortComment entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {
+
+            }
+        });
+        mShortCommentRecyclerView.setAdapter(mShortCommentListAdapter);
 
         loadCover();
 
@@ -211,7 +246,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         PopupMenu popupMenu = new PopupMenu(MovieDetailActivity.this, anchor);
 
         Menu menu = popupMenu.getMenu();
-        menu.add(1, 1, 1, "加入收藏夹");
+        menu.add(1, 1, 1, getString(R.string.add_to_favorites));
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -224,33 +259,6 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         popupMenu.show();
     }
 
-    private View.OnClickListener mSummaryCardClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (ViewUtil.isFastClick()) {
-                return;
-            }
-
-            mSummaryContentView.setSelected(!mSummaryContentView.isSelected());
-
-            final int duration = 300;
-            final int maxLineCollapsed = 3;
-            final TimeInterpolator interpolator = new FastOutSlowInInterpolator();
-
-            AutoTransition transition = new AutoTransition();
-            transition.setDuration(duration)
-                    .setInterpolator(interpolator);
-
-            TransitionManager.beginDelayedTransition(mScrollContentParent, transition);
-
-            if (mSummaryContentView.isSelected()) {
-                mSummaryTextView.setMaxLines(Integer.MAX_VALUE);
-            } else {
-                mSummaryTextView.setMaxLines(maxLineCollapsed);
-            }
-        }
-    };
-
     private void loadCover() {
         ImageLoader.load(MovieDetailActivity.this, mMovieSubject.getImages().getLarge(), mCoverImageView, false);
     }
@@ -262,9 +270,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         if (mMovieDetailResponseEntity != null) {
             List<MovieDetailResponseEntity.CastsBean> casts = responseEntity.getCasts();
             List<MovieDetailResponseEntity.PhotosBean> photos = responseEntity.getPhotos();
+            List<MovieDetailResponseEntity.PopularCommentsBean> comments = responseEntity.getPopular_comments();
 
             mDurationTextView.setText(responseEntity.getDurations().isEmpty() ? "-" : responseEntity.getDurations().get(0));
             mSummaryTextView.setText(responseEntity.getSummary());
+            mRatingCountTextView.setText("(" + responseEntity.getRatings_count() + ")");
 
             //Show photos if necessary.
             if (!photos.isEmpty() && mPhotosContentView.getVisibility() != View.VISIBLE) {
@@ -274,6 +284,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             //Show casts if necessary.
             if (!casts.isEmpty() && mCastsContentView.getVisibility() != View.VISIBLE) {
                 mCastsContentView.setVisibility(View.VISIBLE);
+            }
+
+            //Show short comments if necessary.
+            if (!comments.isEmpty() && mShortCommentContentVIew.getVisibility() != View.VISIBLE) {
+                mShortCommentContentVIew.setVisibility(View.VISIBLE);
             }
 
             //Show Rating.
@@ -293,7 +308,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                 }
             }
 
-            //Show genres text.
+            //Show genres.
             StringBuilder genresBuilder = new StringBuilder();
             List<String> genres = responseEntity.getGenres();
 
@@ -307,7 +322,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
             }
             mGenresTextView.setText(genresBuilder.toString().isEmpty() ? "-" : genresBuilder.toString());
 
-            //Set up photos list data;
+            //Set up photos.
             if (!photos.isEmpty()) {
                 mPhotoListAdapter.clear();
                 List<MoviePhoto> list = new ArrayList<>();
@@ -319,7 +334,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                 mPhotoListAdapter.setData(list);
             }
 
-            //Set up casts list data;
+            //Set up casts.
             if (!casts.isEmpty()) {
                 mCastListAdapter.clear();
                 List<Celebrity> list = new ArrayList<>();
@@ -331,6 +346,30 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
                     list.add(new Celebrity(cast.getId(), cast.getName(), avatar, cast.getAlt()));
                 }
                 mCastListAdapter.setData(list);
+            }
+
+            //Set up short comments.
+            if (!comments.isEmpty()) {
+                mShortCommentListAdapter.clear();
+                List<ShortComment> list = new ArrayList<>();
+
+                for (int i = 0, n = comments.size(); i < n; i++) {
+                    MovieDetailResponseEntity.PopularCommentsBean commentsBean = comments.get(i);
+                    MovieDetailResponseEntity.PopularCommentsBean.AuthorBean author = commentsBean.getAuthor();
+                    ShortComment shortComment = new ShortComment();
+
+                    if (author != null) {
+                        shortComment.setUserName(author.getName());
+                        shortComment.setAvatar(author.getAvatar());
+                    }
+                    shortComment.setDate(commentsBean.getCreated_at());
+                    shortComment.setContent(commentsBean.getContent());
+                    shortComment.setRating(commentsBean.getRating() == null ? 0
+                            : commentsBean.getRating().getValue());
+
+                    list.add(shortComment);
+                }
+                mShortCommentListAdapter.setData(list);
             }
 
         }
@@ -363,7 +402,47 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
         if (v == mFavoriteFAB) {
             favoriteMovie();
+        } else if (v == mSummaryContentView) {
+            toggleSummary();
+        } else if (v == mDirectorContentView) {
+            if (mMovieDetailResponseEntity == null) {
+                return;
+            }
+
+            browseWeb(mMovieDetailResponseEntity.getDirectors().get(0).getAlt());
         }
+    }
+
+    private void toggleSummary() {
+        final int duration = 300;
+        AutoTransition transition = new AutoTransition();
+        transition.setDuration(duration);
+        transition.setInterpolator(new FastOutSlowInInterpolator());
+
+        TransitionManager.beginDelayedTransition(mScrollContentParent, transition);
+
+        mSummaryArrowImageView.setSelected(!mSummaryArrowImageView.isSelected());
+        final boolean isSelected = mSummaryArrowImageView.isSelected();
+
+        if (isSelected) {
+            mSummaryTextView.setMaxLines(Integer.MAX_VALUE);
+        } else {
+            mSummaryTextView.setMaxLines(3);
+        }
+
+        mSummaryArrowImageView.animate()
+                .setDuration(duration)
+                .setInterpolator(new FastOutSlowInInterpolator())
+                .rotation(mSummaryArrowImageView.getRotation() + (isSelected ? 180 : -180))
+                .start();
+
+    }
+
+    private void browseWeb(String url) {
+        Intent intent = new Intent(MovieDetailActivity.this, CommonWebActivity.class);
+        intent.putExtra(CommonWebActivity.KEY_EXTRA_URL, url);
+
+        ActivityLauncher.launchWithTransition(MovieDetailActivity.this, intent);
     }
 
     private void favoriteMovie() {

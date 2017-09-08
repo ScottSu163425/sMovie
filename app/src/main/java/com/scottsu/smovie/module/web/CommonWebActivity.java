@@ -53,6 +53,7 @@ public class CommonWebActivity extends BaseActivity {
 
         //Setup toolbar.
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
