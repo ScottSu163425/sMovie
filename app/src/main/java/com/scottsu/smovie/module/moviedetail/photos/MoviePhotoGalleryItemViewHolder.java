@@ -2,6 +2,7 @@ package com.scottsu.smovie.module.moviedetail.photos;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,16 +19,16 @@ import com.scottsu.smovie.common.ImageLoader;
  * date: 2017/9/8 11:56
  */
 
-public class MoviePhotoItemViewHolder extends SListViewHolder<MoviePhoto> {
+public class MoviePhotoGalleryItemViewHolder extends SListViewHolder<MoviePhoto> {
     private ImageView mImageView;
 
-    public MoviePhotoItemViewHolder(View itemView) {
+    public MoviePhotoGalleryItemViewHolder(View itemView) {
         super(itemView);
 
         init();
     }
 
-    public MoviePhotoItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
+    public MoviePhotoGalleryItemViewHolder(ViewGroup parent, @LayoutRes int layoutRes) {
         super(parent, layoutRes);
 
         init();
@@ -39,11 +40,9 @@ public class MoviePhotoItemViewHolder extends SListViewHolder<MoviePhoto> {
 
     @Override
     public void bindData(Context context, MoviePhoto entity, int position) {
-
-        ImageLoader.load(context, entity.getCover(), mImageView, true, false);
+        ImageLoader.load(context, entity.getCover(), mImageView,
+                R.color.transparent, R.color.transparent, false, false, null);
     }
 
-    public ImageView getImageView() {
-        return mImageView;
-    }
+
 }

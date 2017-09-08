@@ -12,7 +12,6 @@ import android.support.transition.TransitionManager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,11 +33,13 @@ import com.scottsu.smovie.data.enity.MovieSubject;
 import com.scottsu.smovie.module.moviedetail.celebrity.Celebrity;
 import com.scottsu.smovie.module.moviedetail.celebrity.CelebrityListAdapter;
 import com.scottsu.smovie.module.moviedetail.photos.MoviePhoto;
+import com.scottsu.smovie.module.moviedetail.photos.MoviePhotoGalleryActivity;
 import com.scottsu.smovie.module.moviedetail.photos.MoviePhotoListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
 import com.scottsu.utils.ActivityLauncher;
 import com.scottsu.utils.ViewUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -193,7 +194,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
     }
 
     private void showMoviePhotos(List<MoviePhoto> photos, int position) {
+        Intent intent = new Intent(MovieDetailActivity.this, MoviePhotoGalleryActivity.class);
+        intent.putExtra(MoviePhotoGalleryActivity.KEY_EXTRA_PHOTOS, (Serializable) photos);
+        intent.putExtra(MoviePhotoGalleryActivity.KEY_EXTRA_POSITION, position);
 
+        ActivityLauncher.launchWithTransition(MovieDetailActivity.this, intent);
     }
 
     private void launchCastDetail(Celebrity entity) {

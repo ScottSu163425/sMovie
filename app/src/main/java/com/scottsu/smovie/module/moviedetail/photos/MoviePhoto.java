@@ -1,5 +1,7 @@
 package com.scottsu.smovie.module.moviedetail.photos;
 
+import java.io.Serializable;
+
 /**
  * project: sMovie
  * package: com.scottsu.smovie.module.moviedetail.photos
@@ -8,7 +10,7 @@ package com.scottsu.smovie.module.moviedetail.photos;
  * date: 2017/9/8 11:55
  */
 
-public class MoviePhoto {
+public class MoviePhoto implements Serializable {
     private String cover;
     private String bigImage;
 
