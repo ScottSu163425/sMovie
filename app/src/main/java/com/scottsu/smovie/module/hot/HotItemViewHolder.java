@@ -55,7 +55,7 @@ public class HotItemViewHolder extends SListViewHolder<MovieSubject> {
 
         ImageLoader.load(context, entity.getImages().getLarge(), mCoverImageView);
         mTitleTextView.setText(entity.getTitle());
-        mDurationTextView.setText(entity.getDirectors().isEmpty() ? "-" : entity.getDurations().get(0));
+        mDurationTextView.setText(entity.getDurations().isEmpty() ? "-" : entity.getDurations().get(0));
         mRatingTextView.setText(String.valueOf(rating));
 
         mRatingBar.setProgress((int) entity.getRating().getAverage());

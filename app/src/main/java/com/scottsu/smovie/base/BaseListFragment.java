@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
     private RecyclerView mRecyclerView;
     private SListAdapter<E> mListAdapter;
     private PagingRequestManager mPagingRequestManager;
+
+    private boolean mLoadingMore;
 
     @NonNull
     protected abstract SListAdapter<E> provideListAdapter();
@@ -152,11 +155,17 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
                     return;
                 }
 
+                if (mLoadingMore) {
+                    return;
+                }
+
                 if (mPagingRequestManager.hasNextPage()) {
                     mListAdapter.showFooter();
                 }
 
+                mLoadingMore = true;
                 BaseListFragment.this.onLoadMore(mPagingRequestManager.hasNextPage());
+
             }
         });
 
@@ -338,6 +347,7 @@ public abstract class BaseListFragment<E, V extends IMvpView, P extends IMvpPres
 
     private void stopLoadingFooter() {
         mListAdapter.hideFooter();
+        mLoadingMore = false;
     }
 
 

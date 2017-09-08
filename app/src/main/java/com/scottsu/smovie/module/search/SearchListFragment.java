@@ -48,7 +48,7 @@ public class SearchListFragment extends BaseListFragment<MovieSubject, SearchLis
     protected SListAdapter<MovieSubject> provideListAdapter() {
         if (mListAdapter == null) {
             mListAdapter = new SearchListAdapter(getContext());
-            mListAdapter.setShowEndingFooter(true);
+//            mListAdapter.setShowEndingFooter(true);
             mListAdapter.setItemCallback(new ListItemCallback<MovieSubject>() {
                 @Override
                 public void onListItemClick(View itemView, MovieSubject entity, int position, @Nullable View[] sharedElements, @Nullable String[] transitionNames) {

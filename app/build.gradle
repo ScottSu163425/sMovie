@@ -44,7 +44,7 @@ dependencies {
     compile 'com.scottsu:material-design-resource:1.1.2'
     compile 'com.scottsu:smvp:1.2.8'
     compile 'com.scottsu:sutils:1.0.9'
-    compile 'com.scottsu:slist:1.1.1'
+    compile 'com.scottsu:slist:1.1.5'
     compile 'com.scottsu:states-layout:1.1.9'
 
     /*retrofit*/
@@ -62,7 +62,5 @@ dependencies {
     compile 'com.simplecityapps:recyclerview-fastscroll:1.0.16'
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
-//    compile 'com.facebook.fresco:fresco:1.5.0'
-//    compile 'com.github.stfalcon:frescoimageviewer:0.5.0'
     compile 'com.github.chrisbanes:PhotoView:2.1.3'
 }
