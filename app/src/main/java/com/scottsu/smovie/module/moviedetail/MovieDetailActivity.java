@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -37,6 +38,7 @@ import com.scottsu.smovie.module.moviedetail.photos.MoviePhotoListAdapter;
 import com.scottsu.smovie.module.moviedetail.shortcomment.ShortComment;
 import com.scottsu.smovie.module.moviedetail.shortcomment.ShortCommentListAdapter;
 import com.scottsu.smovie.module.web.CommonWebActivity;
+import com.scottsu.stateslayout.StatesLayout;
 import com.scottsu.utils.ActivityLauncher;
 
 import java.io.Serializable;
@@ -223,7 +225,6 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
         mShortCommentRecyclerView.setAdapter(mShortCommentListAdapter);
 
         loadCover();
-
         getPresenter().subscribe(this);
         getPresenter().requestMovieDetail(mMovieSubject.getId());
     }
@@ -378,7 +379,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
     @Override
     public void onRequestDetailFailed(String message) {
-        showSnackbar("出错了..(" + message + ")");
+        showSnackbar(getString(R.string.default_state_tip_error) + "(" + message + ")");
     }
 
     @Override
