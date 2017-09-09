@@ -6,47 +6,43 @@
     android:layout_height="wrap_content"
     android:background="@color/backgroundContent"
     android:foreground="?attr/selectableItemBackground"
-    android:padding="@dimen/padding_s"
-    >
+    android:paddingBottom="@dimen/padding_xs"
+    android:paddingLeft="@dimen/padding_s"
+    android:paddingRight="@dimen/padding_s"
+    android:paddingTop="@dimen/padding_xs">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/height_avatar_list"
+        android:layout_height="@dimen/height_avatar_list"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/bg_header_navigation"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
+        android:maxLines="1"
+        android:paddingLeft="@dimen/padding_xxxl"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/text_size_body"
+        tools:text="发多少看见发多少"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="@dimen/height_avatar_list"
-            android:layout_height="@dimen/height_avatar_list"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/bg_header_navigation"/>
+    <FrameLayout
+        android:id="@+id/fl_more"
+        android:layout_width="@dimen/height_avatar_list"
+        android:layout_height="@dimen/height_avatar_list"
+        android:layout_gravity="center_vertical|right"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingLeft="@dimen/padding_s"
-            android:textColor="@color/textSecondary"
-            android:textSize="@dimen/text_size_body"
-            tools:text="发多少看见发多少"/>
-
-        <FrameLayout
-            android:id="@+id/fl_more"
-            android:layout_width="@dimen/height_avatar_list"
-            android:layout_height="@dimen/height_avatar_list"
-            android:foreground="?attr/selectableItemBackgroundBorderless">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_more_vert_grey_600_36dp"/>
-        </FrameLayout>
-    </LinearLayout>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_more_vert_grey_600_36dp"/>
+    </FrameLayout>
 </FrameLayout>

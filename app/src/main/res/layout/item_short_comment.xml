@@ -74,14 +74,11 @@
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxLines="5"
                 android:paddingTop="@dimen/padding_xxs"
                 android:textColor="@color/textPrimary"
                 android:textSize="@dimen/text_size_body"
                 tools:text="发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少发多少看见发多少"/>
-
 
         </LinearLayout>
 

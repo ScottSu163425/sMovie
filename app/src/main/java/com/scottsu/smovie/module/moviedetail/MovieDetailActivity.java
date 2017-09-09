@@ -294,7 +294,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailContract.View, 
 
             //Show Rating.
             float rating = (float) responseEntity.getRating().getAverage();
-            mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : getString(R.string.no_rating));
+//            mRatingTextView.setText(rating > 0 ? String.valueOf(rating) : getString(R.string.no_rating));
+            mRatingTextView.setText(String.valueOf(rating));
             mRatingBar.setProgress((int) rating);
 
             //Show director.

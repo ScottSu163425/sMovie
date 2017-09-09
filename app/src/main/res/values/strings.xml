@@ -48,7 +48,7 @@
     <string name="subhead_genres">类型</string>
     <string name="subhead_casts">主演</string>
     <string name="subhead_rating">评分</string>
-    <string name="subhead_short_comment">短评</string>
+    <string name="subhead_short_comment">热门短评</string>
     <string name="subhead_photos">剧照</string>
     <string name="subhead_labels">标签</string>
     <string name="add_to_favorites">加入收藏夹</string>
